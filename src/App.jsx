@@ -9,13 +9,50 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import RootLayout from "./layouts/admin/RootLayout"
 import Home from "./layouts/admin/Home"
 import Login from "./layouts/admin/Login"
+import NotFound from "./pages/NotFound"
+import ShowError from "./pages/ShowError"
+
+import ClientRootLayout from "./layouts/client/ClientRootLayout"
+import Index from "./layouts/client/Index"
+// import Booking from "./layouts/client/Booking"
+// import Booking from "./layouts/client/Booking"
+
+import Buying from "./layouts/client/Buying"
+import Payment from "./layouts/client/Payment"
+import Ticket from "./layouts/client/Ticket"
+
+
+
+
+
+// import { hallsLoader } from "./pages/HallManager"
+import { loader } from "./services/loader"
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout/>}>
-      <Route index element={<Home/>}/>
-      <Route path="login" element={<Login/>}/>
-    </Route>
+    <>
+      <Route path="/" element={<RootLayout/>} errorElement={<ShowError/>}>
+        <Route index element={<Home/>} loader={loader}/>
+        <Route path="login" element={<Login/>}/>
+
+        <Route path="*" element={<NotFound/>}/>
+      </Route>
+      <Route path="client" element={<ClientRootLayout/>}>
+        <Route index element={<Index/>} loader={loader} />
+      </Route>
+      <Route path="buying" element={<ClientRootLayout/>}>
+        {/* <Route index element={<Booking/>} /> */}
+        <Route index element={<Buying/>} />
+      </Route>
+      <Route path="payment" element={<ClientRootLayout/>}>
+        <Route index element={<Payment/>} />
+      </Route>
+      <Route path="ticket" element={<ClientRootLayout/>}>
+        <Route index element={<Payment/>} />
+      </Route>
+
+    </>
   )
 )
 

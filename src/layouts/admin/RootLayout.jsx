@@ -1,3 +1,7 @@
+// import '../../sass/admin/normalize.css'
+// import '../../sass/admin/styles.scss'
+import '../../sass/admin/adminPageBackground.css'
+
 import { Outlet } from "react-router-dom"
 
 const RootLayout = () => {
@@ -8,9 +12,7 @@ const RootLayout = () => {
         <span className="page-header__subtitle">Администраторррская</span>
       </header>
 
-      <main>
-        <Outlet/>
-      </main>
+      <Outlet/>
     </>
   )
 }

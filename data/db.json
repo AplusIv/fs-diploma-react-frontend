@@ -1,0 +1,123 @@
+{
+  "halls": [
+    {
+      "id": "1",
+      "title": "Зал 1",
+      "rows": 10,
+      "places": 8,
+      "normal_price": "320",
+      "vip_price": "537.30"
+    },
+    {
+      "id": "2",
+      "title": "Зал 2",
+      "rows": 15,
+      "places": 12,
+      "normal_price": 200.45,
+      "vip_price": 500.3
+    },
+    {
+      "id": "3",
+      "title": "Зал 3",
+      "rows": 20,
+      "places": 10,
+      "normal_price": 185.55,
+      "vip_price": 490.1
+    }
+  ],
+  "movies": [
+    {
+      "id": "1",
+      "title": "Джеймс Бонд 1",
+      "description": "Хороший фильм",
+      "duration": "120",
+      "country": "США"
+    },
+    {
+      "id": "2",
+      "title": "Джонни Инглиш 3",
+      "description": "Хороший фильм, пародия",
+      "duration": "110",
+      "country": "США"
+    },
+    {
+      "id": "3",
+      "title": "Такси 55",
+      "description": "Хороший фильм, Марсель интересный",
+      "duration": "90",
+      "country": "Франция"
+    },
+    {
+      "id": "4",
+      "title": "Рим атакует",
+      "description": "Просто кино",
+      "duration": "140",
+      "country": "Италия"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "1",
+      "movie_id": "2",
+      "hall_id": "3",
+      "date": "25.06.2024",
+      "time": "01:30"
+    },
+    {
+      "id": "2",
+      "movie_id": "4",
+      "hall_id": "3",
+      "date": "25.06.2024",
+      "time": "10:20"
+    },
+    {
+      "id": "3",
+      "movie_id": "3",
+      "hall_id": "3",
+      "date": "25.06.2024",
+      "time": "19:00"
+    },
+    {
+      "id": "4",
+      "movie_id": "2",
+      "hall_id": "2",
+      "date": "25.06.2024",
+      "time": "14:00"
+    },
+    {
+      "id": "5",
+      "movie_id": "4",
+      "hall_id": "2",
+      "date": "25.06.2024",
+      "time": "07:00"
+    },
+    {
+      "id": "6",
+      "movie_id": "1",
+      "hall_id": "2",
+      "date": "25.06.2024",
+      "time": "10:00"
+    },
+    {
+      "id": "7",
+      "movie_id": "1",
+      "hall_id": "1",
+      "date": "25.06.2024",
+      "time": "16:00"
+    },
+    {
+      "id": "8",
+      "movie_id": "2",
+      "hall_id": "1",
+      "date": "25.06.2024",
+      "time": "21:00"
+    },
+    {
+      "id": "9",
+      "movie_id": "1",
+      "hall_id": "2",
+      "date": "25.06.2024",
+      "time": "21:00"
+    }
+  ]
+}
