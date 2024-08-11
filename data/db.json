@@ -11,9 +11,9 @@
     {
       "id": "2",
       "title": "Зал 2",
-      "rows": 15,
-      "places": 12,
-      "normal_price": 200.45,
+      "rows": 16,
+      "places": 6,
+      "normal_price": "200.48",
       "vip_price": 500.3
     },
     {
@@ -21,7 +21,7 @@
       "title": "Зал 3",
       "rows": 20,
       "places": 10,
-      "normal_price": 185.55,
+      "normal_price": "185.66",
       "vip_price": 490.1
     }
   ],

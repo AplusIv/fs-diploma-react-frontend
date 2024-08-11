@@ -30,11 +30,31 @@ const PriceConfigurator = ({ halls }) => {
     // setIsActiveHeaderState(!isActiveHeaderState);
   }
 
+  const handleChooseHall = (e) => {
+    console.log(checked);
+
+    console.log('click ' + e.target.value);
+    setChecked(e.target.value);
+
+    const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
+    setHall((previousHall) => ({...previousHall, ...chosenHall}));
+    console.log(hall);
+
+    // Смена цены при выборе другого зала
+    // setNormalPrice(hall.normal_price);
+    // setVipPrice(hall.vip_price);
+    
+    setPrices((previousPrices) => ({...previousPrices, normal_price: hall.normal_price, vip_price: hall.vip_price}));
+  }
+
   const handleChange = (e) => {
     console.log(checked);
 
     console.log('checked true');
     setChecked(e.target.value);
+
+    console.log(e);
+    console.dir(e.target);
 
     const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
     // console.log(chosenHall);
@@ -45,7 +65,7 @@ const PriceConfigurator = ({ halls }) => {
     // setNormalPrice(hall.normal_price);
     // setVipPrice(hall.vip_price);
     
-    setPrices((previousPrices) => ({...previousPrices, normal_price: hall.normal_price, vip_price: hall.vip_price}));
+    setPrices((previousPrices) => ({...previousPrices, normal_price: chosenHall.normal_price, vip_price: chosenHall.vip_price}));
     // setPrices({...prices, [e.target.name]: e.target.value})
   }
 
@@ -63,9 +83,13 @@ const PriceConfigurator = ({ halls }) => {
   } 
 
   const handleRefresh = (e) => {
-    e.preventDefault();
+    // Почему срабатывает при Enter в инпуте, будто это произошло событие Submit?
+
+    // e.preventDefault();
+    console.log(e.target);
     // setNormalPrice(hall.normal_price);
     // setVipPrice(hall.vip_price);
+    console.log(hall);
     setPrices((previousPrices) => ({...previousPrices, normal_price: hall.normal_price, vip_price: hall.vip_price}));
     // setPrices({...prices, [e.target.name]: e.target.value})
 
@@ -77,17 +101,21 @@ const PriceConfigurator = ({ halls }) => {
     console.dir(e.target.name);
     console.log(e.target.value);
     console.log(prices);
+
+    // const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
+    // setHall((previousHall) => ({...previousHall, ...chosenHall}));
+    // console.log(hall);
   }
 
 
   return (
-    <section className="conf-step" onSubmit={handleSubmit}>
+    <section className="conf-step">
       
       <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
       
-      <form onSubmit={handleSubmit}> 
-        <div className="conf-step__wrapper">
-                
+      <div className="conf-step__wrapper">
+        <form onSubmit={handleSubmit}> 
+    
           <p className="conf-step__paragraph">Выберите зал для конфигурации:</p>
           <HallConfiguratorTitles halls={ halls } name="prices-hall" handleChange={handleChange} checked={checked} onClick={handleInput}/>
             
@@ -126,9 +154,8 @@ const PriceConfigurator = ({ halls }) => {
             <button className="conf-step__button conf-step__button-regular">Отмена</button>
             <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent"/>
           </fieldset> */}
-          
-        </div>
-      </form>
+        </form>  
+      </div>
     </section>
   )
 }

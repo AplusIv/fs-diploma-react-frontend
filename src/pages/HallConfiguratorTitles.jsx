@@ -1,4 +1,4 @@
-const HallConfiguratorTitles = ({ halls, name, checked, handleChange }) => {
+const HallConfiguratorTitles = ({ halls, name, checked, handleChange, handleInput }) => {
 
   return (
     <ul className="conf-step__selectors-box" >
@@ -10,6 +10,7 @@ const HallConfiguratorTitles = ({ halls, name, checked, handleChange }) => {
             name={name} 
             value={ hall.title }
             onChange={handleChange}
+            onClick={handleInput}
             // checked
             checked={checked == hall.title ? true : false}
           />
