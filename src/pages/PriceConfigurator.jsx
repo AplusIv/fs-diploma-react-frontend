@@ -44,7 +44,7 @@ const PriceConfigurator = ({ halls }) => {
     // setNormalPrice(hall.normal_price);
     // setVipPrice(hall.vip_price);
     
-    setPrices((previousPrices) => ({...previousPrices, normal_price: hall.normal_price, vip_price: hall.vip_price}));
+    setPrices((previousPrices) => ({...previousPrices, normal_price: Number(hall.normal_price), vip_price: Number(hall.vip_price)}));
   }
 
   const handleChange = (e) => {
@@ -65,7 +65,7 @@ const PriceConfigurator = ({ halls }) => {
     // setNormalPrice(hall.normal_price);
     // setVipPrice(hall.vip_price);
     
-    setPrices((previousPrices) => ({...previousPrices, normal_price: chosenHall.normal_price, vip_price: chosenHall.vip_price}));
+    setPrices((previousPrices) => ({...previousPrices, normal_price: Number(chosenHall.normal_price), vip_price: Number(chosenHall.vip_price)}));
     // setPrices({...prices, [e.target.name]: e.target.value})
   }
 
@@ -90,14 +90,14 @@ const PriceConfigurator = ({ halls }) => {
     // setNormalPrice(hall.normal_price);
     // setVipPrice(hall.vip_price);
     console.log(hall);
-    setPrices((previousPrices) => ({...previousPrices, normal_price: hall.normal_price, vip_price: hall.vip_price}));
+    setPrices((previousPrices) => ({...previousPrices, normal_price: Number(hall.normal_price), vip_price: Number(hall.vip_price)}));
     // setPrices({...prices, [e.target.name]: e.target.value})
 
   }
 
   const handleInput = (e) => {
     // setPrices((previousPrices) => ({...previousPrices, normal_price: e.target.value}))
-    setPrices({...prices, [e.target.name]: e.target.value});
+    setPrices({...prices, [e.target.name]: Number(e.target.value)});
     console.dir(e.target.name);
     console.log(e.target.value);
     console.log(prices);

@@ -5,24 +5,24 @@
       "title": "Зал 1",
       "rows": 10,
       "places": 8,
-      "normal_price": "320",
-      "vip_price": "537.30"
+      "normal_price": 320,
+      "vip_price": 537.3
     },
     {
       "id": "2",
       "title": "Зал 2",
       "rows": 16,
       "places": 6,
-      "normal_price": "200.48",
+      "normal_price": 200.47,
       "vip_price": 500.3
     },
     {
       "id": "3",
       "title": "Зал 3",
-      "rows": 20,
-      "places": 10,
-      "normal_price": "185.66",
-      "vip_price": 490.1
+      "rows": 21,
+      "places": 11,
+      "normal_price": 185.68,
+      "vip_price": 490.11
     }
   ],
   "movies": [
@@ -42,7 +42,7 @@
     },
     {
       "id": "3",
-      "title": "Такси 55",
+      "title": "Такси 56",
       "description": "Хороший фильм, Марсель интересный",
       "duration": "90",
       "country": "Франция"
@@ -53,6 +53,27 @@
       "description": "Просто кино",
       "duration": "140",
       "country": "Италия"
+    },
+    {
+      "id": "5",
+      "title": "Сонная леди",
+      "description": "Спит и спит",
+      "duration": "135",
+      "country": "Франция"
+    },
+    {
+      "id": "6",
+      "title": "Загадочник 2",
+      "description": "Вернётся или не вернётся? Вот в чём вопрос",
+      "duration": "115",
+      "country": "США"
+    },
+    {
+      "id": "7",
+      "title": "Вечеринка 3",
+      "description": "Чем ещё удивит эта лихая молодёжь?",
+      "duration": "100",
+      "country": "Германия"
     }
   ],
   "sessions": [

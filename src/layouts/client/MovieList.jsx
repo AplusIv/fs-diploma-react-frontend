@@ -15,7 +15,7 @@ const MovieList = ({ halls, movies, sessions }) => {
           <MovieSessions movie={movie} halls={halls} sessions={sessions} />
         </section>
       ))}
-      <section className="movie">
+      {/* <section className="movie">
         <div className="movie__info">
           <div className="movie__poster">
             <img className="movie__poster-image" alt="Звёздные войны постер" src={poster1}/>
@@ -118,7 +118,7 @@ const MovieList = ({ halls, movies, sessions }) => {
             <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">22:00</a></li>
           </ul>
         </div>     
-      </section>     
+      </section>      */}
     </main>
   )
 }

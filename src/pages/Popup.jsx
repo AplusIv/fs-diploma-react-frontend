@@ -1,6 +1,7 @@
 import apiClient from "../services/jsonServerApi";
 import axios from "axios";
 import { useState } from "react";
+import cross from '../img/admin/cross.png';
 
 const Popup = ({isActive, handlePopup}) => {
 
@@ -66,21 +67,15 @@ const Popup = ({isActive, handlePopup}) => {
   const activeClass = isActive ? ' active' : '';
   return (
     <div className={"popup" + activeClass}>
-      {/* <div className="popup__container">
-        <div className="popup__title">Заголовок</div>
-        <div className="popup__content">
-          <div className="popup__header">Хэдер</div>
-          <div className="popup__wrapper">Какой-то контент</div>
-          Какой-то контент 2
-        </div>
-      </div> */}
       <div className="popup__container">
         <div className="popup__content">
-          <div className="popup__dismiss" onClick={handlePopup}>x</div>
+          <div className="popup__dismiss" onClick={handlePopup}>
+            <img src={cross}/>    
+          </div>
           <div className="popup__header">
             <div className="popup__title">Добавить зал</div>
           </div>
-          <div className="popup__wrapper">Какой-то контент
+          <div className="popup__wrapper">
             {/* <input type="submit" value="Добавить зал" onSubmit={handleSubmit} /> */}
             <input 
               type="text" 

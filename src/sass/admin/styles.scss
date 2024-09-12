@@ -688,6 +688,9 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
     background: rgba(0,0,0,0.7);  
     animation: 0.5s ease-out 0s 1 darken;
 
+    // добавляю свойство для показа внутри секции
+    position: absolute;
+
     .popup__content {
       top: 100px;
       animation: 0.5s ease-out 0s 1 slideFromTop;
