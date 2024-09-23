@@ -395,34 +395,29 @@ const HallConfigurator = ({ halls, places }) => {
       .then(response => console.log(response))
       .catch(error => console.error(error)); 
 
-    apiClient.get(`/halls/${100}`, 
-      data)
-      .then(response => console.log(response))
-      .catch(error => console.error(error));
-    
-    // добавление новых и обновление мест
+   // добавление новых и обновление мест
 
-    allPlaces2.forEach(place => {
-        const data = {...place}
-      const getRequestStatus = apiClient.get(`/places/${place.id}`, 
-      data)
-        .then(response => response.status)
-        .catch(error => console.error(error));
+    // allPlaces2.forEach(place => {
+    //     const data = {...place}
+    //   const getRequestStatus = apiClient.get(`/places/${place.id}`, 
+    //   data)
+    //     .then(response => response.status)
+    //     .catch(error => console.error(error));
       
-        switch (getRequestStatus) {
-          case 404:
-            // post axios
-          apiClient.post(`/places`, 
-            data)
-            .then(response => console.log(response))
-            .catch(error => console.error(error));
-            break;
-          default:
-            break;
-        }
+    //     switch (getRequestStatus) {
+    //       case 404:
+    //         // post axios
+    //       apiClient.post(`/places`, 
+    //         data)
+    //         .then(response => console.log(response))
+    //         .catch(error => console.error(error));
+    //         break;
+    //       default:
+    //         break;
+    //     }
       
-      // put axios  
-    })
+    //   // put axios  
+    // })
   }
 
   const handlePlaceType = (placeId) => {
