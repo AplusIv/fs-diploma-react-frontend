@@ -19,16 +19,16 @@
     {
       "id": "3",
       "title": "Зал 3",
-      "rows": 11,
-      "places": 7,
+      "rows": 21,
+      "places": 11,
       "normal_price": 185.68,
       "vip_price": 490.11
     },
     {
       "id": "4",
       "title": "Зал 4",
-      "rows": 10,
-      "places": 8,
+      "rows": "20",
+      "places": "14",
       "normal_price": 240,
       "vip_price": 570
     }
@@ -157,5 +157,32 @@
     }
   ],
   "places": [
+    {
+      "id": "1",
+      "hall_id": "1",
+      "row": 2,
+      "place": 4,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "2",
+      "hall_id": "1",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "3",
+      "hall_id": "1",
+      "row": 4,
+      "place": 1,
+      "type": "disabled",
+      "is_free": false,
+      "is_selected": true
+    }
   ]
 }

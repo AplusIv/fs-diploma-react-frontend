@@ -14,10 +14,6 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
   const [isActivePopup, setIsActivePopup] = useState(false);
 
-  // const [activeMovie, setActiveMovie] = useState({});
-
-  // const initialMovie = {...activeMovie};
-
   const [movieInfo, setMovieInfo] = useState({});
   console.log(movieInfo);
 
@@ -28,6 +24,50 @@ const SessionManager = ({ halls, movies, sessions }) => {
   //   setPopupStatus(status);
   //   console.log('popup state changed');    
   // }
+
+  // 'Добавить фильм', 'Изменить фильм', 'popup is hidden'
+  const [popupTitle, setPopupTitle] = useState('popup is hidden');
+
+  // popup states:
+  // statuses: 'adding film popup', 'editing film popup', 'hide popup'
+  // titles: 'Добавить фильм', 'Изменить фильм', 'popup is hidden'
+  // isActive: true, false (показать / скрыть)
+  const [popupInfo, setPopupInfo] = useState({
+    status: 'hide popup',
+    title: 'popup is hidden',
+    isActive: false
+  });
+
+  console.log(popupInfo);
+  
+
+  const handlePopupStatus = (status, movie={}) => {
+    console.log(movie);
+    console.log('popup status handler');
+    Object.keys(movie).length !== 0 ? setMovieInfo({...movie}) : setMovieInfo({}); // проверка на пустой объект, который передаётся в handler
+    // setMovieInfo({...movie}); // обновить состояние фильма: либо добавить фильм, либо сбросить пустым объектом
+    if (status === 'adding film popup') {
+      setPopupInfo({
+        status: 'adding film popup',
+        title: 'Добавить фильм',
+        isActive: true
+      })
+    }
+    if (status === 'editing film popup') {
+      setPopupInfo({
+        status: 'editing film popup',
+        title: 'Изменить фильм',
+        isActive: true
+      })
+    }
+    if (status === 'hide popup') {
+      setPopupInfo({
+        status: 'hide popup',
+        title: 'Попап неактивен',
+        isActive: false
+      })
+    }
+  }
 
 
   const handleClick = (e) => {
@@ -44,6 +84,8 @@ const SessionManager = ({ halls, movies, sessions }) => {
     setIsActivePopup(!isActivePopup);
     setPopupStatus(status);
     setMovieInfo({}); // сбросить информацию о выбранном фильме для добавления / закрытия формы
+    // setPopupTitle('Добавить фильм');
+    popupTitle === 'popup is hidden' ? setPopupTitle('Добавить фильм') : setPopupTitle('popup is hidden');
   }
 
   const handlePopup3 = (movie, status) => {
@@ -52,6 +94,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
     // setActiveMovie({...movie});
     setMovieInfo({...movie});
     // setIsActivePopup(!isActivePopup);
+    setPopupTitle('Изменить фильм');
   }
 
   const handleChange = (e) => {
@@ -59,28 +102,30 @@ const SessionManager = ({ halls, movies, sessions }) => {
     console.log(e.target.value);    
   }
 
-  const movieLastId = movies.length; // для добавления нового id в форме
-
-  // const [movieInfo, setMovieInfo] = useState({
-  //   title: '',
-  //   description: '',
-  //   duration: '',
-  //   country: ''
-  // })
-
-  // const handleChange = (e) => {
-  //   setMovieInfo({...movieInfo, [e.target.name]: e.target.value});
-  //   console.log(e.target.value);    
-  // }
+  const lastId = movies.length; // для добавления нового id в форме
 
   return (
     <section className="conf-step">
       {/* <Popup2 isActive={isActivePopup} handlePopup={handlePopup}/> */}
-      <Popup3 popupStatus={popupStatus} movieLastId={movieLastId} movieInfo={movieInfo} handleChange={handleChange} isActive={isActivePopup} popupTitle={'Изменить фильм'} handlePopup={handlePopup}>
-        <PopupBase isActive={isActivePopup} popupTitle={'Изменить фильм'} handlePopup={handlePopup}>
-        {/* <PopupBase> */}
+
+      {/* Рабочий вариант */}
+      {/* <Popup3 popupStatus={popupStatus} movieLastId={movieLastId} movieInfo={movieInfo} handleChange={handleChange} isActive={isActivePopup} popupTitle={popupTitle} handlePopup={handlePopup}>
+        <PopupBase isActive={isActivePopup} popupTitle={popupTitle} handlePopup={handlePopup}>
+        </PopupBase>
+      </Popup3> */}
+
+
+      <Popup3 
+        popupInfo={popupInfo} 
+        lastId={lastId} 
+        movieInfo={movieInfo} 
+        handleChange={handleChange} 
+        handlePopup={handlePopupStatus}
+      >
+        <PopupBase popupInfo={popupInfo} handlePopup={handlePopupStatus}>
         </PopupBase>
       </Popup3>
+
 
       {/* <Popup3 activeMovie={activeMovie} isActive={isActivePopup} handlePopup={handlePopup3}>
             <input 
@@ -107,7 +152,8 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
       
       <div className="conf-step__wrapper">
-        <p className="conf-step__paragraph">
+        {/* Рабочий вариант */}
+        {/* <p className="conf-step__paragraph">
           <button className="conf-step__button conf-step__button-accent" onClick={()=>handlePopup('adding film popup')}>Добавить фильм</button>
         </p>
         <div className="conf-step__movies">
@@ -118,7 +164,21 @@ const SessionManager = ({ halls, movies, sessions }) => {
               <p className="conf-step__movie-duration">{movie.duration} минут</p>
             </div>
             )
-          )}
+          )} 
+          </div> 
+          */}
+          <p className="conf-step__paragraph">
+            <button className="conf-step__button conf-step__button-accent" onClick={()=>handlePopupStatus('adding film popup')}>Добавить фильм</button>
+          </p>
+          <div className="conf-step__movies">
+            {movies.map(movie => (
+              <div key={movie.id} className="conf-step__movie" onClick={() => handlePopupStatus('editing film popup', movie)}>
+                <img className="conf-step__movie-poster" alt="poster" src={poster}/>
+                <h3 className="conf-step__movie-title">{movie.title}</h3>
+                <p className="conf-step__movie-duration">{movie.duration} минут</p>
+              </div>
+              )
+            )}
         </div>
         
         <div className="conf-step__seances">

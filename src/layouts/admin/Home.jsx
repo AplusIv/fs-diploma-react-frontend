@@ -11,7 +11,7 @@ import SellsConfigurator from '../../pages/SellsConfigurator';
 const Home = () => {
 
   
-  const { halls, movies, sessions } = useLoaderData();
+  const { halls, movies, sessions, places } = useLoaderData();
 
   // const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
 
@@ -29,7 +29,7 @@ const Home = () => {
 
       <HallManager halls={ halls } />
 
-      <HallConfigurator halls={ halls } />    
+      <HallConfigurator halls={ halls } places={ places }/>    
     
       <PriceConfigurator halls={ halls } />
     

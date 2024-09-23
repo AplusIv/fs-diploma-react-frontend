@@ -1,6 +1,10 @@
-const HallConfiguratorPlaces = ({ halls }) => {
-  const rowsCount = halls.rows;
-  const placesCount = halls.places;
+import Place from "./Place";
+
+const HallConfiguratorPlaces = ({ hall, places, handlePlaceType }) => {
+  const rowsCount = hall.rows;
+  // const placesCount = halls.places;
+  const placesCount = hall.places;
+
 
   // let rowsContent = [];
   // for (let i = 0; i < rowsCount; i++) {
@@ -19,9 +23,30 @@ const HallConfiguratorPlaces = ({ halls }) => {
                     </div>);
   }
 
+  // let rows = [];
+  // for (let index = 1; index <= rowsCount; index++) {
+  //   const row = places.filter(place => place.row === rowsCount);
+  //   rows.push(row);
+  // }
+  // console.log(rows);
+  
+
   return (
     <div className="conf-step__hall-wrapper">
-      {rowsContent.map(row => row)}
+      {/* {rowsContent.map(row => row)} */}
+      {/* {rows.map(row => <div className="conf-step__row">
+        {row.map(place => <Place key={place.id} place={place}/>)}
+        </div>)} */}
+
+      {/* {places.map(row => <div className="conf-step__row">
+        {row.map(place => <Place key={place.id} place={place}/>)}
+        </div>)} */}
+
+      {places.map(row => <div className="conf-step__row">
+      {row.map(place => <Place key={place.id} place={place} handlePlaceType={handlePlaceType}/>)}
+      </div>)}
+
+        {/* {places.map(place => <Place key={place.id} place={place}/>)} */}
     </div> 
   )
 }
