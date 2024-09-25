@@ -157,5 +157,5873 @@
     }
   ],
   "places": [
+    {
+      "id": "0",
+      "hall_id": "1",
+      "row": 1,
+      "place": 1,
+      "type": "disabled",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "1",
+      "hall_id": "1",
+      "row": 1,
+      "place": 2,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "2",
+      "hall_id": "1",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "3",
+      "hall_id": "1",
+      "row": 1,
+      "place": 4,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "4",
+      "hall_id": "1",
+      "row": 1,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "61",
+      "hall_id": "1",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "62",
+      "hall_id": "1",
+      "row": 8,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "63",
+      "hall_id": "1",
+      "row": 8,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "64",
+      "hall_id": "1",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "65",
+      "hall_id": "1",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "5",
+      "hall_id": "1",
+      "row": 1,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "6",
+      "hall_id": "1",
+      "row": 1,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "7",
+      "hall_id": "1",
+      "row": 1,
+      "place": 8,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "8",
+      "hall_id": "1",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "66",
+      "hall_id": "1",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "67",
+      "hall_id": "1",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "68",
+      "hall_id": "1",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "69",
+      "hall_id": "1",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "70",
+      "hall_id": "1",
+      "row": 9,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "9",
+      "hall_id": "1",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "10",
+      "hall_id": "1",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "11",
+      "hall_id": "1",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "14",
+      "hall_id": "1",
+      "row": 2,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "71",
+      "hall_id": "1",
+      "row": 9,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "15",
+      "hall_id": "1",
+      "row": 2,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "16",
+      "hall_id": "1",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "17",
+      "hall_id": "1",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "72",
+      "hall_id": "1",
+      "row": 10,
+      "place": 1,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "18",
+      "hall_id": "1",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "19",
+      "hall_id": "1",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "20",
+      "hall_id": "1",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "21",
+      "hall_id": "1",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "22",
+      "hall_id": "1",
+      "row": 3,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "23",
+      "hall_id": "1",
+      "row": 3,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "24",
+      "hall_id": "1",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "25",
+      "hall_id": "1",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "26",
+      "hall_id": "1",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "27",
+      "hall_id": "1",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "28",
+      "hall_id": "1",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "29",
+      "hall_id": "1",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "30",
+      "hall_id": "1",
+      "row": 4,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "31",
+      "hall_id": "1",
+      "row": 4,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "32",
+      "hall_id": "1",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "33",
+      "hall_id": "1",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "34",
+      "hall_id": "1",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "35",
+      "hall_id": "1",
+      "row": 5,
+      "place": 4,
+      "type": "disabled",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "36",
+      "hall_id": "1",
+      "row": 5,
+      "place": 5,
+      "type": "disabled",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "37",
+      "hall_id": "1",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "38",
+      "hall_id": "1",
+      "row": 5,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "39",
+      "hall_id": "1",
+      "row": 5,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "40",
+      "hall_id": "1",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "41",
+      "hall_id": "1",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "42",
+      "hall_id": "1",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "43",
+      "hall_id": "1",
+      "row": 6,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "44",
+      "hall_id": "1",
+      "row": 6,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "45",
+      "hall_id": "1",
+      "row": 6,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "46",
+      "hall_id": "1",
+      "row": 6,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "47",
+      "hall_id": "1",
+      "row": 6,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "48",
+      "hall_id": "1",
+      "row": 7,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "73",
+      "hall_id": "1",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "49",
+      "hall_id": "1",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "50",
+      "hall_id": "1",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "74",
+      "hall_id": "1",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "51",
+      "hall_id": "1",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "52",
+      "hall_id": "1",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "75",
+      "hall_id": "1",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "53",
+      "hall_id": "1",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "54",
+      "hall_id": "1",
+      "row": 7,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "76",
+      "hall_id": "1",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "77",
+      "hall_id": "1",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "55",
+      "hall_id": "1",
+      "row": 7,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "78",
+      "hall_id": "1",
+      "row": 10,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "79",
+      "hall_id": "1",
+      "row": 10,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "56",
+      "hall_id": "1",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "80",
+      "hall_id": "2",
+      "row": 1,
+      "place": 1,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "81",
+      "hall_id": "2",
+      "row": 1,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "57",
+      "hall_id": "1",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "58",
+      "hall_id": "1",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "59",
+      "hall_id": "1",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "60",
+      "hall_id": "1",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "82",
+      "hall_id": "2",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "61",
+      "hall_id": "1",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "83",
+      "hall_id": "2",
+      "row": 1,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "62",
+      "hall_id": "1",
+      "row": 8,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "84",
+      "hall_id": "2",
+      "row": 1,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "85",
+      "hall_id": "2",
+      "row": 1,
+      "place": 6,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "63",
+      "hall_id": "1",
+      "row": 8,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "86",
+      "hall_id": "2",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "64",
+      "hall_id": "1",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "65",
+      "hall_id": "1",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "66",
+      "hall_id": "1",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "87",
+      "hall_id": "2",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "67",
+      "hall_id": "1",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "68",
+      "hall_id": "1",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "88",
+      "hall_id": "2",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "89",
+      "hall_id": "2",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "90",
+      "hall_id": "2",
+      "row": 2,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "91",
+      "hall_id": "2",
+      "row": 2,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "92",
+      "hall_id": "2",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "69",
+      "hall_id": "1",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "70",
+      "hall_id": "1",
+      "row": 9,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "71",
+      "hall_id": "1",
+      "row": 9,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "72",
+      "hall_id": "1",
+      "row": 10,
+      "place": 1,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "93",
+      "hall_id": "2",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "94",
+      "hall_id": "2",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "95",
+      "hall_id": "2",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "96",
+      "hall_id": "2",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "97",
+      "hall_id": "2",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "73",
+      "hall_id": "1",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "74",
+      "hall_id": "1",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "98",
+      "hall_id": "2",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "75",
+      "hall_id": "1",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "76",
+      "hall_id": "1",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "77",
+      "hall_id": "1",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "78",
+      "hall_id": "1",
+      "row": 10,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "99",
+      "hall_id": "2",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "79",
+      "hall_id": "1",
+      "row": 10,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "100",
+      "hall_id": "2",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "80",
+      "hall_id": "2",
+      "row": 1,
+      "place": 1,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "101",
+      "hall_id": "2",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "102",
+      "hall_id": "2",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "103",
+      "hall_id": "2",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "104",
+      "hall_id": "2",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "81",
+      "hall_id": "2",
+      "row": 1,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "82",
+      "hall_id": "2",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "83",
+      "hall_id": "2",
+      "row": 1,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "84",
+      "hall_id": "2",
+      "row": 1,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "105",
+      "hall_id": "2",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "85",
+      "hall_id": "2",
+      "row": 1,
+      "place": 6,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "86",
+      "hall_id": "2",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "106",
+      "hall_id": "2",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "87",
+      "hall_id": "2",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "107",
+      "hall_id": "2",
+      "row": 5,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "108",
+      "hall_id": "2",
+      "row": 5,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "109",
+      "hall_id": "2",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "110",
+      "hall_id": "2",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "88",
+      "hall_id": "2",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "89",
+      "hall_id": "2",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "112",
+      "hall_id": "2",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "111",
+      "hall_id": "2",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "90",
+      "hall_id": "2",
+      "row": 2,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "91",
+      "hall_id": "2",
+      "row": 2,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "92",
+      "hall_id": "2",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "113",
+      "hall_id": "2",
+      "row": 6,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "114",
+      "hall_id": "2",
+      "row": 6,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "115",
+      "hall_id": "2",
+      "row": 6,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "93",
+      "hall_id": "2",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "94",
+      "hall_id": "2",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "95",
+      "hall_id": "2",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "116",
+      "hall_id": "2",
+      "row": 7,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "117",
+      "hall_id": "2",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "118",
+      "hall_id": "2",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "96",
+      "hall_id": "2",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "97",
+      "hall_id": "2",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "98",
+      "hall_id": "2",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "119",
+      "hall_id": "2",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "120",
+      "hall_id": "2",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "121",
+      "hall_id": "2",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "122",
+      "hall_id": "2",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "99",
+      "hall_id": "2",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "100",
+      "hall_id": "2",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "101",
+      "hall_id": "2",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "123",
+      "hall_id": "2",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "124",
+      "hall_id": "2",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "125",
+      "hall_id": "2",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "102",
+      "hall_id": "2",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "103",
+      "hall_id": "2",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "104",
+      "hall_id": "2",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "126",
+      "hall_id": "2",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "127",
+      "hall_id": "2",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "128",
+      "hall_id": "2",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "105",
+      "hall_id": "2",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "106",
+      "hall_id": "2",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "107",
+      "hall_id": "2",
+      "row": 5,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "129",
+      "hall_id": "2",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "130",
+      "hall_id": "2",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "131",
+      "hall_id": "2",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "108",
+      "hall_id": "2",
+      "row": 5,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "109",
+      "hall_id": "2",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "110",
+      "hall_id": "2",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "111",
+      "hall_id": "2",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "132",
+      "hall_id": "2",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "133",
+      "hall_id": "2",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "134",
+      "hall_id": "2",
+      "row": 10,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "112",
+      "hall_id": "2",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "135",
+      "hall_id": "2",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "136",
+      "hall_id": "2",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "113",
+      "hall_id": "2",
+      "row": 6,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "114",
+      "hall_id": "2",
+      "row": 6,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "115",
+      "hall_id": "2",
+      "row": 6,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "116",
+      "hall_id": "2",
+      "row": 7,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "137",
+      "hall_id": "2",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "138",
+      "hall_id": "2",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "139",
+      "hall_id": "2",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "117",
+      "hall_id": "2",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "118",
+      "hall_id": "2",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "140",
+      "hall_id": "2",
+      "row": 11,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "119",
+      "hall_id": "2",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "141",
+      "hall_id": "2",
+      "row": 11,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "120",
+      "hall_id": "2",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "142",
+      "hall_id": "2",
+      "row": 11,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "121",
+      "hall_id": "2",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "122",
+      "hall_id": "2",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "123",
+      "hall_id": "2",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "124",
+      "hall_id": "2",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "143",
+      "hall_id": "2",
+      "row": 11,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "125",
+      "hall_id": "2",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "144",
+      "hall_id": "2",
+      "row": 11,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "145",
+      "hall_id": "2",
+      "row": 11,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "146",
+      "hall_id": "2",
+      "row": 12,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "147",
+      "hall_id": "2",
+      "row": 12,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "126",
+      "hall_id": "2",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "127",
+      "hall_id": "2",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "128",
+      "hall_id": "2",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "129",
+      "hall_id": "2",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "130",
+      "hall_id": "2",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "148",
+      "hall_id": "2",
+      "row": 12,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "149",
+      "hall_id": "2",
+      "row": 12,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "150",
+      "hall_id": "2",
+      "row": 12,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "151",
+      "hall_id": "2",
+      "row": 12,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "152",
+      "hall_id": "2",
+      "row": 13,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "131",
+      "hall_id": "2",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "153",
+      "hall_id": "2",
+      "row": 13,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "154",
+      "hall_id": "2",
+      "row": 13,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "132",
+      "hall_id": "2",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "133",
+      "hall_id": "2",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "134",
+      "hall_id": "2",
+      "row": 10,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "135",
+      "hall_id": "2",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "155",
+      "hall_id": "2",
+      "row": 13,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "136",
+      "hall_id": "2",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "156",
+      "hall_id": "2",
+      "row": 13,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "157",
+      "hall_id": "2",
+      "row": 13,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "158",
+      "hall_id": "2",
+      "row": 14,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "159",
+      "hall_id": "2",
+      "row": 14,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "137",
+      "hall_id": "2",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "160",
+      "hall_id": "2",
+      "row": 14,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "138",
+      "hall_id": "2",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "139",
+      "hall_id": "2",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "140",
+      "hall_id": "2",
+      "row": 11,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "141",
+      "hall_id": "2",
+      "row": 11,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "142",
+      "hall_id": "2",
+      "row": 11,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "161",
+      "hall_id": "2",
+      "row": 14,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "143",
+      "hall_id": "2",
+      "row": 11,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "162",
+      "hall_id": "2",
+      "row": 14,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "163",
+      "hall_id": "2",
+      "row": 14,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "164",
+      "hall_id": "2",
+      "row": 15,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "165",
+      "hall_id": "2",
+      "row": 15,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "144",
+      "hall_id": "2",
+      "row": 11,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "166",
+      "hall_id": "2",
+      "row": 15,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "145",
+      "hall_id": "2",
+      "row": 11,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "146",
+      "hall_id": "2",
+      "row": 12,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "147",
+      "hall_id": "2",
+      "row": 12,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "148",
+      "hall_id": "2",
+      "row": 12,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "167",
+      "hall_id": "2",
+      "row": 15,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "149",
+      "hall_id": "2",
+      "row": 12,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "168",
+      "hall_id": "2",
+      "row": 15,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "169",
+      "hall_id": "2",
+      "row": 15,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "170",
+      "hall_id": "2",
+      "row": 16,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "171",
+      "hall_id": "2",
+      "row": 16,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "150",
+      "hall_id": "2",
+      "row": 12,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "151",
+      "hall_id": "2",
+      "row": 12,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "152",
+      "hall_id": "2",
+      "row": 13,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "153",
+      "hall_id": "2",
+      "row": 13,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "154",
+      "hall_id": "2",
+      "row": 13,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "172",
+      "hall_id": "2",
+      "row": 16,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "173",
+      "hall_id": "2",
+      "row": 16,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "174",
+      "hall_id": "2",
+      "row": 16,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "155",
+      "hall_id": "2",
+      "row": 13,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "175",
+      "hall_id": "2",
+      "row": 16,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "176",
+      "hall_id": "3",
+      "row": 1,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "177",
+      "hall_id": "3",
+      "row": 1,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "178",
+      "hall_id": "3",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "156",
+      "hall_id": "2",
+      "row": 13,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "157",
+      "hall_id": "2",
+      "row": 13,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "181",
+      "hall_id": "3",
+      "row": 1,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "182",
+      "hall_id": "3",
+      "row": 1,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "183",
+      "hall_id": "3",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "162",
+      "hall_id": "2",
+      "row": 14,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "163",
+      "hall_id": "2",
+      "row": 14,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "164",
+      "hall_id": "2",
+      "row": 15,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "165",
+      "hall_id": "2",
+      "row": 15,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "166",
+      "hall_id": "2",
+      "row": 15,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "167",
+      "hall_id": "2",
+      "row": 15,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "184",
+      "hall_id": "3",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "168",
+      "hall_id": "2",
+      "row": 15,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "185",
+      "hall_id": "3",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "169",
+      "hall_id": "2",
+      "row": 15,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "186",
+      "hall_id": "3",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "187",
+      "hall_id": "3",
+      "row": 2,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "188",
+      "hall_id": "3",
+      "row": 2,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "189",
+      "hall_id": "3",
+      "row": 2,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "170",
+      "hall_id": "2",
+      "row": 16,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "171",
+      "hall_id": "2",
+      "row": 16,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "172",
+      "hall_id": "2",
+      "row": 16,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "173",
+      "hall_id": "2",
+      "row": 16,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "190",
+      "hall_id": "3",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "174",
+      "hall_id": "2",
+      "row": 16,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "191",
+      "hall_id": "3",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "192",
+      "hall_id": "3",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "193",
+      "hall_id": "3",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "175",
+      "hall_id": "2",
+      "row": 16,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "176",
+      "hall_id": "3",
+      "row": 1,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "194",
+      "hall_id": "3",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "195",
+      "hall_id": "3",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "177",
+      "hall_id": "3",
+      "row": 1,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "178",
+      "hall_id": "3",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "179",
+      "hall_id": "3",
+      "row": 1,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "180",
+      "hall_id": "3",
+      "row": 1,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "196",
+      "hall_id": "3",
+      "row": 3,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "197",
+      "hall_id": "3",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "181",
+      "hall_id": "3",
+      "row": 1,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "182",
+      "hall_id": "3",
+      "row": 1,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "183",
+      "hall_id": "3",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "184",
+      "hall_id": "3",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "198",
+      "hall_id": "3",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "185",
+      "hall_id": "3",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "186",
+      "hall_id": "3",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "199",
+      "hall_id": "3",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "200",
+      "hall_id": "3",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "201",
+      "hall_id": "3",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "187",
+      "hall_id": "3",
+      "row": 2,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "188",
+      "hall_id": "3",
+      "row": 2,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "189",
+      "hall_id": "3",
+      "row": 2,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "190",
+      "hall_id": "3",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "191",
+      "hall_id": "3",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "192",
+      "hall_id": "3",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "193",
+      "hall_id": "3",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "194",
+      "hall_id": "3",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "195",
+      "hall_id": "3",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "196",
+      "hall_id": "3",
+      "row": 3,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "197",
+      "hall_id": "3",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "198",
+      "hall_id": "3",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "199",
+      "hall_id": "3",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "200",
+      "hall_id": "3",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "201",
+      "hall_id": "3",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "202",
+      "hall_id": "3",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "203",
+      "hall_id": "3",
+      "row": 4,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "204",
+      "hall_id": "3",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "202",
+      "hall_id": "3",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "203",
+      "hall_id": "3",
+      "row": 4,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "205",
+      "hall_id": "3",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "206",
+      "hall_id": "3",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "207",
+      "hall_id": "3",
+      "row": 5,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "204",
+      "hall_id": "3",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "205",
+      "hall_id": "3",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "206",
+      "hall_id": "3",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "207",
+      "hall_id": "3",
+      "row": 5,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "208",
+      "hall_id": "3",
+      "row": 5,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "209",
+      "hall_id": "3",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "210",
+      "hall_id": "3",
+      "row": 5,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "208",
+      "hall_id": "3",
+      "row": 5,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "209",
+      "hall_id": "3",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "211",
+      "hall_id": "3",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "212",
+      "hall_id": "3",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "210",
+      "hall_id": "3",
+      "row": 5,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "211",
+      "hall_id": "3",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "212",
+      "hall_id": "3",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "213",
+      "hall_id": "3",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "213",
+      "hall_id": "3",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "214",
+      "hall_id": "3",
+      "row": 6,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "216",
+      "hall_id": "3",
+      "row": 6,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "215",
+      "hall_id": "3",
+      "row": 6,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "214",
+      "hall_id": "3",
+      "row": 6,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "217",
+      "hall_id": "3",
+      "row": 6,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "218",
+      "hall_id": "3",
+      "row": 7,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "219",
+      "hall_id": "3",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "216",
+      "hall_id": "3",
+      "row": 6,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "215",
+      "hall_id": "3",
+      "row": 6,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "217",
+      "hall_id": "3",
+      "row": 6,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "218",
+      "hall_id": "3",
+      "row": 7,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "219",
+      "hall_id": "3",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "220",
+      "hall_id": "3",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "222",
+      "hall_id": "3",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "221",
+      "hall_id": "3",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "220",
+      "hall_id": "3",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "222",
+      "hall_id": "3",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "223",
+      "hall_id": "3",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "221",
+      "hall_id": "3",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "224",
+      "hall_id": "3",
+      "row": 7,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "223",
+      "hall_id": "3",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "224",
+      "hall_id": "3",
+      "row": 7,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "225",
+      "hall_id": "3",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "225",
+      "hall_id": "3",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "226",
+      "hall_id": "3",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "227",
+      "hall_id": "3",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "228",
+      "hall_id": "3",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "226",
+      "hall_id": "3",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "227",
+      "hall_id": "3",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "229",
+      "hall_id": "3",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "228",
+      "hall_id": "3",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "230",
+      "hall_id": "3",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "229",
+      "hall_id": "3",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "230",
+      "hall_id": "3",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "231",
+      "hall_id": "3",
+      "row": 8,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "231",
+      "hall_id": "3",
+      "row": 8,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "232",
+      "hall_id": "3",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "233",
+      "hall_id": "3",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "236",
+      "hall_id": "3",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "232",
+      "hall_id": "3",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "233",
+      "hall_id": "3",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "235",
+      "hall_id": "3",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "234",
+      "hall_id": "3",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "236",
+      "hall_id": "3",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "235",
+      "hall_id": "3",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "234",
+      "hall_id": "3",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "237",
+      "hall_id": "3",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "237",
+      "hall_id": "3",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "238",
+      "hall_id": "3",
+      "row": 9,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "239",
+      "hall_id": "3",
+      "row": 10,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "240",
+      "hall_id": "3",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "238",
+      "hall_id": "3",
+      "row": 9,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "241",
+      "hall_id": "3",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "239",
+      "hall_id": "3",
+      "row": 10,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "240",
+      "hall_id": "3",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "242",
+      "hall_id": "3",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "243",
+      "hall_id": "3",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "241",
+      "hall_id": "3",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "242",
+      "hall_id": "3",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "243",
+      "hall_id": "3",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "244",
+      "hall_id": "3",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "248",
+      "hall_id": "3",
+      "row": 11,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "247",
+      "hall_id": "3",
+      "row": 11,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "246",
+      "hall_id": "3",
+      "row": 11,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "244",
+      "hall_id": "3",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "248",
+      "hall_id": "3",
+      "row": 11,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "245",
+      "hall_id": "3",
+      "row": 10,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "249",
+      "hall_id": "3",
+      "row": 11,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "247",
+      "hall_id": "3",
+      "row": 11,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "246",
+      "hall_id": "3",
+      "row": 11,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "245",
+      "hall_id": "3",
+      "row": 10,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "249",
+      "hall_id": "3",
+      "row": 11,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "250",
+      "hall_id": "3",
+      "row": 11,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "251",
+      "hall_id": "3",
+      "row": 11,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "250",
+      "hall_id": "3",
+      "row": 11,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "251",
+      "hall_id": "3",
+      "row": 11,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "252",
+      "hall_id": "3",
+      "row": 11,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "252",
+      "hall_id": "3",
+      "row": 11,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "253",
+      "hall_id": "4",
+      "row": 1,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "254",
+      "hall_id": "4",
+      "row": 1,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "253",
+      "hall_id": "4",
+      "row": 1,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "254",
+      "hall_id": "4",
+      "row": 1,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "255",
+      "hall_id": "4",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "256",
+      "hall_id": "4",
+      "row": 1,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "257",
+      "hall_id": "4",
+      "row": 1,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "255",
+      "hall_id": "4",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "256",
+      "hall_id": "4",
+      "row": 1,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "257",
+      "hall_id": "4",
+      "row": 1,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "258",
+      "hall_id": "4",
+      "row": 1,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "259",
+      "hall_id": "4",
+      "row": 1,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "260",
+      "hall_id": "4",
+      "row": 1,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "258",
+      "hall_id": "4",
+      "row": 1,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "259",
+      "hall_id": "4",
+      "row": 1,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "260",
+      "hall_id": "4",
+      "row": 1,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "261",
+      "hall_id": "4",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "262",
+      "hall_id": "4",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "263",
+      "hall_id": "4",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "261",
+      "hall_id": "4",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "264",
+      "hall_id": "4",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "262",
+      "hall_id": "4",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "263",
+      "hall_id": "4",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "264",
+      "hall_id": "4",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "265",
+      "hall_id": "4",
+      "row": 2,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "265",
+      "hall_id": "4",
+      "row": 2,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "266",
+      "hall_id": "4",
+      "row": 2,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "267",
+      "hall_id": "4",
+      "row": 2,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "268",
+      "hall_id": "4",
+      "row": 2,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "269",
+      "hall_id": "4",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "270",
+      "hall_id": "4",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "271",
+      "hall_id": "4",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "266",
+      "hall_id": "4",
+      "row": 2,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "267",
+      "hall_id": "4",
+      "row": 2,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "272",
+      "hall_id": "4",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "273",
+      "hall_id": "4",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "274",
+      "hall_id": "4",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "275",
+      "hall_id": "4",
+      "row": 3,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "276",
+      "hall_id": "4",
+      "row": 3,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "277",
+      "hall_id": "4",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "268",
+      "hall_id": "4",
+      "row": 2,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "269",
+      "hall_id": "4",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "278",
+      "hall_id": "4",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "270",
+      "hall_id": "4",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "279",
+      "hall_id": "4",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "280",
+      "hall_id": "4",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "281",
+      "hall_id": "4",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "282",
+      "hall_id": "4",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "283",
+      "hall_id": "4",
+      "row": 4,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "271",
+      "hall_id": "4",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "284",
+      "hall_id": "4",
+      "row": 4,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "272",
+      "hall_id": "4",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "285",
+      "hall_id": "4",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "273",
+      "hall_id": "4",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "274",
+      "hall_id": "4",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "286",
+      "hall_id": "4",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "275",
+      "hall_id": "4",
+      "row": 3,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "276",
+      "hall_id": "4",
+      "row": 3,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "277",
+      "hall_id": "4",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "278",
+      "hall_id": "4",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "287",
+      "hall_id": "4",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "288",
+      "hall_id": "4",
+      "row": 5,
+      "place": 4,
+      "type": "disabled",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "289",
+      "hall_id": "4",
+      "row": 5,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "290",
+      "hall_id": "4",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "291",
+      "hall_id": "4",
+      "row": 5,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "279",
+      "hall_id": "4",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "292",
+      "hall_id": "4",
+      "row": 5,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "293",
+      "hall_id": "4",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "294",
+      "hall_id": "4",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "295",
+      "hall_id": "4",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "296",
+      "hall_id": "4",
+      "row": 6,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "280",
+      "hall_id": "4",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "281",
+      "hall_id": "4",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "282",
+      "hall_id": "4",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "283",
+      "hall_id": "4",
+      "row": 4,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "284",
+      "hall_id": "4",
+      "row": 4,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "297",
+      "hall_id": "4",
+      "row": 6,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "298",
+      "hall_id": "4",
+      "row": 6,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "299",
+      "hall_id": "4",
+      "row": 6,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "300",
+      "hall_id": "4",
+      "row": 6,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "301",
+      "hall_id": "4",
+      "row": 7,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "285",
+      "hall_id": "4",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "302",
+      "hall_id": "4",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "303",
+      "hall_id": "4",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "304",
+      "hall_id": "4",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "286",
+      "hall_id": "4",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "287",
+      "hall_id": "4",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "288",
+      "hall_id": "4",
+      "row": 5,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "289",
+      "hall_id": "4",
+      "row": 5,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "290",
+      "hall_id": "4",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "305",
+      "hall_id": "4",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "306",
+      "hall_id": "4",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "307",
+      "hall_id": "4",
+      "row": 7,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "308",
+      "hall_id": "4",
+      "row": 7,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "309",
+      "hall_id": "4",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "291",
+      "hall_id": "4",
+      "row": 5,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "310",
+      "hall_id": "4",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "292",
+      "hall_id": "4",
+      "row": 5,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "293",
+      "hall_id": "4",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "311",
+      "hall_id": "4",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "312",
+      "hall_id": "4",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "313",
+      "hall_id": "4",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "314",
+      "hall_id": "4",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "315",
+      "hall_id": "4",
+      "row": 8,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "294",
+      "hall_id": "4",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "295",
+      "hall_id": "4",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "296",
+      "hall_id": "4",
+      "row": 6,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "297",
+      "hall_id": "4",
+      "row": 6,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "316",
+      "hall_id": "4",
+      "row": 8,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "317",
+      "hall_id": "4",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "318",
+      "hall_id": "4",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "298",
+      "hall_id": "4",
+      "row": 6,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "299",
+      "hall_id": "4",
+      "row": 6,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "300",
+      "hall_id": "4",
+      "row": 6,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "319",
+      "hall_id": "4",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "301",
+      "hall_id": "4",
+      "row": 7,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "320",
+      "hall_id": "4",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "321",
+      "hall_id": "4",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "302",
+      "hall_id": "4",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "303",
+      "hall_id": "4",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "322",
+      "hall_id": "4",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "323",
+      "hall_id": "4",
+      "row": 9,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "304",
+      "hall_id": "4",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "305",
+      "hall_id": "4",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "324",
+      "hall_id": "4",
+      "row": 9,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "325",
+      "hall_id": "4",
+      "row": 10,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "326",
+      "hall_id": "4",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "327",
+      "hall_id": "4",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "306",
+      "hall_id": "4",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "307",
+      "hall_id": "4",
+      "row": 7,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "308",
+      "hall_id": "4",
+      "row": 7,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "309",
+      "hall_id": "4",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "310",
+      "hall_id": "4",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "328",
+      "hall_id": "4",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "329",
+      "hall_id": "4",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "311",
+      "hall_id": "4",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "312",
+      "hall_id": "4",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "313",
+      "hall_id": "4",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "314",
+      "hall_id": "4",
+      "row": 8,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "330",
+      "hall_id": "4",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "331",
+      "hall_id": "4",
+      "row": 10,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "315",
+      "hall_id": "4",
+      "row": 8,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "316",
+      "hall_id": "4",
+      "row": 8,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "332",
+      "hall_id": "4",
+      "row": 10,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "317",
+      "hall_id": "4",
+      "row": 9,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "318",
+      "hall_id": "4",
+      "row": 9,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "319",
+      "hall_id": "4",
+      "row": 9,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "320",
+      "hall_id": "4",
+      "row": 9,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "321",
+      "hall_id": "4",
+      "row": 9,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "322",
+      "hall_id": "4",
+      "row": 9,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "323",
+      "hall_id": "4",
+      "row": 9,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "324",
+      "hall_id": "4",
+      "row": 9,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "325",
+      "hall_id": "4",
+      "row": 10,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "326",
+      "hall_id": "4",
+      "row": 10,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "327",
+      "hall_id": "4",
+      "row": 10,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "328",
+      "hall_id": "4",
+      "row": 10,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "329",
+      "hall_id": "4",
+      "row": 10,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "330",
+      "hall_id": "4",
+      "row": 10,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "331",
+      "hall_id": "4",
+      "row": 10,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "332",
+      "hall_id": "4",
+      "row": 10,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "0",
+      "hall_id": "1",
+      "row": 1,
+      "place": 1,
+      "type": "disabled",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "1",
+      "hall_id": "1",
+      "row": 1,
+      "place": 2,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "2",
+      "hall_id": "1",
+      "row": 1,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "3",
+      "hall_id": "1",
+      "row": 1,
+      "place": 4,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "4",
+      "hall_id": "1",
+      "row": 1,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "5",
+      "hall_id": "1",
+      "row": 1,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "6",
+      "hall_id": "1",
+      "row": 1,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "7",
+      "hall_id": "1",
+      "row": 1,
+      "place": 8,
+      "type": "vip",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "8",
+      "hall_id": "1",
+      "row": 2,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "9",
+      "hall_id": "1",
+      "row": 2,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "10",
+      "hall_id": "1",
+      "row": 2,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "11",
+      "hall_id": "1",
+      "row": 2,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "12",
+      "hall_id": "1",
+      "row": 2,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "13",
+      "hall_id": "1",
+      "row": 2,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "14",
+      "hall_id": "1",
+      "row": 2,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "15",
+      "hall_id": "1",
+      "row": 2,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "16",
+      "hall_id": "1",
+      "row": 3,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "17",
+      "hall_id": "1",
+      "row": 3,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "18",
+      "hall_id": "1",
+      "row": 3,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "19",
+      "hall_id": "1",
+      "row": 3,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "20",
+      "hall_id": "1",
+      "row": 3,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "21",
+      "hall_id": "1",
+      "row": 3,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "22",
+      "hall_id": "1",
+      "row": 3,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "23",
+      "hall_id": "1",
+      "row": 3,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "24",
+      "hall_id": "1",
+      "row": 4,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "25",
+      "hall_id": "1",
+      "row": 4,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "26",
+      "hall_id": "1",
+      "row": 4,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "27",
+      "hall_id": "1",
+      "row": 4,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "28",
+      "hall_id": "1",
+      "row": 4,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "29",
+      "hall_id": "1",
+      "row": 4,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "30",
+      "hall_id": "1",
+      "row": 4,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "31",
+      "hall_id": "1",
+      "row": 4,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "32",
+      "hall_id": "1",
+      "row": 5,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "33",
+      "hall_id": "1",
+      "row": 5,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "34",
+      "hall_id": "1",
+      "row": 5,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "35",
+      "hall_id": "1",
+      "row": 5,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "36",
+      "hall_id": "1",
+      "row": 5,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "37",
+      "hall_id": "1",
+      "row": 5,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "38",
+      "hall_id": "1",
+      "row": 5,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "39",
+      "hall_id": "1",
+      "row": 5,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "40",
+      "hall_id": "1",
+      "row": 6,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "41",
+      "hall_id": "1",
+      "row": 6,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "42",
+      "hall_id": "1",
+      "row": 6,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "49",
+      "hall_id": "1",
+      "row": 7,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "50",
+      "hall_id": "1",
+      "row": 7,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "51",
+      "hall_id": "1",
+      "row": 7,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "52",
+      "hall_id": "1",
+      "row": 7,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "53",
+      "hall_id": "1",
+      "row": 7,
+      "place": 6,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "54",
+      "hall_id": "1",
+      "row": 7,
+      "place": 7,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "55",
+      "hall_id": "1",
+      "row": 7,
+      "place": 8,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "56",
+      "hall_id": "1",
+      "row": 8,
+      "place": 1,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "57",
+      "hall_id": "1",
+      "row": 8,
+      "place": 2,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "58",
+      "hall_id": "1",
+      "row": 8,
+      "place": 3,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "59",
+      "hall_id": "1",
+      "row": 8,
+      "place": 4,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    },
+    {
+      "id": "60",
+      "hall_id": "1",
+      "row": 8,
+      "place": 5,
+      "type": "standart",
+      "is_free": true,
+      "is_selected": true
+    }
   ]
 }

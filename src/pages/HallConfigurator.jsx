@@ -31,7 +31,8 @@ const HallConfigurator = ({ halls, places }) => {
   let allPlaces = [];
   const compareFn = (a, b) => Number(a.id) - Number(b.id); // сортировка объектов по возрастанию
 
-  let lastPlaceId = (places.length > 0) ? Number(places[places.length-1].id) : -1; // если массив пустой, то вернуть последний индекс -1
+  // let lastPlaceId = (places.length > 0) ? Number(places[places.length-1].id) : -1; // если массив пустой, то вернуть последний индекс -1
+  let lastPlaceId = -1;
   console.log(lastPlaceId);
 
   halls.forEach(hall => {
@@ -100,16 +101,86 @@ const HallConfigurator = ({ halls, places }) => {
     }
   });
 
+  let initialPlaces;
+
+  (allPlaces.length === places.length) ? initialPlaces = [...places] : initialPlaces = [...allPlaces]
+
+//   initialPlaces.forEach(place => {
+//     const data = {...place};
+//     apiClient.get(`/places/${place.id}`)
+//       .then(response => console.log(response.status))
+//       .catch(error => {
+//         console.error(error.response.status);
+//         if (error.response.status === 404) {
+//           apiClient.post(`/places`, data)
+//             .then(response => console.log(response))
+//             .catch(error => console.error(error));
+//         }
+//       });
+//  })
+  
+ // Добавление новых мест в БД (при их отсутствии)
+  for (let index = 0; index < initialPlaces.length; index++) {
+    const data = initialPlaces[index];
+    
+    apiClient.get(`/places/${data.id}`)
+      .then(response => console.log(response.status))
+      .catch(error => {
+        console.error(error.response.status);
+        if (error.response.status === 404) {
+          apiClient.post(`/places`, data)
+            .then(response => console.log(response))
+            .catch(error => console.error(error));
+        }
+      });
+  }
+//   initialPlaces.forEach(place => {
+//     const data = {...place};
+//     apiClient.get(`/places/${place.id}`)
+//       .then(response => console.log(response.status))
+//       .catch(error => {
+//         console.error(error.response.status);
+//         if (error.response.status === 404) {
+//           apiClient.post(`/places`, data)
+//             .then(response => console.log(response))
+//             .catch(error => console.error(error));
+//         }
+//       });
+//  })
+
   // const initialHallPlaces = allPlaces.filter(place => place.hall_id === hall.id);
   // const [hallPlaces, setHallPlaces] = useState(browsePlaces(halls, places));
 
-  const [allPlaces2, setAllPlaces2] = useState(allPlaces);
+
+  const [allPlaces2, setAllPlaces2] = useState(initialPlaces);
   console.log({allPlaces2});
+  console.log({initialPlaces});
+
+
+  
+/* allPlaces2.forEach(place => {
+        const data = {...place}
+        // let response1;
+      const getRequest = apiClient.get(`/places/${place.id}`, 
+      data)
+        .then(response => console.log(response))
+        .catch(error => console.error(error));
+        console.log(getRequest);
+  if (getRequest.status === 404) {
+      apiClient.post(`/places`, 
+            data)
+            .then(response => console.log(response))
+            .catch(error => console.error(error));
+  }
+  }) */
+
+ 
   
 
   // состояние в зависимости от зала
   const allPlaces2Copy = [...allPlaces2];
   const initialHallPlaces = allPlaces2Copy.filter(place => place.hall_id === hall.id);
+  initialHallPlaces.sort(compareFn);
 
   const [hallPlaces, setHallPlaces] = useState(initialHallPlaces);
   console.log({hallPlaces});
@@ -364,6 +435,7 @@ const HallConfigurator = ({ halls, places }) => {
     const allPlacesCopy = [...allPlaces2];
     const changedHallPlaces = allPlacesCopy.filter(place => place.hall_id === chosenHall.id);
 
+    changedHallPlaces.sort(compareFn);
     console.log({changedHallPlaces});
     
     setHallPlaces([...changedHallPlaces]);
@@ -377,7 +449,20 @@ const HallConfigurator = ({ halls, places }) => {
 
   const handleRefresh = (e) => {
     console.log('refresh');
-    setConfiguration((previousConfiguration) => ({...previousConfiguration, rows: Number(hall.rows), places: Number(hall.places)}))
+    console.log(hallPlaces);
+    
+    setConfiguration((previousConfiguration) => ({...previousConfiguration, rows: Number(hall.rows), places: Number(hall.places)}));
+
+    // Сброс мест на стандартный тип в зале
+    // const refreshedPlaces = [...hallPlaces].forEach(place => {
+    //   if (place.type !== 'standart') {
+    //     console.log(place);
+        
+    //     place.type = 'standart';
+    //   }
+    // })
+
+    // setHallPlaces(refreshedPlaces);
   }
 
   const handleSubmit = (e) => {
@@ -387,7 +472,7 @@ const HallConfigurator = ({ halls, places }) => {
     console.log(typeof configuration.places);
     console.log(typeof configuration.rows);
 
-    
+    // Обновление количества мест в БД
     const data = {...hall, ...configuration}
     // put axios
     apiClient.put(`/halls/${hall.id}`, 
@@ -395,29 +480,20 @@ const HallConfigurator = ({ halls, places }) => {
       .then(response => console.log(response))
       .catch(error => console.error(error)); 
 
-   // добавление новых и обновление мест
+    // Обновление типа мест в БД
+    hallPlaces.forEach(place => {
+      const data = {...place}
 
-    // allPlaces2.forEach(place => {
-    //     const data = {...place}
-    //   const getRequestStatus = apiClient.get(`/places/${place.id}`, 
-    //   data)
-    //     .then(response => response.status)
-    //     .catch(error => console.error(error));
-      
-    //     switch (getRequestStatus) {
-    //       case 404:
-    //         // post axios
-    //       apiClient.post(`/places`, 
-    //         data)
-    //         .then(response => console.log(response))
-    //         .catch(error => console.error(error));
-    //         break;
-    //       default:
-    //         break;
-    //     }
-      
-    //   // put axios  
-    // })
+      apiClient.get(`/places/${place.id}`)
+        .then(response => {
+          if (place.type !== response.data.type) {
+            apiClient.put(`/places/${place.id}`, data)
+              .then(response => console.log(response))
+              .catch(error => console.error(error));
+          }
+        })
+        .catch(error => console.error(error));   
+    })
   }
 
   const handlePlaceType = (placeId) => {
@@ -441,8 +517,6 @@ const HallConfigurator = ({ halls, places }) => {
       case 'disabled':
         chosenPlace.type = 'standart';
         break;
-      // default:
-      //   break;
     }
 
     // setHallPlaces([...modifiedPlaces]);
