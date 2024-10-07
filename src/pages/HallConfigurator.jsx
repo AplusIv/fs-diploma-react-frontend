@@ -5,8 +5,24 @@ import HallConfiguratorPlaces from "./HallConfiguratorPlaces"
 import HallConfiguratorTitles from "./HallConfiguratorTitles"
 import SectionButtons from "./SectionButtons"
 import SectionHeader from "./SectionHeader"
+import axios from "axios"
 
 const HallConfigurator = ({ halls, places }) => {
+
+  // места с сервера
+  const placesData = [...places];
+  console.log({ placesData });
+
+  // let data;
+  apiClient.get(`/places`)
+    .then(response => {
+      console.log(response);
+      // data = response.data;
+    })
+    .catch(error => {
+      console.error(error.response.status);
+    });
+
 
   // выбранный зал (для выгрузки плана зала)
   const [hall, setHall] = useState(halls[0]);
@@ -14,50 +30,38 @@ const HallConfigurator = ({ halls, places }) => {
   // выбранное название зала
   const [checked, setChecked] = useState('Зал 1');
 
-
-  // Показ/скрытие секции
-  const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
-
-  // Количество рядов/мест в выбранном зале
-  const [configuration, setConfiguration] = useState({
-    rows: '',
-    places: '',
-  });
-
-  // список мест для разных кинозалов
-  console.log(places);
-
-  // Создание мест в кинозалах
-  let allPlaces = [];
-  const compareFn = (a, b) => Number(a.id) - Number(b.id); // сортировка объектов по возрастанию
-
-  // let lastPlaceId = (places.length > 0) ? Number(places[places.length-1].id) : -1; // если массив пустой, то вернуть последний индекс -1
-  let lastPlaceId = -1;
-  console.log(lastPlaceId);
-
+  // Количество рядов/мест в залах
+  let initialConfigurations = [];
   halls.forEach(hall => {
-    const hallConfiguration = hall.rows * hall.places;
+    const configuration = {
+      hall_id: hall.id,
+      rows: hall.rows,
+      places: hall.places
+    }
+    initialConfigurations.push(configuration);
+  })
 
-    const filteredByHallPlaces = places.filter(place => place.hall_id === hall.id);
+  const [configurations, setConfigurations] = useState(initialConfigurations);
+  console.log({ configurations });
 
-    console.log({hallConfiguration});
-
-    console.log(filteredByHallPlaces.length);
-    
-    console.log(hallConfiguration === filteredByHallPlaces.length);
-    
-    if (hallConfiguration !== filteredByHallPlaces.length) {
-      // let lastPlaceId = (places.length > 0) ? Number(places[places.length-1].id) : -1; // если массив пустой, то вернуть последний индекс -1
-      // console.log(lastPlaceId);
+  // Создание стандартных зрительских мест при заданной конфигурации и количестве залов
+  const makeStandartPlaces = (halls, configurations, sorterFn) => {
+    let placesArray = [];
+    let PlaceId = -1;
+    halls.forEach(hall => {
+      // const configuration = hall.rows * hall.places;
+      const configuration = configurations.find(configuration => configuration.hall_id === hall.id);
+      const placesAmount = configuration.rows * configuration.places;
+      console.log({ placesAmount });
 
       let p = 1; // первое место
 
       let r = 1; // первый ряд
 
-      for (let index = 0; index < hallConfiguration; index++) {
+      for (let index = 0; index < placesAmount; index++) {
         // lastPlaceId = +lastPlaceId + 1;
         const hallPlace = {
-          id: `${++lastPlaceId}`,
+          id: `${++PlaceId}`,
           hall_id: hall.id,
           row: r,
           place: p,
@@ -66,345 +70,107 @@ const HallConfigurator = ({ halls, places }) => {
           is_selected: true
         };
 
-        const checkingElement = filteredByHallPlaces.find(element => element.place === hallPlace.place && element.row === hallPlace.row);
-        console.log(checkingElement);
-        
-        if (checkingElement) {
-          allPlaces.push(checkingElement);
-        } else {
-          allPlaces.push(hallPlace);
-        }
+        placesArray.push(hallPlace);
 
         p++;
 
-        if (p > hall.places) {
+        if (p > configuration.places) {
           r++;
           p = 1;
         }
-        // r = r+1;
-
-        // (p > hall.places) ? p = 1 : p++;
-        // p++;
       }
 
-      allPlaces.sort(compareFn);
-      console.dir(allPlaces);
+      placesArray.sort(sorterFn);
+      console.log({ placesArray });
 
-      // allPlaces.forEach(place => {
-      //   const data = {...place}
-      // // put axios
-      //   apiClient.post(`/places`, 
-      //     data)
-      //     .then(response => console.log(response))
-      //     .catch(error => console.error(error));
-      // })        
-    }
-  });
+    });
+
+    return placesArray;
+  }
+
+
+
+  // зрительские места (новая версия)
+  const compareFn = (a, b) => Number(a.id) - Number(b.id); // сортировка объектов по возрастанию
+
+  const placesArray = makeStandartPlaces(halls, configurations, compareFn);
+
+  console.log({ places });
+
 
   let initialPlaces;
 
-  (allPlaces.length === places.length) ? initialPlaces = [...places] : initialPlaces = [...allPlaces]
+  console.log(placesArray.length === places.length);
 
-//   initialPlaces.forEach(place => {
-//     const data = {...place};
-//     apiClient.get(`/places/${place.id}`)
-//       .then(response => console.log(response.status))
-//       .catch(error => {
-//         console.error(error.response.status);
-//         if (error.response.status === 404) {
-//           apiClient.post(`/places`, data)
-//             .then(response => console.log(response))
-//             .catch(error => console.error(error));
-//         }
-//       });
-//  })
-  
- // Добавление новых мест в БД (при их отсутствии)
-  for (let index = 0; index < initialPlaces.length; index++) {
-    const data = initialPlaces[index];
-    
-    apiClient.get(`/places/${data.id}`)
-      .then(response => console.log(response.status))
-      .catch(error => {
-        console.error(error.response.status);
-        if (error.response.status === 404) {
-          apiClient.post(`/places`, data)
-            .then(response => console.log(response))
-            .catch(error => console.error(error));
-        }
-      });
+  // (placesArray.length === places.length) ? initialPlaces = [...places] : initialPlaces = [...placesArray]
+
+  if (places.length > 0) {
+    initialPlaces = places.map(place => {
+      return { ...place };
+    })
+  } else {
+    initialPlaces = [...placesArray];
   }
-//   initialPlaces.forEach(place => {
-//     const data = {...place};
-//     apiClient.get(`/places/${place.id}`)
-//       .then(response => console.log(response.status))
-//       .catch(error => {
-//         console.error(error.response.status);
-//         if (error.response.status === 404) {
-//           apiClient.post(`/places`, data)
-//             .then(response => console.log(response))
-//             .catch(error => console.error(error));
-//         }
-//       });
-//  })
 
-  // const initialHallPlaces = allPlaces.filter(place => place.hall_id === hall.id);
-  // const [hallPlaces, setHallPlaces] = useState(browsePlaces(halls, places));
+  // if (placesArray.length === places.length) {
+  //   initialPlaces = places.map(place => {
+  //     return { ...place };
+  //   })
+  // } else {
+  //   initialPlaces = [...placesArray];
+  // }
 
+  initialPlaces.sort(compareFn);
+  console.log({ initialPlaces });
 
-  const [allPlaces2, setAllPlaces2] = useState(initialPlaces);
-  console.log({allPlaces2});
-  console.log({initialPlaces});
-
-
-  
-/* allPlaces2.forEach(place => {
-        const data = {...place}
-        // let response1;
-      const getRequest = apiClient.get(`/places/${place.id}`, 
-      data)
-        .then(response => console.log(response))
-        .catch(error => console.error(error));
-        console.log(getRequest);
-  if (getRequest.status === 404) {
-      apiClient.post(`/places`, 
-            data)
-            .then(response => console.log(response))
-            .catch(error => console.error(error));
-  }
-  }) */
-
- 
-  
+  // const [placesState, setPlacesState] = useState(places);
+  const [placesState, setPlacesState] = useState(initialPlaces);
+  console.log({ placesState });
 
   // состояние в зависимости от зала
-  const allPlaces2Copy = [...allPlaces2];
-  const initialHallPlaces = allPlaces2Copy.filter(place => place.hall_id === hall.id);
-  initialHallPlaces.sort(compareFn);
+  // const placesStateCopy = [...placesState];
+  // const initialHallPlaces = placesStateCopy.filter(place => place.hall_id === hall.id);
+  // initialHallPlaces.sort(compareFn);
 
-  const [hallPlaces, setHallPlaces] = useState(initialHallPlaces);
-  console.log({hallPlaces});
-
-
+  // const [hallPlaces, setHallPlaces] = useState(initialHallPlaces);
+  // console.log({ hallPlaces });
 
 
+  // Показ/скрытие секции
+  const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
 
 
+  // const prepareHallPlaces = (places, configuration) => {
+  //   let rowsGroupedByRow = [];
 
+  //   places.sort(compareFn); // сортировка мест из БД
 
-
-  // const browsePlaces = (halls, places) => {
-  //     // Создание мест в кинозалах
-  //   let allPlaces = [];
-  //   const compareFn = (a, b) => Number(a.id) - Number(b.id); // сортировка объектов по возрастанию
-
-  //   let lastPlaceId = (places.length > 0) ? Number(places[places.length-1].id) : -1; // если массив пустой, то вернуть последний индекс -1
-  //   console.log(lastPlaceId);
-
-  //   halls.forEach(hall => {
-  //     const hallConfiguration = hall.rows * hall.places;
-
-  //     const filteredByHallPlaces = places.filter(place => place.hall_id === hall.id);
-
-  //     console.log({hallConfiguration});
-
-  //     console.log(filteredByHallPlaces.length);
-      
-  //     console.log(hallConfiguration === filteredByHallPlaces.length);
-      
-  //     if (hallConfiguration !== filteredByHallPlaces.length) {
-  //       // let lastPlaceId = (places.length > 0) ? Number(places[places.length-1].id) : -1; // если массив пустой, то вернуть последний индекс -1
-  //       // console.log(lastPlaceId);
-
-  //       let p = 1; // первое место
-
-  //       let r = 1; // первый ряд
-
-  //       for (let index = 0; index < hallConfiguration; index++) {
-  //         // lastPlaceId = +lastPlaceId + 1;
-  //         const hallPlace = {
-  //           id: `${++lastPlaceId}`,
-  //           hall_id: hall.id,
-  //           row: r,
-  //           place: p,
-  //           type: "standart",
-  //           is_free: true,
-  //           is_selected: true
-  //         };
-
-  //         const checkingElement = filteredByHallPlaces.find(element => element.place === hallPlace.place && element.row === hallPlace.row);
-  //         console.log(checkingElement);
-          
-  //         if (checkingElement) {
-  //           allPlaces.push(checkingElement);
-  //         } else {
-  //           allPlaces.push(hallPlace);
-  //         }
-
-  //         p++;
-
-  //         if (p > hall.places) {
-  //           r++;
-  //           p = 1;
-  //         }
-  //         // r = r+1;
-
-  //         // (p > hall.places) ? p = 1 : p++;
-  //         // p++;
-  //       }
-
-  //       allPlaces.sort(compareFn);
-  //       console.dir(allPlaces);
-
-  //       // allPlaces.forEach(place => {
-  //       //   const data = {...place}
-  //       // // put axios
-  //       //   apiClient.post(`/places`, 
-  //       //     data)
-  //       //     .then(response => console.log(response))
-  //       //     .catch(error => console.error(error));
-  //       // })        
-  //     }
-  //   });
-
-  //   const initialHallPlaces = allPlaces.filter(place => place.hall_id === hall.id);
-  //   return initialHallPlaces;
-  // }
-
-  // const [hallPlaces, setHallPlaces] = useState(browsePlaces(halls, places));
-
-
-  const prepareHallPlaces = (places, hall) => {
-    let rowsGroupedByRow = [];
-    for (let index = 1; index <= hall.rows; index++) {
-      const row = places.filter(place => place.row === index);
-      rowsGroupedByRow.push(row);
-    }
-    return rowsGroupedByRow;
-  }
-  // const rowsCount = hall.rows;
-  // // const placesCount = halls.places;
-  // const placesCount = hall.places;
-
-
-  // let rowsContent = [];
-  // for (let i = 0; i < rowsCount; i++) {
-  //   rowsContent.push(<div className="conf-step__row"/>);
-  // }
-
-  // let placesContent = [];
-  // for (let i = 0; i < placesCount; i++) {
-  //   placesContent.push(<span className="conf-step__chair conf-step__chair_standart"/>);
-  // }
-
-  // let rowsContent = [];
-  // for (let i = 0; i < rowsCount; i++) {
-  //   rowsContent.push(<div className="conf-step__row">
-  //                     {placesContent.map(place => place)}
-  //                   </div>);
-  // }
-
-  // const initialHallPlaces = rowsContent.map(row => row);
-  
-  // part 1 
-
-  // const initialHallPlaces2 = places.filter(place => place.hall_id === hall.id);
-
-  // const compareFn = (a, b) => Number(a.id) - Number(b.id); // сортировка объектов по возрастанию
-
-  // initialHallPlaces2.sort(compareFn); // мутированный исходный массив
-  // console.log(initialHallPlaces2);
-  
-
-  // const [hallPlaces, setHallPlaces] = useState(initialHallPlaces2);
-
-  // const configurePlaces = (hall) => {
-  //   const initialConfiguration = hall.rows * hall.places;
-  //   console.log(initialConfiguration);
-
-  //   let actualHallPlaces = [];
-
-  //   console.log({hallPlaces});
-
-  //   const filteredPlaces = hallPlaces.filter(place => place.hall_id === hall.id);
-    
-    
-  //   if (initialConfiguration !== filteredPlaces.length) {
-  //     const rowsCount = hall.rows;
-  //     // const placesCount = halls.places;
-  //     const placesCount = hall.places;
-
-  //     let lastPlaceId = (places.length > 0) ? Number(places[places.length-1].id) : -1; // если массив пустой, то вернуть последний индекс -1
-  //     console.log(lastPlaceId);
-
-  //     let p = 1; // первое место
-  //     // if (p > hall.places) {
-  //     //   p = 1;
-  //     // }
-
-  //     let r = 1; // первый ряд
-  //     // if (r > hall.rows) {
-  //     //   r = 1;
-  //     // }
-
-  //     for (let index = 0; index < initialConfiguration; index++) {
-  //       // lastPlaceId = +lastPlaceId + 1;
-  //       const hallPlace = {
-  //         id: `${++lastPlaceId}`,
-  //         hall_id: hall.id,
-  //         row: r,
-  //         place: p,
-  //         type: "standart",
-  //         is_free: true,
-  //         is_selected: true
-  //       };
-  //       const checkingElement = filteredPlaces.find(element => element.place === hallPlace.place);
-  //       console.log(checkingElement);
-        
-
-  //       if (checkingElement) {
-  //         actualHallPlaces.push(checkingElement);
-  //       } else {
-  //         actualHallPlaces.push(hallPlace);
-  //       }
-
-  //       p++;
-
-  //       if (p > hall.places) {
-  //         r++;
-  //         p = 1;
-  //       }
-  //       // r = r+1;
-
-  //       // (p > hall.places) ? p = 1 : p++;
-  //       // p++;
-  //     }
-
-  //     actualHallPlaces.sort(compareFn);
-  //     console.dir(actualHallPlaces);
-
-  //     // const rows = [...actualHallPlaces];
-  //     // let rowsGroupedByRow = [];
-  //     // for (let index = 1; index <= hall.rows; index++) {
-  //     //   const row = rows.filter(place => place.row === index);
-  //     //   rowsGroupedByRow.push(row);
-  //     // }
-  //     // console.log(rowsGroupedByRow);
-      
-  //     // setHallPlaces([...rowsGroupedByRow]);
-
-
-  //     // setHallPlaces([...actualHallPlaces]);
-  //     return actualHallPlaces;
+  //   for (let index = 1; index <= configuration.rows; index++) {
+  //     const row = places.filter(place => place.row === index);
+  //     rowsGroupedByRow.push(row);
   //   }
+  //   return rowsGroupedByRow;
   // }
 
-  // part 1
-  
-  // const [hallPlaces, setHallPlaces] = useState(configurePlaces(hall));
+  const prepareHallPlaces = (places, configuration, hall) => {
+
+    let placesGroupedByRow = [];
+
+    const placesCopy = [...places];
+    const placesByHall = placesCopy.filter(place => place.hall_id === hall.id);
+
+    placesByHall.sort(compareFn); // сортировка мест из БД
 
 
-  // const [hallPlaces, setHallPlaces] = useState(initialHallPlaces2);
+    for (let index = 1; index <= configuration.rows; index++) {
+      const rowPlaces = placesByHall.filter(place => place.row === index);
+      placesGroupedByRow.push(rowPlaces);
+    }
+
+    console.log({ placesGroupedByRow });
+
+    return placesGroupedByRow;
+  }
 
   const handleClick = (e) => {
     console.log(e.currentTarget.className);
@@ -418,160 +184,349 @@ const HallConfigurator = ({ halls, places }) => {
   const handleChange = (e) => {
     console.log(checked);
 
-    console.log('checked true');
+    console.log('handleChange');
     setChecked(e.target.value);
 
     const chosenHall = halls.find(hall => hall.title === e.target.value); // возвращаю нужный зал
-    // const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
 
     console.log(chosenHall);
-    setHall((previousHall) => ({...previousHall, ...chosenHall}));
-    // console.log(hall);
+    setHall((previousHall) => ({ ...previousHall, ...chosenHall }));
 
-    setConfiguration((previousConfiguration) => ({...previousConfiguration, rows: Number(chosenHall.rows), places: Number(chosenHall.places)}));
-
-    // configurePlaces(chosenHall);
-    // const changedHallPlaces = allPlaces.filter(place => place.hall_id === chosenHall.id);
-    const allPlacesCopy = [...allPlaces2];
-    const changedHallPlaces = allPlacesCopy.filter(place => place.hall_id === chosenHall.id);
-
-    changedHallPlaces.sort(compareFn);
-    console.log({changedHallPlaces});
-    
-    setHallPlaces([...changedHallPlaces]);
+    // const allPlacesCopy = [...placesState];
+    // const changedHallPlaces = allPlacesCopy.filter(place => place.hall_id === chosenHall.id);
+    // changedHallPlaces.sort(compareFn);
+    // setHallPlaces(changedHallPlaces);
   }
 
   const handleInput = (e) => {
-    setConfiguration({...configuration, [e.target.name]: Number(e.target.value)});
-    console.dir(e.target.name);
-    console.log(e.target.value);
-  }
+    console.log('handleInput');
 
-  const handleRefresh = (e) => {
-    console.log('refresh');
-    console.log(hallPlaces);
-    
-    setConfiguration((previousConfiguration) => ({...previousConfiguration, rows: Number(hall.rows), places: Number(hall.places)}));
+    // setConfiguration({...configuration, [e.target.name]: Number(e.target.value)});
+    // console.dir(e.target.name);
+    // console.log(e.target.value);
 
-    // Сброс мест на стандартный тип в зале
-    // const refreshedPlaces = [...hallPlaces].forEach(place => {
-    //   if (place.type !== 'standart') {
-    //     console.log(place);
-        
-    //     place.type = 'standart';
-    //   }
-    // })
-
-    // setHallPlaces(refreshedPlaces);
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('submit');
-
-    console.log(typeof configuration.places);
-    console.log(typeof configuration.rows);
-
-    // Обновление количества мест в БД
-    const data = {...hall, ...configuration}
-    // put axios
-    apiClient.put(`/halls/${hall.id}`, 
-      data)
-      .then(response => console.log(response))
-      .catch(error => console.error(error)); 
-
-    // Обновление типа мест в БД
-    hallPlaces.forEach(place => {
-      const data = {...place}
-
-      apiClient.get(`/places/${place.id}`)
-        .then(response => {
-          if (place.type !== response.data.type) {
-            apiClient.put(`/places/${place.id}`, data)
-              .then(response => console.log(response))
-              .catch(error => console.error(error));
-          }
-        })
-        .catch(error => console.error(error));   
+    const newConfigurations = configurations.map(configuration => {
+      if (configuration.hall_id === hall.id) {
+        return { ...configuration, [e.target.name]: Number(e.target.value) }
+      } else {
+        return configuration;
+      }
     })
+
+    setConfigurations(newConfigurations);
+
+    const newPlaces = makeStandartPlaces(halls, newConfigurations, compareFn);
+
+    console.log({ newPlaces });
+
+    setPlacesState(newPlaces);
+  }
+
+  const handleRefresh = () => {
+    console.log('refresh');
+
+    // Возврат к конфигурации
+    const refreshedConfigurations = configurations.map(configuration => {
+      if (configuration.hall_id === hall.id) {
+        return { ...configuration, rows: Number(hall.rows), places: Number(hall.places) }
+      } else {
+        return configuration;
+      }
+    })
+
+    setConfigurations(refreshedConfigurations);
+    // setConfiguration((previousConfiguration) => ({...previousConfiguration, rows: Number(hall.rows), places: Number(hall.places)}));
+
+    let refreshedPlaces;
+
+    if (places.length > 0) {
+      apiClient.get(`/places`)
+        .then(response => {
+          console.log(response);
+          const placesData = response.data;
+
+          // сброс всех мест к сохраненным в БД
+          // const refreshedPlaces = placesData.map(placeData => placeData);
+          refreshedPlaces = [...placesData];
+          setPlacesState(refreshedPlaces);
+
+          // const filteredByHallPlaces = refreshedPlaces.filter(place => place.hall_id === hall.id);
+          // filteredByHallPlaces.sort(compareFn);
+          // console.log({ filteredByHallPlaces });
+
+          // setHallPlaces(filteredByHallPlaces);
+
+          // console.log({ hallPlaces });
+        })
+        .catch(error => {
+          console.error(error.response.status);
+        });
+
+    } else {
+      refreshedPlaces = makeStandartPlaces(halls, refreshedConfigurations, compareFn);
+      setPlacesState(refreshedPlaces);
+
+      // const filteredByHallPlaces = refreshedPlaces.filter(place => place.hall_id === hall.id);
+      // filteredByHallPlaces.sort(compareFn);
+      // console.log({ filteredByHallPlaces });
+
+      // setHallPlaces(filteredByHallPlaces);
+
+      // console.log({ hallPlaces });
+    }
+  }
+
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    console.log('submit2');
+
+    // Обновление конфигурации мест в залах
+    apiClient.get(`/halls`)
+      .then(response => {
+        console.log(response);
+        const hallsData = [...response.data];
+
+        // есть ли изменения с сохранеными в БД
+        const newHallsData = hallsData.map(hallData => {
+          const configuration = configurations.find(configuration => configuration.hall_id === hallData.id);
+
+          if (!(hallData.rows === configuration.rows && hallData.places === configuration.places)) {
+            return { ...hallData, rows: configuration.rows, places: configuration.places }
+          }
+        });
+
+        // если есть (массив непустой), то (1) обновить конфигурацию в БД
+        const filteredNewHallsData = newHallsData.filter(data => data !== undefined);
+        if (filteredNewHallsData.length !== 0) {
+          console.log(filteredNewHallsData);
+
+          let putRequests = filteredNewHallsData.map(newHallData => apiClient.put(`/halls/${newHallData.id}`, newHallData));
+          axios.all(putRequests).then(response => console.log(response)).catch(error => console.log(error));
+
+          // (2) Обновление зрительских мест в БД при изменившейся конфигурации залов
+          apiClient.get(`/places`)
+            .then(response => {
+              console.log(response.data);
+              const placesData = response.data;
+
+              // если есть сохраненные места в БД
+              if (placesData.length !== 0) {
+                // Очистим таблицу Places
+                let deleteRequests = placesData.map(place => apiClient.delete(`/places/${place.id}`));
+                axios.all(deleteRequests).then((data) => {
+                  console.log(data);
+                  
+                  // Заполним заново новыми данными
+                  let postRequests = [];
+
+                  for (let index = 0; index < placesState.length; index++) {
+                    const element = { ...placesState[index] };
+                    postRequests.push(apiClient.post(`/places`, element));
+                  }
+                  axios.all(postRequests)
+                    .then(response => {
+                      console.log(response);
+                      
+                      // Проверка записи в БД
+                      apiClient.get(`/places`).then(response => console.log(response));
+                    })
+                    .catch(error => console.log(error));
+
+                  // apiClient.get(`/places`).then(response => console.log(response));
+                });
+
+                // // Заполним заново новыми данными
+                // let postRequests = [];
+
+                // for (let index = 0; index < placesState.length; index++) {
+                //   const element = { ...placesState[index] };
+                //   postRequests.push(apiClient.post(`/places`, element));
+                // }
+                // axios.all(postRequests).then((data) => console.log(data));
+              } else {
+                // если мест нет в БД, просто сохраним места из состояния
+                let requests = placesState.map(place => apiClient.post(`/places`, place));
+                axios.all(requests)
+                  .then(response => {
+                    console.log(response);
+                    apiClient.get(`/places`).then(response => console.log(response));
+                  })
+                  .catch(error => console.log(error));
+
+
+
+                // apiClient.get(`/places`).then(response => console.log(response));
+              }
+            })
+            .catch(error => console.log(error));
+        } else {
+          console.log('конфигурация мест не изменилась, здесь нужно сохранить изменения типов мест в БД');
+          
+          // получить места из БД
+          apiClient.get(`/places`)
+            .then(response => {
+              console.log(response.data);
+              const placesData = response.data;
+
+              // если есть сохраненные места в БД
+              if (placesData.length !== 0) {
+                if (placesState.length === placesData.length) {
+                  const placesDataCopy = [...placesData];
+                  placesDataCopy.sort(compareFn);
+
+                  const placesDiffs = placesState.filter((place, index) => place.type !== placesDataCopy[index].type);
+
+                  console.log({placesDiffs});
+                  
+                  // если нашлись изменения в массиве БД по сравнению с массивом из состояния
+                  if (placesDiffs.length > 0) {
+                    let putRequests = placesDiffs.map(diffPlace => apiClient.put(`/places/${diffPlace.id}`, diffPlace));
+                    // axios.all(putRequests).then(response => console.log(response)).catch(error => console.log(error));
+
+                    axios.all(putRequests)
+                      .then(response => {
+                        console.log(response);
+                        apiClient.get(`/places`).then(response => console.log(response));
+                      })
+                      .catch(error => console.log(error));
+
+                  }
+                }
+              } else {
+                // Сохранить конфигурацию из текущего состояния в БД
+                let requests = placesState.map(place => apiClient.post(`/places`, place));
+                // axios.all(requests).then((data) => console.log(data));
+
+                axios.all(requests)
+                  .then(response => {
+                    console.log(response);
+                    apiClient.get(`/places`).then(response => console.log(response));
+                  })
+                  .catch(error => console.log(error));
+
+
+                // apiClient.get(`/places`).then(response => console.log(response));
+              }
+              
+            }).catch(error => console.log(error))
+        }
+      }).catch(error => console.log(error));
+
+
+    // apiClient.get(`/halls`)
+    //   .then(response => {
+    //     console.log(response);
+    //     const hallsData = [...response.data];
+    //     const modifiedHallsConfigurations = hallsData.filter(hall => {
+    //       const modifiedConfiguration = configurations.find(configuration => configuration.hall_id === hall.id);
+
+    //       return (!(hall.rows === modifiedConfiguration.rows && hall.places === modifiedConfiguration.places)); // вернуть hall, где изменились значения конфигурации мест по сравнению с сохраненными
+    //     });
+    //     // Если данные изменились (массив вернулся не пустой)
+    //     if (modifiedHallsConfigurations.length !== 0) {
+    //       modifiedHallsConfigurations.forEach(modifiedConfiguration => {
+    //         const configuration = configurations.find(configuration => configuration.hall_id === modifiedConfiguration.id);
+
+    //         // Обновление данных, отправка запроса на сервер
+    //         const data = { ...modifiedConfiguration, rows: configuration.rows, places: configuration.places }
+    //         console.log({ data });
+
+    //         // put axios
+    //         apiClient.put(`/halls/${hall.id}`,
+    //           data)
+    //           .then(response => console.log(response))
+    //           .catch(error => console.error(error));
+    //       });
+    //     }
+    //   })
+    //   .catch(error => console.log(error));
   }
 
   const handlePlaceType = (placeId) => {
-    // const {value} = e.target;
+    console.log('handlePlaceType');
 
-    const modifiedPlaces = [...allPlaces2];
+    const modifiedPlaces = placesState.map(place => {
+      if (place.id === placeId) {
+        console.log({ placeId });
 
-    // const modifiedPlaces = [...hallPlaces];
+        let chosenPlace = { ...place }; // копия исходного объекта, чтобы не перезаписать его
 
-    const chosenPlace = modifiedPlaces.find(place => place.id === placeId);
-    console.log(chosenPlace);
-    
+        switch (place.type) {
+          case 'standart':
+            chosenPlace.type = 'vip';
+            break;
+          case 'vip':
+            chosenPlace.type = 'disabled';
+            break;
+          case 'disabled':
+            chosenPlace.type = 'standart';
+            break;
+        }
+        return chosenPlace;
+      } else {
+        return place;
+      }
+    })
+    console.log({ modifiedPlaces });
 
-    switch (chosenPlace.type) {
-      case 'standart':
-        chosenPlace.type = 'vip';
-        break;
-      case 'vip':
-        chosenPlace.type = 'disabled';
-        break;
-      case 'disabled':
-        chosenPlace.type = 'standart';
-        break;
-    }
+    setPlacesState(modifiedPlaces);
 
-    // setHallPlaces([...modifiedPlaces]);
-    setAllPlaces2([...modifiedPlaces]);
+    // const modifiedHallPlaces = modifiedPlaces.filter(modifiedPlace => modifiedPlace.hall_id === hall.id)
+    // modifiedHallPlaces.sort(compareFn);
+
+    // setHallPlaces(modifiedHallPlaces);
+    // setAllPlaces2([...modifiedPlaces]);
   }
 
   return (
     <section className="conf-step">
-      <SectionHeader name={'Конфигурация залов'} isActiveHeaderState={ isActiveHeaderState } handleClick={ handleClick }/>
-      
-        <div className="conf-step__wrapper">
-          <form onSubmit={handleSubmit}> 
-            <p className="conf-step__paragraph">Выберите зал для конфигурации:</p>
-            <HallConfiguratorTitles halls={ halls } name="chairs-hall" handleChange={handleChange} checked={checked} />
-            <p className="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
-            <div className="conf-step__legend">
-              <label className="conf-step__label">Рядов, шт
-                <input 
-                  type="text" 
-                  name="rows"
-                  className="conf-step__input" 
-                  value={configuration.rows} 
-                  onChange={handleInput}
-                  placeholder="10" />
-                </label>
-              <span className="multiplier">x</span>
-              <label className="conf-step__label">Мест, шт
-                <input 
-                type="text" 
+      <SectionHeader name={'Конфигурация залов'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
+
+      <div className="conf-step__wrapper">
+        <form onSubmit={handleSubmit2}>
+          <p className="conf-step__paragraph">Выберите зал для конфигурации:</p>
+          <HallConfiguratorTitles halls={halls} name="chairs-hall" handleChange={handleChange} checked={checked} />
+          <p className="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
+          <div className="conf-step__legend">
+            <label className="conf-step__label">Рядов, шт
+              <input
+                type="text"
+                name="rows"
+                className="conf-step__input"
+                value={configurations.find(configuration => configuration.hall_id === hall.id).rows}
+                onChange={handleInput}
+                placeholder="10" />
+            </label>
+            <span className="multiplier">x</span>
+            <label className="conf-step__label">Мест, шт
+              <input
+                type="text"
                 name="places"
-                className="conf-step__input" 
-                value={configuration.places} 
+                className="conf-step__input"
+                value={configurations.find(configuration => configuration.hall_id === hall.id).places}
                 onChange={handleInput}
                 placeholder="8" />
-              </label>
-            </div>
-            <p className="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала:</p>
-            <div className="conf-step__legend">
-              <span className="conf-step__chair conf-step__chair_standart"></span> — обычные кресла
-              <span className="conf-step__chair conf-step__chair_vip"></span> — VIP кресла
-              <span className="conf-step__chair conf-step__chair_disabled"></span> — заблокированные (нет кресла)
-              <p className="conf-step__hint">Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши</p>
-            </div>  
-            
-            <div className="conf-step__hall">
-              <HallConfiguratorPlaces 
-                hall={ hall } 
-                places={ prepareHallPlaces(hallPlaces, hall) } 
-                handlePlaceType={ handlePlaceType }
-              />
-            </div>
-            
-            <SectionButtons handleRefresh={handleRefresh}/>
-          </form>
-        </div>
+            </label>
+          </div>
+          <p className="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала:</p>
+          <div className="conf-step__legend">
+            <span className="conf-step__chair conf-step__chair_standart"></span> — обычные кресла
+            <span className="conf-step__chair conf-step__chair_vip"></span> — VIP кресла
+            <span className="conf-step__chair conf-step__chair_disabled"></span> — заблокированные (нет кресла)
+            <p className="conf-step__hint">Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши</p>
+          </div>
+
+          <div className="conf-step__hall">
+            <HallConfiguratorPlaces
+              // hall={ hall } 
+              places={prepareHallPlaces(placesState, configurations.find(configuration => configuration.hall_id === hall.id), hall)}
+              handlePlaceType={handlePlaceType}
+            />
+          </div>
+
+          <SectionButtons handleRefresh={handleRefresh} />
+        </form>
+      </div>
     </section>
   )
 }

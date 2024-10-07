@@ -27,6 +27,7 @@ import Ticket from "./layouts/client/Ticket"
 
 // import { hallsLoader } from "./pages/HallManager"
 import { loader } from "./services/loader"
+import BigSpinner from "./pages/BigSpinner"
 
 
 const router = createBrowserRouter(
@@ -60,7 +61,7 @@ function App() {
   // const [count, setCount] = useState(0)
 
   return (
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
   //   
     //   <div>
     //     <a href="https://vitejs.dev" target="_blank">
