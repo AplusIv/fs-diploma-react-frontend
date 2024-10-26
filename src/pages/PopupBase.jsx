@@ -5,39 +5,13 @@ import cross from '../img/admin/cross.png'
 
 const PopupBase = ({popupInfo, handlePopup, children}) => {
 
-  /* const [movieInfo, setMovieInfo] = useState({
-    title: '',
-    description: '',
-    duration: '',
-    country: ''
-  })
-  
-  const handleChange = (e) => {
-    setMovieInfo({...movieInfo, [e.target.name]: e.target.value});
-    console.log(e.target.value);    
-  }
-
-  const handleMovieAdding = (e) => {
-    e.preventDefault();
-
-    console.log('movie adding request');
-
-    apiClient.post('/movies', {
-      ...movieInfo
-    }).then(response => {
-      console.log(response);
-    }).catch(error => {
-      console.log(error);
-    })
-  } */
-
   const activeClass = popupInfo.isActive ? ' active' : '';
   
   return (
     // <></>
     <div className={"popup" + activeClass}>
       <div className="popup__container">
-        <div className="popup__content">
+        <div className="popup__content popup__text">
           <div className="popup__dismiss" onClick={()=>handlePopup('hide popup')}>
             <img src={cross}/>
           </div>

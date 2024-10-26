@@ -46,6 +46,10 @@ html {
   font-size: 62.5%;
 }
 
+ul {
+  list-style-type:none;
+}
+
 // body {
 //   background-image: url('../../img/admin/background.jpg');
 //   background-color: rgba(0, 0, 0, 0.50);
@@ -55,7 +59,7 @@ html {
 //   counter-reset: num;
 // }
 
-input[type='radio'], input[type='submit'], button, .conf-step__header, select {
+input[type='radio'], input[type='submit'], input[type='time'], button, .conf-step__header, select {
   cursor: pointer;
 }
 
@@ -736,5 +740,39 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
         transition: .3s all ease;
       }
     }
+  }
+
+  &__input, &__select {
+    // display: block;
+    box-sizing: border-box;
+    min-width: 80px;
+    margin-top: 1px;
+    padding: 8px;
+    font-size: 1.6rem;
+    color: $black;
+    border: 1px solid #b7b7b7;
+  
+  
+    &:focus {
+      outline: 1px #CF87FF solid;
+      outline-offset: -1px;
+    }
+  }
+
+  &__text {
+    font-size: 1.6rem;
+    color: $black;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 5px;
+  }
+
+  .session-popup {
+    display: flex;
+    flex-direction: column;
   }
 }

@@ -26,11 +26,19 @@
     },
     {
       "id": "4",
-      "title": "Зал 4",
-      "rows": 4,
-      "places": 8,
-      "normal_price": 285.65,
-      "vip_price": 598
+      "rows": 5,
+      "places": 6,
+      "normal_price": 250,
+      "vip_price": 500.5,
+      "title": "Зал 4"
+    },
+    {
+      "id": "5",
+      "rows": 5,
+      "places": 6,
+      "normal_price": 250,
+      "vip_price": 500.5,
+      "title": "Зал 5"
     }
   ],
   "movies": [
@@ -50,7 +58,7 @@
     },
     {
       "id": "3",
-      "title": "Такси 57",
+      "title": "Такси 58",
       "description": "Хороший фильм, Марсель интересный",
       "duration": "90",
       "country": "Франция"
@@ -64,9 +72,9 @@
     },
     {
       "id": "5",
-      "title": "Сонная леди",
+      "title": "Сонная леди 2",
       "description": "Спит и спит",
-      "duration": "135",
+      "duration": "125",
       "country": "Франция"
     },
     {
@@ -88,6 +96,13 @@
       "title": "Шаг по диагонали",
       "description": "Безудержные танцы в сельской местности",
       "duration": "105",
+      "country": "США"
+    },
+    {
+      "id": "9",
+      "title": "Космический пирог",
+      "description": "Что происходит в космической общаге?",
+      "duration": "118",
       "country": "США"
     }
   ],

@@ -8,6 +8,7 @@ import SectionHeader from './SectionHeader'
 // import Popup2 from './Popup2';
 import Popup3 from './Popup3';
 import PopupBase from './PopupBase';
+import Popup4 from './Popup4';
 
 const SessionManager = ({ halls, movies, sessions }) => {
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
@@ -17,8 +18,29 @@ const SessionManager = ({ halls, movies, sessions }) => {
   const [movieInfo, setMovieInfo] = useState({});
   console.log(movieInfo);
 
+  // Сеансы
+  const [sessionsInfo, setSessionsInfo] = useState([...sessions]);
+  console.log(sessionsInfo);
+
+  // Фильмы
+  const [moviesInfo, setMoviesInfo] = useState([...movies]);
+  console.log(moviesInfo);
+
+  // Залы
+  const [hallsInfo, setHallsInfo] = useState([...halls]);
+  console.log(hallsInfo);
+
+
+  // const [sessionInfo, setSessionInfo] = useState({});
+  // console.log(sessionInfo);
+
+  const [editedSessionId, setEditedSessionId] = useState('');
+
+  // возмоность обновления сеансов
+  const [edit, setEdit] = useState(true)
+
   // 'adding film popup', 'editing film popup', 'hide popup'
-  const [popupStatus, setPopupStatus] = useState('hide popup');
+  // const [popupStatus, setPopupStatus] = useState('hide popup');
 
   // const handlePopupStatus = (status) => {
   //   setPopupStatus(status);
@@ -26,11 +48,11 @@ const SessionManager = ({ halls, movies, sessions }) => {
   // }
 
   // 'Добавить фильм', 'Изменить фильм', 'popup is hidden'
-  const [popupTitle, setPopupTitle] = useState('popup is hidden');
+  // const [popupTitle, setPopupTitle] = useState('popup is hidden');
 
   // popup states:
-  // statuses: 'adding film popup', 'editing film popup', 'hide popup'
-  // titles: 'Добавить фильм', 'Изменить фильм', 'popup is hidden'
+  // statuses: 'adding film popup', 'editing film popup', 'editing sessions' 'hide popup'
+  // titles: 'Добавить фильм', 'Изменить фильм', 'Редактировать сеансы', 'popup is hidden'
   // isActive: true, false (показать / скрыть)
   const [popupInfo, setPopupInfo] = useState({
     status: 'hide popup',
@@ -39,12 +61,12 @@ const SessionManager = ({ halls, movies, sessions }) => {
   });
 
   console.log(popupInfo);
-  
 
-  const handlePopupStatus = (status, movie={}) => {
+
+  const handlePopupStatus = (status, movie = {}) => {
     console.log(movie);
     console.log('popup status handler');
-    Object.keys(movie).length !== 0 ? setMovieInfo({...movie}) : setMovieInfo({}); // проверка на пустой объект, который передаётся в handler
+    Object.keys(movie).length !== 0 ? setMovieInfo({ ...movie }) : setMovieInfo({}); // проверка на пустой объект, который передаётся в handler
     // setMovieInfo({...movie}); // обновить состояние фильма: либо добавить фильм, либо сбросить пустым объектом
     if (status === 'adding film popup') {
       setPopupInfo({
@@ -60,6 +82,13 @@ const SessionManager = ({ halls, movies, sessions }) => {
         isActive: true
       })
     }
+    if (status === 'editing sessions') {
+      setPopupInfo({
+        status: 'editing sessions',
+        title: 'Редактировать сеансы',
+        isActive: true
+      })
+    }
     if (status === 'hide popup') {
       setPopupInfo({
         status: 'hide popup',
@@ -69,6 +98,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
     }
   }
 
+  const lastId = movies.length; // для добавления нового id в форме
 
   const handleClick = (e) => {
     console.log(e.currentTarget.className);
@@ -79,78 +109,277 @@ const SessionManager = ({ halls, movies, sessions }) => {
     // setIsActiveHeaderState(!isActiveHeaderState);
   }
 
-  const handlePopup = (status) => {
-    console.log('popup2!');
-    setIsActivePopup(!isActivePopup);
-    setPopupStatus(status);
-    setMovieInfo({}); // сбросить информацию о выбранном фильме для добавления / закрытия формы
-    // setPopupTitle('Добавить фильм');
-    popupTitle === 'popup is hidden' ? setPopupTitle('Добавить фильм') : setPopupTitle('popup is hidden');
-  }
+  // const handlePopup = (status) => {
+  //   console.log('popup2!');
+  //   setIsActivePopup(!isActivePopup);
+  //   setPopupStatus(status);
+  //   setMovieInfo({}); // сбросить информацию о выбранном фильме для добавления / закрытия формы
+  //   // setPopupTitle('Добавить фильм');
+  //   popupTitle === 'popup is hidden' ? setPopupTitle('Добавить фильм') : setPopupTitle('popup is hidden');
+  // }
 
-  const handlePopup3 = (movie, status) => {
-    console.log(movie);
-    handlePopup(status);
-    // setActiveMovie({...movie});
-    setMovieInfo({...movie});
-    // setIsActivePopup(!isActivePopup);
-    setPopupTitle('Изменить фильм');
-  }
+  // const handlePopup3 = (movie, status) => {
+  //   console.log(movie);
+  //   handlePopup(status);
+  //   // setActiveMovie({...movie});
+  //   setMovieInfo({ ...movie });
+  //   // setIsActivePopup(!isActivePopup);
+  //   setPopupTitle('Изменить фильм');
+  // }
 
   const handleChange = (e) => {
-    setMovieInfo({...movieInfo, [e.target.name]: e.target.value});
-    console.log(e.target.value);    
+    setMovieInfo({ ...movieInfo, [e.target.name]: e.target.value });
+    console.log(e.target.value);
   }
 
-  const lastId = movies.length; // для добавления нового id в форме
+
+  // 
+  // 
+
+  const handleChanges = (id, changeInfo, name) => {
+    console.log({changeInfo, name});
+    // setSessionsInfo([...sessionsInfo, [target]: changeInfo]);
+    const session = sessionsInfo.find(session => session.id === id);
+    console.log(session);
+
+    let editedSession;
+
+    if (name === "hall_id") {
+      const editedHallId = halls.find(hall => hall.title === changeInfo).id;
+      editedSession = {...session, [name]: editedHallId };
+    } else {
+      editedSession = {...session, [name]: changeInfo };
+    }
+    const editedSessions = sessionsInfo.map(session => {
+      if (session.id === id) {
+        return editedSession;
+      } else {
+        return session;
+      }
+    })
+
+    setSessionsInfo(editedSessions);
+    console.log(editedSessions);
+  }
+
+  // 
+  // 
+
+  const handleChangeData = (newData, id) => {
+    // добавление сеанса
+    if (Object.prototype.hasOwnProperty.call(newData, "time")) {      
+      handleChangeSession(newData, id);
+    } 
+    // добавление фильма
+    if (Object.prototype.hasOwnProperty.call(newData, "duration")) {
+      handleChangeMovie(newData, id);
+    }
+  }
+
+  const handleChangeSession = (newSession, id) => {
+    const updatedSessions = sessionsInfo.map(session => {
+      return session.id === id ? newSession : session
+    })
+
+    setSessionsInfo(updatedSessions);
+    console.log(updatedSessions);
+    console.log('сеанс обновлён');        
+  }
+
+  const handleChangeMovie = (newMovie, id) => {
+    const updatedMovies = moviesInfo.map(movie => {
+      return movie.id === id ? newMovie : movie
+    })
+
+    setMoviesInfo(updatedMovies);
+    console.log(updatedMovies);
+    console.log('фильм обновлен');        
+  }
+
+  // const handleChangeData = (id, changeInfo, name, dataArray) => {
+  //   console.log({changeInfo, name});
+  //   const editedData = dataArray.find(data => data.id === id);
+  //   console.log(editedData);
+
+  //   // редактирование сеанса
+  //   if (Object.prototype.hasOwnProperty.call(editedData, "time")) {
+  //     handleChangeSession(editedData, name, changeInfo, id);
+  //   }
+  //   // редактирование фильма
+  //   if (Object.prototype.hasOwnProperty.call(editedData, "duration")) {
+  //     handleChangeMovie(editedData, name, changeInfo, id);
+  //   }    
+  // }
+
+  // const handleChangeSession = (session, name, changeInfo, id) => {
+  //   let editedSession;
+
+  //   if (name === "hall_id") {
+  //     const editedHallId = halls.find(hall => hall.title === changeInfo).id;
+  //     editedSession = {...session, [name]: editedHallId };
+  //   } else {
+  //     editedSession = {...session, [name]: changeInfo };
+  //   }
+  //   const editedSessions = sessionsInfo.map(session => {
+  //     if (session.id === id) {
+  //       return editedSession;
+  //     } else {
+  //       return session;
+  //     }
+  //   })
+
+  //   setSessionsInfo(editedSessions);
+  //   console.log(editedSessions);
+  // }
+
+  // const handleChangeMovie = (movie, name, changeInfo, id) => {
+  //   const editedMovie = {...movie, [name]: changeInfo };
+
+  //   const editedMovies = moviesInfo.map(movie => {
+  //     if (movie.id === id) {
+  //       return editedMovie;
+  //     } else {
+  //       return movie;
+  //     }
+  //   })
+
+  //   setMoviesInfo(editedMovies);
+  //   console.log(editedMovies);
+  // }
+
+  // 
+  // 
+
+  // Универсальный колбэк onAddCallback + функции обновления массивов сущностей
+
+  const handleAddData = (newData) => {
+    // добавление сеанса
+    if (Object.prototype.hasOwnProperty.call(newData, "time")) {      
+      handleAddSession(newData);
+    } 
+    // добавление фильма
+    if (Object.prototype.hasOwnProperty.call(newData, "duration")) {
+      handleAddMovie(newData);
+    }
+  }
+
+  const handleAddSession = (newSession) => {
+    const updatedSessions = sessionsInfo.concat(newSession);
+    // return updatedSessions;
+
+    setSessionsInfo(updatedSessions);
+    console.log(updatedSessions);
+    console.log('сеанс добавлен');        
+  }
+
+  const handleAddMovie = (newMovie) => {
+    const updatedMovies = moviesInfo.concat(newMovie);
+    // return updatedSessions;
+
+    setMoviesInfo(updatedMovies);
+    console.log(updatedMovies);
+    console.log('фильм добавлен');        
+  }
+
+  // 
+  // 
+
+  const handleInput = (e) => {
+    const session = sessionsInfo.find(session => session.id === editedSessionId);
+    console.log(session);
+
+    const editedSession = {...session, [e.target.name]: e.target.value };
+    const editedSessions = sessionsInfo.map(session => {
+      if (session.id === editedSessionId) {
+        return editedSession;
+      } else {
+        return session;
+      }
+    })
+
+    setSessionsInfo(editedSessions);
+    console.log(sessionsInfo);   
+
+    // setisDisabled(!isDisabled);
+  }
+
+  const handleSelect = (e) => {
+    const session = sessionsInfo.find(session => session.id === editedSessionId);
+    console.log(session);
+
+    const editedSession = {...session, [e.target.name]: e.target.value };
+    const editedSessions = sessionsInfo.map(session => {
+      if (session.id === editedSessionId) {
+        return editedSession;
+      } else {
+        return session;
+      }
+    })
+
+    setSessionsInfo(editedSessions);
+    console.log(sessionsInfo); 
+    
+    
+
+    // setisDisabled(!isDisabled);
+  }
+
+  const handleEdit = (id) => {
+    setEditedSessionId(id);
+    console.log(editedSessionId);
+    
+    setEdit(!edit);
+  }
+
+  const handleRefresh = () => {
+    console.log('handleRefresh');
+    
+    // сброс состояний на первоначальные из БД
+    setSessionsInfo([...sessions]);
+    setMoviesInfo([...movies])
+  }
 
   return (
     <section className="conf-step">
-      {/* <Popup2 isActive={isActivePopup} handlePopup={handlePopup}/> */}
-
-      {/* Рабочий вариант */}
-      {/* <Popup3 popupStatus={popupStatus} movieLastId={movieLastId} movieInfo={movieInfo} handleChange={handleChange} isActive={isActivePopup} popupTitle={popupTitle} handlePopup={handlePopup}>
-        <PopupBase isActive={isActivePopup} popupTitle={popupTitle} handlePopup={handlePopup}>
-        </PopupBase>
-      </Popup3> */}
-
-
-      <Popup3 
-        popupInfo={popupInfo} 
-        lastId={lastId} 
-        movieInfo={movieInfo} 
-        handleChange={handleChange} 
-        handlePopup={handlePopupStatus}
-      >
-        <PopupBase popupInfo={popupInfo} handlePopup={handlePopupStatus}>
-        </PopupBase>
-      </Popup3>
-
-
-      {/* <Popup3 activeMovie={activeMovie} isActive={isActivePopup} handlePopup={handlePopup3}>
-            <input 
-              type="text" 
-              name="title" 
-              placeholder="Название фильма" 
-              autoComplete="on"
-              value={activeMovie.title}
-              onChange={handleChange}
-            />
-            <textarea 
-              name="description" 
-              rows="5" 
-              cols="33" 
-              placeholder="Введите описание фильма" 
-              autoComplete="on"
-              value={activeMovie.description}
-              onChange={handleChange}
-            />
-      </Popup3> */}
-
-      <SectionHeader name={'Сетка сеансов'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick}/>
-      {/* <Popup2 isActive={isActivePopup} handlePopup={handlePopup}/> */}
 
       
+      {/* Резервный вариант */}
+      {/* <Popup3
+        popupInfo={popupInfo}
+        lastId={lastId}
+        movieInfo={movieInfo}
+        handleChange={handleChange}
+        handlePopup={handlePopupStatus}
+      > */}
+        {/* <PopupBase popupInfo={popupInfo} handlePopup={handlePopupStatus}>
+        </PopupBase> */}
+      {/* </Popup3> */}
+
+      <Popup4
+        popupInfo={popupInfo}
+        // lastId={lastId}
+        halls={hallsInfo}
+        movies={moviesInfo}
+        // sessions={sessions}
+        sessions={sessionsInfo}
+        // sessionId={sessionId}
+        // movieInfo={movieInfo}
+        handleInput={handleInput}
+        // handleEdit={handleEdit}
+        handleSelect={handleSelect}
+        onChangeCallback={handleChangeData}
+        onAddCallback={handleAddData}
+        editedElement={movieInfo}
+        // edit={edit}
+        // handleChange={handleChange}
+        handlePopup={handlePopupStatus}
+      >
+        {/* <PopupBase popupInfo={popupInfo} handlePopup={handlePopupStatus}>
+        </PopupBase> */}
+      </Popup4>
+
+      <SectionHeader name={'Сетка сеансов'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
+
       <div className="conf-step__wrapper">
         {/* Рабочий вариант */}
         {/* <p className="conf-step__paragraph">
@@ -167,52 +396,62 @@ const SessionManager = ({ halls, movies, sessions }) => {
           )} 
           </div> 
           */}
-          <p className="conf-step__paragraph">
-            <button className="conf-step__button conf-step__button-accent" onClick={()=>handlePopupStatus('adding film popup')}>Добавить фильм</button>
-          </p>
-          <div className="conf-step__movies">
-            {movies.map(movie => (
-              <div key={movie.id} className="conf-step__movie" onClick={() => handlePopupStatus('editing film popup', movie)}>
-                <img className="conf-step__movie-poster" alt="poster" src={poster}/>
-                <h3 className="conf-step__movie-title">{movie.title}</h3>
-                <p className="conf-step__movie-duration">{movie.duration} минут</p>
-              </div>
-              )
-            )}
+        <p className="conf-step__paragraph">
+          <button className="conf-step__button conf-step__button-accent" onClick={() => handlePopupStatus('adding film popup')}>Добавить фильм</button>
+        </p>
+
+        <div className="conf-step__movies">
+          {moviesInfo.map(movie => (
+            <div key={movie.id} className="conf-step__movie" onClick={(e) => {
+              console.log(window.getComputedStyle(e.currentTarget).backgroundColor);              
+              handlePopupStatus('editing film popup', movie)}}>
+              <img className="conf-step__movie-poster" alt="poster" src={poster} />
+              <h3 className="conf-step__movie-title">{movie.title}</h3>
+              <p className="conf-step__movie-duration">{movie.duration} минут</p>
+            </div>
+          )
+          )}
         </div>
-        
+
+        <p className="conf-step__paragraph">
+          <button className="conf-step__button conf-step__button-accent" onClick={() => handlePopupStatus('editing sessions')}>Редактировать сеансы</button>
+        </p>
+
         <div className="conf-step__seances">
           {halls.map(hall => (
-              <div key={ hall.id } className="conf-step__seances-hall">
-                <h3 className="conf-step__seances-title">{ hall.title }</h3>
-                <div className="conf-step__seances-timeline">
-                  {
-                    sessions.map(session => (
-                      // const duration = Number({session.duration});
-                      // const sessionDurationWidth = 'calc(' + duration + '*' + '0.5)';
-                      session.hall_id === hall.id ? (<div key={ session.id } className="conf-step__seances-movie"  style={ 
-                                                    { width: `calc(${session.duration}px * 0.5)`, 
-                                                      backgroundColor: 'rgb(133, 255, 137)', 
-                                                      left: `calc((${session.time.slice(0,2)} + ${session.time.slice(3)} / 60) * 720px / 24)` 
-                                                    } 
-                                                    }>
-                                                      <p className="conf-step__seances-movie-title">{ movies[session.movie_id - 1].title }</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
-                                                      <p className="conf-step__seances-movie-start">{ session.time }</p>
-                                                    </div>) : null
-                    ))
-                  }
-                  {/* 
+            <div key={hall.id} className="conf-step__seances-hall">
+              <h3 className="conf-step__seances-title">{hall.title}</h3>
+              <div className="conf-step__seances-timeline">
+                {
+                  // изначально sessions
+                  sessionsInfo.map(session => (
+                    // const duration = Number({session.duration});
+                    // const sessionDurationWidth = 'calc(' + duration + '*' + '0.5)';
+                    session.hall_id === hall.id ? (<div key={session.id} className="conf-step__seances-movie" style={
+                      {
+                        width: `calc(${session.duration}px * 0.5)`,
+                        backgroundColor: 'rgb(133, 255, 137)',
+                        // backgroundColor: `${window.getComputedStyle()}`
+                        left: `calc((${session.time.slice(0, 2)} + ${session.time.slice(3)} / 60) * 720px / 24)`
+                      }
+                    }>
+                      <p className="conf-step__seances-movie-title">{moviesInfo[session.movie_id - 1].title}</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
+                      <p className="conf-step__seances-movie-start">{session.time}</p>
+                    </div>) : null
+                  ))
+                }
+                {/* 
                   <div className="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
                     <p className="conf-step__seances-movie-title">Миссия выполнима</p>
                     <p className="conf-step__seances-movie-start">00:00</p>
                   </div>
                   */}
-                </div>
               </div>
-            )
+            </div>
+          )
           )}
         </div>
-        <SectionButtons/> 
+        <SectionButtons handleRefresh={handleRefresh}/>
       </div>
     </section>
   )

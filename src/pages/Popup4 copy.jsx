@@ -3,29 +3,18 @@ import axios from "axios";
 import { useState } from "react";
 import PopupBase from "./PopupBase";
 
-const Popup3 = ({ popupInfo, lastId, movieInfo, handleChange, handlePopup }) => {
+const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], handleInput, handleEdit, handleChange, handlePopup }) => {
 
-  // const initialMovie = activeMovie;
-  // console.log(initialMovie);
+  // Выбранный зал
+  const initialSelectedHallTitle = halls[0].title;
+  const [selectedHallTitle, setSelectedHallTitle] = useState(initialSelectedHallTitle);
 
+  // Выбранный фильм
+  const initialSelectedMovieTitle = movies[0].title;
+  const [selectedMovieTitle, setSelectedMovieTitle] = useState(initialSelectedMovieTitle);
 
-  // const [movieInfo, setMovieInfo] = useState({
-  //   title: '',
-  //   description: '',
-  //   duration: '',
-  //   country: ''
-  // })
-
-
-
-  // const [movieInfo, setMovieInfo] = useState(initialMovie);
-  // console.log(movieInfo);
-
-
-  // const handleChange = (e) => {
-  //   setMovieInfo({...movieInfo, [e.target.name]: e.target.value});
-  //   console.log(e.target.value);    
-  // }
+  // возможность редакировать инпуты
+  const [isDisabled, setisDisabled] = useState(false);
 
   // Функционал: Добавление нового фильма
   const handleMovieAdding = (e) => {
@@ -68,33 +57,6 @@ const Popup3 = ({ popupInfo, lastId, movieInfo, handleChange, handlePopup }) => 
 
     console.log('Hall adding request');
 
-    /* fetch("http://localhost:4000/halls", {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-         'id': '342',
-         'title': hallValue,
-         'rows': '20',
-         'places': '14',
-         'normal_price': 240.00,
-         'vip_price': 570.00
-      })
-  }).then(response => response.json())
-  .then(response => {
-        console.log(response);
-      }) */
-
-    // axios
-    //   .get("http://localhost:4000/halls")
-    //   .then((response) => response.json())
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
     apiClient.post('/halls', {
       id: `${lastId + 1}`,
       ...movieInfo,
@@ -218,32 +180,79 @@ const Popup3 = ({ popupInfo, lastId, movieInfo, handleChange, handlePopup }) => 
   }
 
   if (popupInfo.status === 'editing sessions') {
+    const filtredSessions = sessions.filter(session => session.movie_id === movies.find(movie => movie.title === selectedMovieTitle).id)
+
+
     return (
       <>
         <PopupBase popupInfo={popupInfo} handlePopup={handlePopup}>
-          <label>
-            Выберете зал:
-            <select name="hall">
-              <option value="apple">Apple</option>
-              <option value="banana">Banana</option>
-              <option value="orange">Orange</option>
-            </select>
-          </label>
+          <div className="session-popup">
+            <label>
+              Выберете зал:{' '}
+              <select
+                value={selectedHallTitle}
+                onChange={(e) => {
+                  setSelectedHallTitle(e.target.value);
+                  console.log(e.target.value);
+                }}
+                name="hall-title"
+              >
+                {halls.map(hall => <option key={hall.id} value={hall.title}>{hall.title}</option>)}
+              </select>
+            </label>
+
+            <label>
+              Выберете фильм:{' '}
+              <select
+                value={selectedMovieTitle}
+                onChange={(e) => {
+                  setSelectedMovieTitle(e.target.value);
+                  console.log(e.target.value);
+                }}
+                name="movie-title"
+              >
+                {movies.map(movie => <option key={movie.id} value={movie.title}>{movie.title}</option>)}
+              </select>
+            </label>
 
 
-          <select>
+            <label>
+              Текущие сеансы:
+              <div className="all-sessions">
+                {filtredSessions.map(session =>
+                  <div key={session.id}>
+                    <label> Название зала:{' '}
+                      <input
+                        name="hall_id"
+                        value={halls.find(hall => hall.id === session["hall_id"]).title}
+                        onChange={handleInput}
+                        disabled={isDisabled}>
+                      </input>
+                      <select
+                        value={selectedHallTitle}
+                        onChange={(e) => {
+                          setSelectedHallTitle(e.target.value);
+                          console.log(e.target.value);
+                        }}
+                        name="hall-title"
+                      >
+                        {halls.map(hall => <option key={hall.id} value={halls.find(hall => hall.id === session["hall_id"]).title}>{hall.title}</option>)}
+                      </select>
+                    </label>
+                    <span> ... </span>
+                    <input
+                      name="time"
+                      type="time"
+                      value={session.time}
+                      onChange={handleInput}
+                      disabled={isDisabled} />
+                    <button onClick={() => handleEdit(session.id)}>Редактировать сеанс</button>
+                  </div>)}
+              </div>
+            </label>
 
-
-          </select>
-          {/* <input
-            type="text"
-            name="title"
-            placeholder="Название зала"
-            autoComplete="on"
-            value={movieInfo.title}
-            onChange={handleChange}
-          />
-          <input type="button" value="Добавить зал" onClick={handleHallAdding} /> */}
+            <button>Добавить сеанс</button>
+          </div>
         </PopupBase>
       </>
     )
@@ -257,4 +266,4 @@ const Popup3 = ({ popupInfo, lastId, movieInfo, handleChange, handlePopup }) => 
   }
 }
 
-export default Popup3
+export default Popup4
