@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PopupSelect = ({ initialValue = "", optionsData, name, edit, onChangeCallback }) => {
+const PopupSelect = ({ initialValue = "", optionsData, name, edit=true, onChangeCallback }) => {
   const [value, setValue] = useState(initialValue);
   return (
     <select
@@ -12,6 +12,7 @@ const PopupSelect = ({ initialValue = "", optionsData, name, edit, onChangeCallb
       }}
       name={name} 
       disabled={!edit}
+      required
     >
       {optionsData.map(optionData => <option
         key={optionData.id}

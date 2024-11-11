@@ -9,11 +9,12 @@ import SectionHeader from './SectionHeader'
 import Popup3 from './Popup3';
 import PopupBase from './PopupBase';
 import Popup4 from './Popup4';
+import { addDataToDB, changeDataInDB, deleteDataInDB } from '../services/DBUpdater';
 
 const SessionManager = ({ halls, movies, sessions }) => {
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
 
-  const [isActivePopup, setIsActivePopup] = useState(false);
+  // const [isActivePopup, setIsActivePopup] = useState(false);
 
   const [movieInfo, setMovieInfo] = useState({});
   console.log(movieInfo);
@@ -29,6 +30,32 @@ const SessionManager = ({ halls, movies, sessions }) => {
   // Залы
   const [hallsInfo, setHallsInfo] = useState([...halls]);
   console.log(hallsInfo);
+
+
+  // Фильмы для добавления в DB при обработке кнопки "Сохранить"
+  const [moviesToAddInDB, setMoviesToAddInDB] = useState([]);
+
+  // Сеансы для добавления в DB при обработке кнопки "Сохранить"
+  const [sessionsToAddInDB, setSessionsToAddInDB] = useState([]);
+
+  console.log({moviesToAddInDB}, {sessionsToAddInDB});
+
+  // Фильмы для изменения в DB при обработке кнопки "Сохранить"
+  const [moviesToChangeInDB, setMoviesToChangeInDB] = useState([]);
+
+  // Сеансы для изменения в DB при обработке кнопки "Сохранить"
+  const [sessionsToChangeInDB, setSessionsToChangeInDB] = useState([]);
+  
+  console.log({moviesToChangeInDB}, {sessionsToChangeInDB});
+
+  // Фильмы для удаления в DB при обработке кнопки "Сохранить"
+  const [moviesToDeleteInDB, setMoviesToDeleteInDB] = useState([]);
+
+  // Сеансы для удаления в DB при обработке кнопки "Сохранить"
+  const [sessionsToDeleteInDB, setSessionsToDeleteInDB] = useState([]);
+  
+  console.log({moviesToDeleteInDB}, {sessionsToDeleteInDB});
+
 
 
   // const [sessionInfo, setSessionInfo] = useState({});
@@ -98,7 +125,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
     }
   }
 
-  const lastId = movies.length; // для добавления нового id в форме
+  // const lastId = movies.length; // для добавления нового id в форме
 
   const handleClick = (e) => {
     console.log(e.currentTarget.className);
@@ -183,7 +210,10 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
     setSessionsInfo(updatedSessions);
     console.log(updatedSessions);
-    console.log('сеанс обновлён');        
+    console.log('сеанс обновлён'); 
+    
+    // подготовка для DB
+    setSessionsToChangeInDB(sessionsToChangeInDB.concat(newSession));
   }
 
   const handleChangeMovie = (newMovie, id) => {
@@ -193,7 +223,10 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
     setMoviesInfo(updatedMovies);
     console.log(updatedMovies);
-    console.log('фильм обновлен');        
+    console.log('фильм обновлен');  
+    
+    // подготовка для DB
+    setMoviesToChangeInDB(moviesToChangeInDB.concat(newMovie));
   }
 
   // const handleChangeData = (id, changeInfo, name, dataArray) => {
@@ -269,7 +302,10 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
     setSessionsInfo(updatedSessions);
     console.log(updatedSessions);
-    console.log('сеанс добавлен');        
+    console.log('сеанс добавлен'); 
+    
+    // подготовка для DB
+    setSessionsToAddInDB(sessionsToAddInDB.concat(newSession));
   }
 
   const handleAddMovie = (newMovie) => {
@@ -278,7 +314,59 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
     setMoviesInfo(updatedMovies);
     console.log(updatedMovies);
-    console.log('фильм добавлен');        
+    console.log('фильм добавлен');
+    
+    // подготовка для DB
+    setMoviesToAddInDB(moviesToAddInDB.concat(newMovie));
+  }
+
+
+  const handleDeleteData = (data) => {
+    // удаление сеанса
+    if (Object.prototype.hasOwnProperty.call(data, "time")) {      
+      handleDeleteSession(data.id);
+    } 
+    // удаление фильма
+    if (Object.prototype.hasOwnProperty.call(data, "duration")) {
+      handleDeleteMovie(data.id);
+    }
+  }
+
+  const handleDeleteSession = (sessionId) => {
+    const updatedSessions = sessionsInfo.filter(session => session.id !== sessionId);
+
+    setSessionsInfo(updatedSessions);
+    console.log(updatedSessions);
+    console.log('сеанс удалён'); 
+    
+    // подготовка для DB
+    setSessionsToDeleteInDB(sessionsToDeleteInDB.concat(sessionId)); // массив Id
+  }
+
+  const handleDeleteMovie = (movieId) => {
+    const updatedMovies = moviesInfo.filter(movie => movie.id !== movieId);
+
+    setMoviesInfo(updatedMovies);
+    console.log(updatedMovies);
+    console.log('фильм удалён');
+
+    // Также нужно удалить сеансы, связанные с этим фильмом (Laravel В помощь)
+    const updatedSessions = sessionsInfo.filter(session => session.movie_id !== movieId);
+
+    setSessionsInfo(updatedSessions);
+    console.log(updatedSessions);
+    console.log('удалены сеансы на конкретный удалённый фильм'); 
+
+    
+    // подготовка для DB
+    setMoviesToDeleteInDB(moviesToDeleteInDB.concat(movieId));
+
+    // найти Id связанных с фильмом сеансов и поместить в новый массив
+    const sessionsToDelete = sessionsInfo.filter(session => session.movie_id === movieId)
+    
+    if (sessionsToDelete.length > 0) {
+      setSessionsToDeleteInDB(sessionsToDeleteInDB.concat(sessionsToDelete.map(session => session.id)))
+    }
   }
 
   // 
@@ -331,12 +419,59 @@ const SessionManager = ({ halls, movies, sessions }) => {
     setEdit(!edit);
   }
 
+  const handleDBUpdate = () => {
+    // добавление в БД
+    if (moviesToAddInDB.length > 0) {
+      addDataToDB(moviesToAddInDB, '/movies');
+      setMoviesToAddInDB([]);
+    }
+    if (sessionsToAddInDB.length > 0) {
+      addDataToDB(sessionsToAddInDB, '/sessions');
+      setSessionsToAddInDB([]);
+    }
+
+    // изменение сущностей в БД
+    if (moviesToChangeInDB.length > 0) {
+      changeDataInDB(moviesToChangeInDB, '/movies');
+      setMoviesToChangeInDB([]);
+    }
+    if (sessionsToChangeInDB.length > 0) {
+      changeDataInDB(sessionsToChangeInDB, '/sessions');
+      setSessionsToChangeInDB([]);
+    }
+
+    // удаление сущностей в БД
+    if (moviesToDeleteInDB.length > 0) {
+      deleteDataInDB(moviesToDeleteInDB, '/movies');
+      setMoviesToDeleteInDB([]);
+    }
+    if (sessionsToDeleteInDB.length > 0) {
+      deleteDataInDB(sessionsToDeleteInDB, '/sessions');
+      setSessionsToDeleteInDB([]);
+    }
+
+    // // сброс данных для подготовки к отправке в БД
+    // setSessionsToAddInDB([]);
+    // setMoviesToAddInDB([]);
+    // setMoviesToChangeInDB([]);
+    // setSessionsToChangeInDB([]);
+  }
+
   const handleRefresh = () => {
     console.log('handleRefresh');
     
     // сброс состояний на первоначальные из БД
     setSessionsInfo([...sessions]);
     setMoviesInfo([...movies])
+
+    // сброс данных для подготовки к отправке в БД
+    setSessionsToAddInDB([]);
+    setMoviesToAddInDB([]);
+    setMoviesToChangeInDB([]);
+    setSessionsToChangeInDB([]);
+    setMoviesToDeleteInDB([]);
+    setSessionsToDeleteInDB([]);
+
   }
 
   return (
@@ -369,6 +504,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
         handleSelect={handleSelect}
         onChangeCallback={handleChangeData}
         onAddCallback={handleAddData}
+        onDeleteCallback={handleDeleteData}
         editedElement={movieInfo}
         // edit={edit}
         // handleChange={handleChange}
@@ -435,7 +571,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
                         left: `calc((${session.time.slice(0, 2)} + ${session.time.slice(3)} / 60) * 720px / 24)`
                       }
                     }>
-                      <p className="conf-step__seances-movie-title">{moviesInfo[session.movie_id - 1].title}</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
+                      <p className="conf-step__seances-movie-title">{moviesInfo.find(movie => movie.id === session.movie_id).title}</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
                       <p className="conf-step__seances-movie-start">{session.time}</p>
                     </div>) : null
                   ))
@@ -451,7 +587,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
           )
           )}
         </div>
-        <SectionButtons handleRefresh={handleRefresh}/>
+        <SectionButtons handleRefresh={handleRefresh} handleDBUpdate={handleDBUpdate}/>
       </div>
     </section>
   )

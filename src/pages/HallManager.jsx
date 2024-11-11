@@ -93,9 +93,9 @@ const HallManager = ({ halls }) => {
       setHallsInfo(hallsInfo.filter(hall => hall.id !== id));
       deleteHallFromDB(id);
       // if (e.target.tagName === 'BUTTON') {
-        apiClient.delete(`/halls/${hall.id}`)
-          .then(response => console.log(response.statusText))
-          .catch(error => console.log(error))
+        // apiClient.delete(`/halls/${hall.id}`)
+        //   .then(response => console.log(response.statusText))
+        //   .catch(error => console.log(error))
       // }
     }
     // 

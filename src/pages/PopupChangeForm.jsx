@@ -3,16 +3,24 @@ import PopupInput from "./PopupInput";
 import PopupTextarea from "./PopupTextarea";
 
 
-const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handlePopup }) => {
+const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handlePopup, onDeleteCallback }) => {
   console.log({editedElement});
   
   const [newItem, setNewItem] = useState(editedElement);
   console.log({ newItem });
 
-  const handleData = () => {
+  const handleData = (e) => {
+    e.preventDefault();
     console.log('изменение элемента в массиве');
     onChangeCallback(newItem, newItem.id);
 
+    setNewItem({});
+    // setAdding(false);
+    handlePopup('hide popup');
+  }
+
+  const handleDelete = () => {  
+    onDeleteCallback(editedElement);
     setNewItem({});
     // setAdding(false);
     handlePopup('hide popup');
@@ -22,11 +30,11 @@ const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handleP
     setNewItem({ ...newItem, [name]: editedValue });
   }
   return (
-    <>
+    <form onSubmit={handleData}>
       <div className="popup__row">
         <label> Название:{' '}
           <PopupInput
-            elementId={editedElement}
+            // elementId={editedElement}
             initialValue={editedElement.title}
             name="title"
             type="text"
@@ -39,7 +47,7 @@ const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handleP
       <div className="popup__row">
         <label> Описание:{' '}
           <PopupTextarea
-            elementId={editedElement}
+            // elementId={editedElement}
             initialValue={editedElement.description}
             name="description"
             placeholder="Название фильма"
@@ -51,7 +59,7 @@ const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handleP
       <div className="popup__row">
         <label> Длительность, мин:{' '}
           <PopupInput
-            elementId={editedElement}
+            // elementId={editedElement}
             initialValue={editedElement.duration}
             name="duration"
             type="text"
@@ -65,7 +73,7 @@ const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handleP
       <div>
         <label> Производство:{' '}
           <PopupInput
-            elementId={editedElement}
+            // elementId={editedElement}
             initialValue={editedElement.country}
             name="country"
             type="text"
@@ -75,8 +83,10 @@ const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handleP
             onChangeCallback={onChangeItemData} />
         </label>
       </div>
-      <button className="conf-step__button conf-step__button-accent" onClick={handleData}>{buttonTitle}</button>
-    </>
+      <button type="submit" className="conf-step__button conf-step__button-accent" onSubmit={handleData}>{buttonTitle}</button>
+
+      <button type="button" className="conf-step__button conf-step__button-warning" onClick={handleDelete}>Удалить фильм</button>
+    </form>
   )
 }
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PopupTextarea = ({ elementId, initialValue = "", name, rows, cols, placeholder = "", autoComplete, edit, onChangeCallback }) => {
+const PopupTextarea = ({ elementId, initialValue = "", name, rows, cols, placeholder = "", autoComplete, edit=true, onChangeCallback }) => {
   const [value, setValue] = useState(initialValue);
 
   return (
@@ -17,6 +17,8 @@ const PopupTextarea = ({ elementId, initialValue = "", name, rows, cols, placeho
         onChangeCallback && onChangeCallback(e.target.value, name)
       }}
       disabled={!edit}
+      required
+      minLength={10}
     >
     </textarea>
   )

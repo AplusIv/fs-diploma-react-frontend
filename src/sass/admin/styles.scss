@@ -7,8 +7,10 @@ $black: #000000;
 $white: #FFFFFF;
 $grey: #848484;
 $lightgrey: #EAE9EB;
+$red: #ff0000;
 $startyellow: #FFEB85;
-$colors: 10;
+$colors: 15;
+// $colors: 10; было изначально
 $degrees: 360 / $colors;
 
 $colwidth: 42px;
@@ -319,6 +321,28 @@ input[type='radio'], input[type='submit'], input[type='time'], button, .conf-ste
     position: relative;
     top: 2px;
     background-color: #146C72;
+    color: $white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+  }  
+  
+}
+
+.conf-step__button.conf-step__button-warning {
+  color: $white;
+  background-color: $red;
+  padding: 12px 32px;
+  margin-top: 17px;
+  
+  &:hover,
+  &:focus{
+    background-color: #d24a2f;
+    outline: none;
+  }
+  
+  &:active {
+    position: relative;
+    top: 2px;
+    background-color: #681618;
     color: $white;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
   }  

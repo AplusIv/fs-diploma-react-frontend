@@ -11,7 +11,10 @@ const PopupNewDataAdding2 = ({ initialItem = {}, halls, movies, buttonTitle, onA
   console.log({ newItem });
 
 
-  const handleAddData = () => {
+  const handleAddData = (e) => {
+    e.preventDefault();
+    console.log('submit adding form');
+    
     console.log('добавление нового элемента в массив');
     onAddCallback(newItem);
 
@@ -32,53 +35,37 @@ const PopupNewDataAdding2 = ({ initialItem = {}, halls, movies, buttonTitle, onA
   }
 
   return (
-    <div className="popup__row add-item">
-      <label> Зал:{' '}
-        <PopupSelect
-          initialValue={halls[0].title}
-          optionsData={halls}
-          name="hall_id"
-          edit={!edit}
-          onChangeCallback={onChangeItemData}
-        />
-      </label>
-      <label> Фильм:{' '}
-        <PopupSelect
-          initialValue={movies[0].title}
-          optionsData={movies}
-          name="movie_id"
-          edit={!edit}
-          onChangeCallback={onChangeItemData}
-        />
-      </label>
-      <label>Время сеанса:{' '}
-        <PopupInput
-          name="time"
-          type="time"
-          autoComplete="on"
-          edit={!edit}
-          onChangeCallback={onChangeItemData} />
-      </label>
-      {/* <label> Зал:{' '}
-        {<PopupNewDataSelectField
-          optionsData={halls}
-          name="hall_id"
-          onChangeCallback={onChangeCallback} />}
-      </label>
-      <label> Фильм:{' '}
-        {<PopupNewDataSelectField
-          optionsData={movies}
-          name="movie_id"
-          onChangeCallback={onChangeCallback} />}
-      </label>
-      <label>Время сеанса:{' '}
-        <PopupNewDataInputField
-          name="time"
-          type="time"
-          onChangeCallback={onChangeCallback} />
-      </label> */}
-      <button className="conf-step__button conf-step__button-accent" onClick={handleAddData}>{buttonTitle}</button>
-    </div>
+    <form onSubmit={handleAddData}>
+      <div className="popup__row add-item">
+        <label> Зал:{' '}
+          <PopupSelect
+            initialValue={halls[0].title}
+            optionsData={halls}
+            name="hall_id"
+            edit={!edit}
+            onChangeCallback={onChangeItemData}
+          />
+        </label>
+        <label> Фильм:{' '}
+          <PopupSelect
+            initialValue={movies[0].title}
+            optionsData={movies}
+            name="movie_id"
+            edit={!edit}
+            onChangeCallback={onChangeItemData}
+          />
+        </label>
+        <label>Время сеанса:{' '}
+          <PopupInput
+            name="time"
+            type="time"
+            autoComplete="on"
+            edit={!edit}
+            onChangeCallback={onChangeItemData} />
+        </label>
+        <button type="submit" className="conf-step__button conf-step__button-accent" onSubmit={handleAddData}>{buttonTitle}</button>
+      </div>
+    </form>
   )
 }
 

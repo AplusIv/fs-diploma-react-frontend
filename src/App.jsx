@@ -28,41 +28,61 @@ import Ticket from "./layouts/client/Ticket"
 // import { hallsLoader } from "./pages/HallManager"
 import { loader } from "./services/loader"
 import BigSpinner from "./pages/BigSpinner"
+import { useContext, useMemo, useState } from "react"
+
+// тест
+import Books from "./pages/Books"
+import { isLoggedContext } from "./services/Context"
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<RootLayout/>} errorElement={<ShowError/>}>
-        <Route index element={<Home/>} loader={loader}/>
-        <Route path="login" element={<Login/>}/>
+      <Route path="/" element={<RootLayout />} errorElement={<ShowError />}>
+        <Route index element={<Home />} loader={loader} />
+        <Route path="login" element={<Login />} />
 
-        <Route path="*" element={<NotFound/>}/>
+        <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="client" element={<ClientRootLayout/>}>
-        <Route index element={<Index/>} loader={loader} />
+      <Route path="client" element={<ClientRootLayout />}>
+        <Route index element={<Index />} loader={loader} />
       </Route>
-      <Route path="buying" element={<ClientRootLayout/>}>
+      <Route path="buying" element={<ClientRootLayout />}>
         {/* <Route index element={<Booking/>} /> */}
-        <Route index element={<Buying/>} />
+        <Route index element={<Buying />} />
       </Route>
-      <Route path="payment" element={<ClientRootLayout/>}>
-        <Route index element={<Payment/>} />
+      <Route path="payment" element={<ClientRootLayout />}>
+        <Route index element={<Payment />} />
       </Route>
-      <Route path="ticket" element={<ClientRootLayout/>}>
-        <Route index element={<Payment/>} />
+      <Route path="ticket" element={<ClientRootLayout />}>
+        <Route index element={<Payment />} />
       </Route>
+
+      <Route path='books' element={<Books />} />
 
     </>
   )
 )
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [loggedIn, setLoggedIn] = useState(false)
+  const contextValue = useMemo(() => ({ loggedIn, setLoggedIn }), [loggedIn]); // запоминает функцию ,не перерисовывает без изменения значений
+  // const { data, setData } = useContext(isLoggedContext)
 
+  // const [count, setCount] = useState(0)
+  //   const [loggedIn, setLoggedIn] = useState(false);
+
+  //   const login = () => {
+  //     setLoggedIn(true);
+  // };
+
+  // const isLoggedContext = useContext(isLoggedContext)
   return (
-    <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
-  //   
+    <isLoggedContext.Provider value={contextValue}>
+      <RouterProvider router={router} fallbackElement={<BigSpinner />} />
+    </isLoggedContext.Provider>
+    // <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
+    //   
     //   <div>
     //     <a href="https://vitejs.dev" target="_blank">
     //       <img src={viteLogo} className="logo" alt="Vite logo" />

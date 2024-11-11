@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PopupInput = ({ initialValue = "", name, type, placeholder = "", autoComplete, edit, onChangeCallback }) => {
+const PopupInput = ({ initialValue = "", name, type, placeholder = "", autoComplete, edit=true, onChangeCallback }) => {
   const [value, setValue] = useState(initialValue);
 
   return (
@@ -15,7 +15,8 @@ const PopupInput = ({ initialValue = "", name, type, placeholder = "", autoCompl
         setValue(e.target.value);
         onChangeCallback && onChangeCallback(e.target.value, name)
       }}
-      disabled={!edit}>
+      disabled={!edit}
+      required>
     </input>
 
     // (elementId) ? <input 
