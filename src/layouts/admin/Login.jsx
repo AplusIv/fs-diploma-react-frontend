@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 import { createContext, useContext, useState } from "react"
 import apiClient from "../../services/api";
@@ -15,13 +15,13 @@ const Login = () => {
 
   // const isLoggedContext = createContext(loggedIn);
 
-  const {loggedIn, setLoggedIn} = useContext(isLoggedContext);
-  console.log(loggedIn, setLoggedIn);
+  const {loggedIn, setLoggedIn, login} = useContext(isLoggedContext);
+  console.log(loggedIn, setLoggedIn, login);
   
 
-  const login = () => {
-    setLoggedIn(!loggedIn);
-  }
+  // const login = () => {
+  //   setLoggedIn(!loggedIn);
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,8 +35,9 @@ const Login = () => {
           console.log(response)
           if (response.status === 204) {
             login(); // если основной запрос 302 -> залогиниться
+            sessionStorage.setItem('loggedIn', true);
             console.log('пользователь авторизован');
-            
+
             setToHome(true);           
           }
         })
@@ -44,7 +45,7 @@ const Login = () => {
   }
 
   // if (toHome === true) {
-  //   return redirect('http://localhost:5173/');
+  //   return redirect('http://localhost:5173/api/books');
   // }
 
   return (

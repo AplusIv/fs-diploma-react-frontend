@@ -28,11 +28,12 @@ import Ticket from "./layouts/client/Ticket"
 // import { hallsLoader } from "./pages/HallManager"
 import { loader } from "./services/loader"
 import BigSpinner from "./pages/BigSpinner"
-import { useContext, useMemo, useState } from "react"
+import { useCallback, useContext, useMemo, useState } from "react"
 
 // тест
 import Books from "./pages/Books"
 import { isLoggedContext } from "./services/Context"
+import HallsApi from "./pages/HallsApi"
 
 
 const router = createBrowserRouter(
@@ -59,13 +60,20 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path='books' element={<Books />} />
+      <Route path='halls' element={<HallsApi />} />
 
     </>
   )
 )
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('loggedIn') == 'true' || false);
+  // const login = () => {
+  //   setLoggedIn(!loggedIn);
+  // }
+  const login = useCallback(() => {
+      setLoggedIn(!loggedIn);
+    }, [loggedIn]);
   const contextValue = useMemo(() => ({ loggedIn, setLoggedIn }), [loggedIn]); // запоминает функцию ,не перерисовывает без изменения значений
   // const { data, setData } = useContext(isLoggedContext)
 
@@ -78,7 +86,7 @@ function App() {
 
   // const isLoggedContext = useContext(isLoggedContext)
   return (
-    <isLoggedContext.Provider value={contextValue}>
+    <isLoggedContext.Provider value={{...contextValue, login: login}}>
       <RouterProvider router={router} fallbackElement={<BigSpinner />} />
     </isLoggedContext.Provider>
     // <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
