@@ -2,6 +2,9 @@ import { useState } from "react";
 
 const PopupSelect = ({ initialValue = "", optionsData, name, edit=true, onChangeCallback }) => {
   const [value, setValue] = useState(initialValue);
+  
+  if (optionsData.length === 0) return null;
+
   return (
     <select
       className="popup__select"

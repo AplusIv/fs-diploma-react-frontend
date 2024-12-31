@@ -6,7 +6,7 @@ import apiClient from "../../services/api";
 import { isLoggedContext } from "../../services/Context";
 
 const Login = () => {
-  const [toHome, setToHome] = useState(false);
+  const [toHome, setToHome] = useState(false); // необязательно для глобального контекста
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +17,8 @@ const Login = () => {
 
   const {loggedIn, setLoggedIn, login} = useContext(isLoggedContext);
   console.log(loggedIn, setLoggedIn, login);
+
+  const navigate = useNavigate();
   
 
   // const login = () => {
@@ -38,7 +40,10 @@ const Login = () => {
             sessionStorage.setItem('loggedIn', true);
             console.log('пользователь авторизован');
 
-            setToHome(true);           
+            setToHome(true);      
+            
+            console.log({loggedIn});            
+            navigate('/')
           }
         })
       }).catch(err => console.log(err));
@@ -47,6 +52,12 @@ const Login = () => {
   // if (toHome === true) {
   //   return redirect('http://localhost:5173/api/books');
   // }
+
+  if (loggedIn === true) {
+    // return redirect('http://localhost:5173/api/books');
+    console.log('пользователь авторизован, можно перенаправлять на главную');
+    
+  }
 
   return (
 
@@ -67,7 +78,7 @@ const Login = () => {
               <input
                 className="login__input"
                 type="email"
-                placeholder="admin@gmail.com"
+                placeholder="admin2@gmail.com"
                 name="email"
                 required
                 value={email}

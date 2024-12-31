@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 // import poster from '../../img/admin/poster.png'
 
 //pages
@@ -7,9 +7,20 @@ import HallConfigurator from '../../pages/HallConfigurator';
 import PriceConfigurator from '../../pages/PriceConfigurator';
 import SessionManager from '../../pages/SessionManager';
 import SellsConfigurator from '../../pages/SellsConfigurator';
+import { useContext } from 'react';
+import { isLoggedContext } from '../../services/Context';
 
 const Home = () => {
+ 
 
+  // const {status} = useLoaderData();
+  // console.log({statusLoader: status});
+
+  // const navigate = useNavigate();
+
+  // if (status === 401) {
+  //   return navigate('/login');
+  // } 
   
   const { halls, movies, sessions, places } = useLoaderData();
 
@@ -23,6 +34,16 @@ const Home = () => {
   //   }
   //   // setIsActiveHeaderState(!isActiveHeaderState);
   // }
+
+  // вернуть
+  const {loggedIn} = useContext(isLoggedContext); 
+  console.log({loggedIn});
+  
+  const navigate = useNavigate();
+
+  if (!loggedIn) {
+    navigate('/login');
+  }  
 
   return (
     <main className="conf-steps">

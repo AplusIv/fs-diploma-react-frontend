@@ -19,7 +19,7 @@ const PopupMovieAdding = ({ initialItem = {}, buttonTitle, onAddCallback, handle
   }
 
   const onChangeItemData = (editedValue, name) => {
-    setNewItem({ ...newItem, [name]: editedValue });
+    (name === 'duration') ? setNewItem({ ...newItem, [name]: Number(editedValue) }) : setNewItem({ ...newItem, [name]: editedValue });
   }
 
   return (

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import PopupBase from "./PopupBase";
 import PopupSessionInfo from "./PopupSessionInfo";
-import PopupNewDataAdding from "./PopupNewDataAdding";
+import PopupNewDataAdding from "../../reserve/PopupNewDataAdding";
 import PopupInputField from "./PopupInputField";
 import PopupSelectField from "./PopupSelectField";
 import PopupNewDataInputField from "./PopupNewDataInputField";
@@ -17,7 +17,7 @@ import PopupChangeSessionsForm from "./PopupChangeSessionsForm";
 import PopupNewDataAdding2 from "./PopupNewDataAdding2";
 import PopupHallAdding from "./PopupHallAdding";
 import PopupMovieAdding from "./PopupMovieAdding";
-import PopupChangeSessions from "./PopupChangeSessions";
+import PopupChangeSessions from "../../reserve/PopupChangeSessions";
 import PopupChangeSessions2 from "./PopupChangeSessions2";
 
 const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], editedElement = {}, handleInput, handleSelect, onChangeCallback, onAddCallback, onDeleteCallback, edit, handleChange, handlePopup }) => {
@@ -57,9 +57,25 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], editedEleme
   // }
 
   // Ids
-  let lastSessionId = sessions.length;
-  let lastHallId = halls.length;
-  let lastMovieId = movies.length;
+  let lastSessionId = sessions.at(-1)?.id; // (?) operator https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+  let lastHallId = halls.at(-1)?.id;
+  let lastMovieId = movies && movies.at(-1)?.id;
+  console.log({lastMovieId});
+
+  // const initialLastIds = {
+  //   lastSessionId: sessions && sessions.at(-1)?.id, // (?) operator https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+  //   lastHallId: halls && halls.at(-1)?.id,
+  //   lastMovieId: movies && movies.at(-1)?.id
+  // }
+  // console.log({initialLastIds});
+  
+
+  // const [lastIds, setLastIds] = useState(initialLastIds);
+  
+  // let lastMovieId = Object.keys(lastMovie);
+  // console.log({lastMovieId});
+  
+
 
   // const handleSelectedMovieTitle = (value, name) => {
   //   console.log(name, value);
@@ -73,19 +89,13 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], editedEleme
         <PopupMovieAdding
           initialItem={
             {
-              id: `${++lastMovieId}`,
+              id: ++lastMovieId,
+              // пустой объект, который будет заполнен данными из формы
             }}
           buttonTitle={'Добавить фильм'}
           onAddCallback={onAddCallback}
           handlePopup={handlePopup}
         />
-        {/* <PopupNewMovieAdding
-          initialItem={
-            {
-              id: `${++lastMovieId}`,
-            }}
-          buttonTitle={'Добавить фильм'}
-          onAddCallback={onAddCallback} /> */}
       </PopupBase>
     )
   }
@@ -96,11 +106,11 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], editedEleme
         <PopupHallAdding
           initialItem={
             {
-              id: `${++lastHallId}`,
+              // id: `${++lastHallId}`,
               rows: 5,
               places: 6,
-              normal_price: 250.00,
-              vip_price: 500.50
+              normal_price: Number(250).toFixed(2),
+              vip_price: Number(550.5).toFixed(2)
             }}
           buttonTitle={'Добавить зал'}
           onAddCallback={onAddCallback}

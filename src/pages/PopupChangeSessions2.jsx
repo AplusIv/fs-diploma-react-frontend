@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PopupChangeSessions from "./PopupChangeSessions";
+import PopupChangeSessions from "../../reserve/PopupChangeSessions";
 import PopupSelect from "./PopupSelect";
 import PopupNewDataAdding2 from "./PopupNewDataAdding2";
 import PopupChangeSession from "./PopupChangeSession";
@@ -9,7 +9,7 @@ const PopupChangeSessions2 = ({ movies, sessions, halls, lastSessionId, onChange
   // Выбранный фильм
   // let initialSelectedMovieTitle;
   // movies.length > 0 ? initialSelectedMovieTitle = movies[0].title : null;
-  const initialSelectedMovieTitle = movies[0].title;
+  const initialSelectedMovieTitle = (movies.length > 0) ? movies[0].title : undefined;
   const [selectedMovieTitle, setSelectedMovieTitle] = useState(initialSelectedMovieTitle);
 
   const handleSelectedMovieTitle = (value, name) => {
@@ -36,7 +36,7 @@ const PopupChangeSessions2 = ({ movies, sessions, halls, lastSessionId, onChange
   return (
     <div className="session-popup">
       <label>
-        Выберете фильм (Новый селект):{' '}
+        Выберете фильм:{' '}
         <PopupSelect
           initialValue={selectedMovieTitle}
           // defaultValue={movies[0].title}
@@ -47,7 +47,7 @@ const PopupChangeSessions2 = ({ movies, sessions, halls, lastSessionId, onChange
       </label>
 
       <label>
-        Текущие сеансы (новое):
+        Текущие сеансы:
         {/* <PopupChangeSessions
           // selectedMovieTitle={selectedMovieTitle}
           // sessions={sessions}
@@ -106,7 +106,7 @@ const PopupChangeSessions2 = ({ movies, sessions, halls, lastSessionId, onChange
       {isAdding && <PopupNewDataAdding2
         initialItem={
           {
-            id: `${++lastSessionId}`,
+            id: ++lastSessionId,
             movie_id: movies[0].id,
             hall_id: halls[0].id,
             date: "25.06.2024"

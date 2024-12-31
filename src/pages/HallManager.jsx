@@ -5,7 +5,7 @@ import Popup from "./Popup";
 import Popup3 from "./Popup3";
 import PopupBase from "./PopupBase";
 import Popup4 from "./Popup4";
-import { addHallToDB, deleteHallFromDB } from "../services/DBUpdater";
+import { addHallToDB, addPlacesToDB, deleteHallFromDB, deletePlacesFromHall, getHallfromDB } from "../services/DBUpdater";
 
 const HallManager = ({ halls }) => {
 
@@ -71,11 +71,15 @@ const HallManager = ({ halls }) => {
 
     // Универсальный колбэк onAddCallback + функции обновления массивов сущностей
 
-    const handleAddData = (newData) => {
+    const handleAddData = async (newData) => {
       // добавление зала
       if (Object.prototype.hasOwnProperty.call(newData, "rows")) {
         handleAddHall(newData);
         addHallToDB(newData);
+
+        const newHall = await getHallfromDB(newData.title);
+        console.log({newHall});
+        await addPlacesToDB(newHall);        
       }
     }
   
@@ -92,6 +96,8 @@ const HallManager = ({ halls }) => {
 
       setHallsInfo(hallsInfo.filter(hall => hall.id !== id));
       deleteHallFromDB(id);
+
+      // deletePlacesFromHall(id);
       // if (e.target.tagName === 'BUTTON') {
         // apiClient.delete(`/halls/${hall.id}`)
         //   .then(response => console.log(response.statusText))

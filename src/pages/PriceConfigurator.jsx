@@ -5,17 +5,26 @@ import HallConfiguratorTitles from "./HallConfiguratorTitles"
 import SectionButtons from "./SectionButtons"
 import SectionHeader from "./SectionHeader"
 import axios from "axios";
+import { updateHallInDB } from "../services/DBUpdater";
 
 const PriceConfigurator = ({ halls }) => {
-  const [checked, setChecked] = useState('Зал 1');
 
-  const [hall, setHall] = useState(halls[0]);
-
+  // // Показ/скрытие секции
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
+  const handleClick = (e) => {
+    console.log(e.currentTarget.className);
+    // if (e.target.contains)
+    if (e.currentTarget.classList.contains('conf-step__header')) {
+      setIsActiveHeaderState(!isActiveHeaderState);
+    }
+    // setIsActiveHeaderState(!isActiveHeaderState);
+  }
 
-  // const [normalPrice, setNormalPrice] = useState(hall.normal_price);
-  // const [vipPrice, setVipPrice] = useState(hall.vip_price);
+  // выбранное название зала
+  const [checked, setChecked] = useState((halls.length > 0) ? halls[0].title : undefined);
 
+  // Выбранный зал
+  const [hall, setHall] = useState((halls.length > 0) ? halls[0] : undefined);
 
   // Конфигурации цен всех залов
   let initialConfigurations = [];
@@ -31,40 +40,6 @@ const PriceConfigurator = ({ halls }) => {
   const [configurations, setConfigurations] = useState(initialConfigurations);
   console.log({ configurations });
 
-  // прошлый вариант
-  const [prices, setPrices] = useState({
-    normal_price: '',
-    vip_price: '',
-  });
-
-
-  const handleClick = (e) => {
-    console.log(e.currentTarget.className);
-    // if (e.target.contains)
-    if (e.currentTarget.classList.contains('conf-step__header')) {
-      setIsActiveHeaderState(!isActiveHeaderState);
-    }
-    // setIsActiveHeaderState(!isActiveHeaderState);
-  }
-
-  const handleChooseHall = (e) => {
-    console.log(checked);
-
-    console.log('click ' + e.target.value);
-    setChecked(e.target.value);
-
-    const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
-    setHall((previousHall) => ({ ...previousHall, ...chosenHall }));
-    console.log(hall);
-
-    // Смена цены при выборе другого зала
-    // setNormalPrice(hall.normal_price);
-    // setVipPrice(hall.vip_price);
-
-    // прошлая версия
-    // setPrices((previousPrices) => ({...previousPrices, normal_price: Number(hall.normal_price), vip_price: Number(hall.vip_price)}));
-  }
-
   const handleChange = (e) => {
     console.log(checked);
 
@@ -78,56 +53,54 @@ const PriceConfigurator = ({ halls }) => {
     // console.log(chosenHall);
     setHall((previousHall) => ({ ...previousHall, ...chosenHall }));
     console.log(hall);
-
-    // Смена цены при выборе другого зала
-    // setNormalPrice(hall.normal_price);
-    // setVipPrice(hall.vip_price);
-
-    // setPrices((previousPrices) => ({...previousPrices, normal_price: Number(chosenHall.normal_price), vip_price: Number(chosenHall.vip_price)}));
-    // setPrices({...prices, [e.target.name]: e.target.value})
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log('handleSubmit');
 
-    // Обновление конфигурации мест в залах
-    apiClient.get(`/halls`)
-      .then(response => {
-        console.log(response);
-        const hallsData = [...response.data];
+    // 1) Есть ли изменения в ценах залов
+    let hallPriceDiffs = []; // Залы с изменившимися ценами
 
-        // есть ли изменения с сохранеными в БД
-        const newHallsData = hallsData.map(hallData => {
-          const configuration = configurations.find(configuration => configuration.hall_id === hallData.id);
+    halls.filter(hallData => {
+      const configuration = configurations.find(configuration => configuration.hall_id === hallData.id);
 
-          if (!(hallData.normal_price === configuration.normal_price && hallData.vip_price === configuration.vip_price)) {
-            return { ...hallData, normal_price: configuration.normal_price, vip_price: configuration.vip_price }
-          }
-        });
+      // return (!(hallData.rows === configuration.rows && hallData.places === configuration.places))
 
-        // если есть (массив непустой), то обновить конфигурацию в БД
-        const filteredNewHallsData = newHallsData.filter(data => data !== undefined);
-        if (filteredNewHallsData.length !== 0) {
-          console.log(filteredNewHallsData);
+      if (!(hallData.normal_price === configuration.normal_price && hallData.vip_price === configuration.vip_price)) {
+        hallPriceDiffs.push({ ...hallData, normal_price: configuration.normal_price, vip_price: configuration.vip_price });
+        return true;
+      }
+    })
 
-          let putRequests = filteredNewHallsData.map(newHallData => apiClient.put(`/halls/${newHallData.id}`, newHallData));
-          axios.all(putRequests).then(response => console.log(response)).catch(error => console.log(error));
-        } else {
-        // если массив пустой - ничего не делать
-        console.log('Изменения в конфигурации не выявлены, сохранять не нужно');
+    console.log({ hallPriceDiffs });
+
+    if (hallPriceDiffs.length > 0) {
+      const promises = hallPriceDiffs.map(async data => {
+        const updatedHall = {
+          title: data.title,
+          rows: data.rows,
+          places: data.places,
+          normal_price: Number(data.normal_price).toFixed(2),
+          vip_price: Number(data.vip_price).toFixed(2)
+        };
+        try {
+          // return await apiClient.put(`api/places/${data.id}`, updatedHall);
+          return await updateHallInDB(data.id, updatedHall);
+        } catch (error) {
+          console.log(error);
         }
-
-      }).catch(error => console.log(error));
-
-    // Прошлая версия
-    // const data = {...hall, ...prices}
-    // // put axios
-    // apiClient.put(`/halls/${hall.id}`, 
-    //   data)
-    //   .then(response => console.log(response))
-    //   .catch(error => console.error(error));    
+      })
+    
+      try {
+        console.log({promises});        
+        const response = await Promise.all(promises);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   const handleRefresh = (e) => {
@@ -147,18 +120,6 @@ const PriceConfigurator = ({ halls }) => {
     })
 
     setConfigurations(refreshedConfigurations);
-    // setConfiguration((previousConfiguration) => ({...previousConfiguration, rows: Number(hall.rows), places: Number(hall.places)}));
-
-
-    // прошлая версия
-    // e.preventDefault();
-    // console.log(e.target);
-    // setNormalPrice(hall.normal_price);
-    // setVipPrice(hall.vip_price);
-    // console.log(hall);
-    // setPrices((previousPrices) => ({...previousPrices, normal_price: Number(hall.normal_price), vip_price: Number(hall.vip_price)}));
-    // setPrices({...prices, [e.target.name]: e.target.value})
-
   }
 
   const handleInput = (e) => {
@@ -175,17 +136,6 @@ const PriceConfigurator = ({ halls }) => {
     })
 
     setConfigurations(newConfigurations);
-
-
-    // прошлая версия
-    // setPrices({...prices, [e.target.name]: Number(e.target.value)});
-    // console.dir(e.target.name);
-    // console.log(e.target.value);
-    // console.log(prices);
-
-    // const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
-    // setHall((previousHall) => ({...previousHall, ...chosenHall}));
-    // console.log(hall);
   }
 
   const handleBlur = (e) => {

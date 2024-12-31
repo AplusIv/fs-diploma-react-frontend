@@ -27,7 +27,7 @@ const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handleP
   }
 
   const onChangeItemData = (editedValue, name) => {
-    setNewItem({ ...newItem, [name]: editedValue });
+    (name === 'duration') ? setNewItem({ ...newItem, [name]: Number(editedValue) }) : setNewItem({ ...newItem, [name]: editedValue });
   }
   return (
     <form onSubmit={handleData}>
@@ -62,7 +62,7 @@ const PopupChangeForm = ({ editedElement, onChangeCallback, buttonTitle, handleP
             // elementId={editedElement}
             initialValue={editedElement.duration}
             name="duration"
-            type="text"
+            type="number"
             // type="text" number возможно лучше
             placeholder="Название фильма"
             autoComplete="on"

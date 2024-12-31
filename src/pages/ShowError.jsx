@@ -6,6 +6,7 @@ const ShowError = () => {
   return (
     <div className="error">
       <h2>Error</h2>
+      <p>{error.data}</p>
       <p>{error.message}</p>
       <Link to="/">На главную</Link>
     </div>

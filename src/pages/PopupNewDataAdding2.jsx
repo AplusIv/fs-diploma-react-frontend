@@ -39,7 +39,7 @@ const PopupNewDataAdding2 = ({ initialItem = {}, halls, movies, buttonTitle, onA
       <div className="popup__row add-item">
         <label> Зал:{' '}
           <PopupSelect
-            initialValue={halls[0].title}
+            initialValue={(halls.length > 0) ? halls[0].title : ''}
             optionsData={halls}
             name="hall_id"
             edit={!edit}
@@ -48,7 +48,7 @@ const PopupNewDataAdding2 = ({ initialItem = {}, halls, movies, buttonTitle, onA
         </label>
         <label> Фильм:{' '}
           <PopupSelect
-            initialValue={movies[0].title}
+            initialValue={(movies.length > 0) ? movies[0].title : ''}
             optionsData={movies}
             name="movie_id"
             edit={!edit}
