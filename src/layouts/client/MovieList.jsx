@@ -4,7 +4,7 @@ import MovieInfo from './MovieInfo';
 import MovieSessions from './MovieSessions';
 
 
-const MovieList = ({ halls, movies, sessions }) => {
+const MovieList = ({ halls, movies, sessions, places }) => {
   // console.log(sessions);
   // console.log(movies);
   return (
@@ -12,7 +12,7 @@ const MovieList = ({ halls, movies, sessions }) => {
       {movies.map(movie => (
         <section key={movie.id} className="movie">
           <MovieInfo movie={movie} poster={poster1} />
-          <MovieSessions movie={movie} halls={halls} sessions={sessions} />
+          <MovieSessions movie={movie} halls={halls} sessions={sessions} places={places} />
         </section>
       ))}
       {/* <section className="movie">

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
-const MovieSessions = ({ movie, halls, sessions }) => {
+const MovieSessions = ({ movie, halls, sessions, places }) => {
   // console.log(sessions);
   // console.log(movie);
   // const filtredSessionsByMovie = sessions.filter(session => {
@@ -18,10 +18,11 @@ const MovieSessions = ({ movie, halls, sessions }) => {
             <h3 className="movie-seances__hall-title">{hall.title}</h3>
             <ul className="movie-seances__list">
               {filtredSessionsByMovie.map(session=> (
+                
                 hall.id === session.hall_id ? 
                 <li key={session.id} className="movie-seances__time-block">
                   {/* <a className="movie-seances__time" href="booking">{session.time}</a> */}
-                  <Link to="../buying" relative="path" className="movie-seances__time" state={{movie, hall, session}}>{session.time}</Link>
+                  <Link to="../buying" relative="path" className="movie-seances__time" state={{movie, hall, session, places: places.filter(place => place.hall_id === hall.id)}}>{session.time}</Link>
                 </li> : null
               ))}
             </ul>

@@ -7,11 +7,11 @@ import MovieList from './MovieList';
 
 
 const Index = () => {
-  const { halls, movies, sessions } = useLoaderData();
+  const { halls, movies, sessions, places } = useLoaderData();
   return (
     <>
       <PageNavigator />
-      <MovieList halls={halls} sessions={sessions} movies={movies} />  
+      <MovieList halls={halls} sessions={sessions} movies={movies} places={places} />  
     </>
   )
 }
