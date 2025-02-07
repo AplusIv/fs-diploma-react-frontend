@@ -19,7 +19,7 @@ export const loader = async () => {
 
   /* Laravel routes */
   const baseUrl = 'http://localhost:8000';
-  const routes = ['/api/halls', '/api/movies', '/api/sessions', '/api/places'];
+  const routes = ['/api/halls', '/api/movies', '/api/sessions', '/api/places', '/api/tickets', '/api/orders'];
 
   // рабочий вариант
   // const promises = routes.map(route => apiClient.get(baseUrl + route).then(response => {
@@ -35,8 +35,8 @@ export const loader = async () => {
   }));
 
   try {
-    const [halls, movies, sessions, places] = await Promise.all(promises);
-    return { halls, movies, sessions, places };
+    const [halls, movies, sessions, places, tickets, orders] = await Promise.all(promises);
+    return { halls, movies, sessions, places, tickets, orders };
   } catch (error) {
     console.log(error.response);
     const {status} = error.response;

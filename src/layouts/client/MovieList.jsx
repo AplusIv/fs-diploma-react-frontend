@@ -1,18 +1,61 @@
+import { useLoaderData, useParams } from 'react-router-dom';
 import poster1 from '../../img/client/poster1.jpg';
 import poster2 from '../../img/client/poster2.jpg'
 import MovieInfo from './MovieInfo';
 import MovieSessions from './MovieSessions';
+import { getSessionsByDate } from '../../services/DBUpdater';
+import { useEffect, useState } from 'react';
 
 
-const MovieList = ({ halls, movies, sessions, places }) => {
+const MovieList = (/* { halls, movies, sessions, places } */) => {
   // console.log(sessions);
   // console.log(movies);
+  
+  const { halls, movies, places, tickets } = useLoaderData();
+  
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [sessionsByDateState, setSessionsByDateState] = useState([]);
+  console.log({sessionsByDateState});
+  
+
+  const { date } = useParams();
+  console.log(date);
+
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true); // прогрузка данных
+
+      // Получение сеансов на конкретные даты
+      const sessionsByDate = await getSessionsByDate(date);
+      console.log({sessionsByDate});
+      setSessionsByDateState(sessionsByDate);
+
+      setIsLoading(false); // прогрузка данных
+      console.log({isLoading});
+    })() // IIFE
+    
+    console.log('effect is on');
+    
+    // return () => {
+    //   second
+    // }
+  }, [date])
+  
+
+  // const sessionsByDate = getSessionsByDate('25.06.2024');
+  // console.log({sessionsByDate});
+  // // 1. Добавить изменение даты сеанса
+  // // 2. Убрать дефотное значение 25.06.2024
+  
+
   return (
-    <main>
+    !isLoading && <main>
       {movies.map(movie => (
         <section key={movie.id} className="movie">
           <MovieInfo movie={movie} poster={poster1} />
-          <MovieSessions movie={movie} halls={halls} sessions={sessions} places={places} />
+          <MovieSessions movie={movie} halls={halls} sessions={sessionsByDateState} places={places} tickets={tickets} />
         </section>
       ))}
       {/* <section className="movie">

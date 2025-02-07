@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PopupInput from "./PopupInput";
 import PopupSelect from "./PopupSelect";
+import dayjs from "dayjs";
 
 
 const PopupChangeSession = ({ editedElement, halls, onChangeCallback, onDeleteCallback, selectedIndex, setSelectedIndex, isEdit, handleSubmit }) => {
@@ -53,6 +54,17 @@ const PopupChangeSession = ({ editedElement, halls, onChangeCallback, onDeleteCa
             initialValue={editedElement.time}
             name="time"
             type="time"
+            autoComplete="on"
+            edit={isEdit}
+            onChangeCallback={onChangeItemData} />
+        </label>
+        <label>Дата сеанса:{' '}
+          <PopupInput
+            // info={sessionInfo}
+            initialValue={editedElement.date}
+            // initialValue={dayjs(editedElement.date).format('YYYY-MM-DD')}
+            name="date"
+            type="date"
             autoComplete="on"
             edit={isEdit}
             onChangeCallback={onChangeItemData} />

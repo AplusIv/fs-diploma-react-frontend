@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
 import poster1 from '../../img/client/poster1.jpg';
 import poster2 from '../../img/client/poster2.jpg';
@@ -7,12 +7,11 @@ import MovieList from './MovieList';
 
 
 const Index = () => {
-  // const { halls, movies, sessions, places } = useLoaderData();
+  const { halls, movies, sessions, places } = useLoaderData();
   return (
     <>
       <PageNavigator />
-      <Outlet/>
-      {/* <MovieList halls={halls} sessions={sessions} movies={movies} places={places} />   */}
+      <MovieList halls={halls} sessions={sessions} movies={movies} places={places} />  
     </>
   )
 }

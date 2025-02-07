@@ -295,6 +295,62 @@ const deleteDataInDB = async (dataArray, url) => {
   // }
 }
 
+// КЛИЕНТСКАЯ ЧАСТЬ
+// Функционал: получение сеансов на конкретную дату
+const getSessionsByDate = async (date) => {
+  console.log('Sessions by date get request');
+  try {
+    const response = await apiClient.get('api/sessions/date/' + date);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const makeOrderWithTickets = async (dataArray, url) => {
+  // e.preventDefault();
+
+  console.log('array post request');
+
+  try {
+    // const response = await apiClient.post(url, dataArray, {headers: {'Content-Type': 'application/json'}});
+    const response = await apiClient.post(url, dataArray);
+    // response.json().then(data => console.log(data));
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const updateOrderAndTicketStatus = async (data, url) => {
+  // e.preventDefault();
+
+  console.log('array put request');
+
+  try {
+    const response = await apiClient.put(`${url}/${data.id}`, data)
+    // response.json().then(data => console.log(data));
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Функционал: получение сеансов на конкретную дату
+const getDataById = async (url, id) => {
+  console.log('Get collection by other primary key ID get request');
+  try {
+    const response = await apiClient.get(`${url}/${id}`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // // Функционал: Добавление новых фильмов/сеансов
 // // рабочий вариант для JSON server
 // const addDataToDB = (array, url) => {
@@ -381,5 +437,9 @@ export {
   updatePlacesTypes,
   addDataToDB,
   changeDataInDB,
-  deleteDataInDB
+  deleteDataInDB,
+  getSessionsByDate,
+  makeOrderWithTickets,
+  updateOrderAndTicketStatus,
+  getDataById,
 }

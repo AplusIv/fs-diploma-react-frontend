@@ -63,6 +63,14 @@ const PopupNewDataAdding2 = ({ initialItem = {}, halls, movies, buttonTitle, onA
             edit={!edit}
             onChangeCallback={onChangeItemData} />
         </label>
+        <label>Дата сеанса:{' '}
+          <PopupInput
+            name="date"
+            type="date"
+            autoComplete="on"
+            edit={!edit}
+            onChangeCallback={onChangeItemData} />
+        </label>
         <button type="submit" className="conf-step__button conf-step__button-accent" onSubmit={handleAddData}>{buttonTitle}</button>
       </div>
     </form>

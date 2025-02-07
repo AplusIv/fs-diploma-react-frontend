@@ -32,9 +32,12 @@ import { useCallback, useContext, useMemo, useState } from "react"
 
 // тест
 import Books from "./pages/Books"
-import { isLoggedContext } from "./services/Context"
 import HallsApi from "./pages/HallsApi"
+import MovieList from "./layouts/client/MovieList"
 
+// context
+import { isLoggedContext } from "./services/Context"
+import { orderContext } from "./services/OrderContext"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,7 +50,11 @@ const router = createBrowserRouter(
         <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="client" element={<ClientRootLayout />}>
-        <Route index element={<Index />} loader={loader} />
+        {/* <Route index element={<Index />} loader={loader} /> */}
+        {/* route params */}
+        <Route path="schedule" element={<Index />}>
+          <Route path=":date" element={<MovieList />} loader={loader} />
+        </Route>
       </Route>
       <Route path="buying" element={<ClientRootLayout />}>
         {/* <Route index element={<Booking/>} /> */}
@@ -88,10 +95,20 @@ function App() {
   // };
 
   // const isLoggedContext = useContext(isLoggedContext)
+
+  // order context
+  const [order, setOrder] = useState({});
+  const orderContextValue = useMemo(() => ({ order, setOrder }), [order]); // запоминает функцию ,не перерисовывает без изменения значений
   return (
     <isLoggedContext.Provider value={{...contextValue, login: login}}>
-      <RouterProvider router={router} fallbackElement={<BigSpinner />} />
+      <orderContext.Provider value={orderContextValue}>
+        <RouterProvider router={router} fallbackElement={<BigSpinner />} />
+      </orderContext.Provider>
     </isLoggedContext.Provider>
+    // <isLoggedContext.Provider value={{...contextValue, login: login}}>
+    //   <RouterProvider router={router} fallbackElement={<BigSpinner />} />
+    // </isLoggedContext.Provider>
+    // 
     // <RouterProvider router={router} fallbackElement={<BigSpinner />}/>
     //   
     //   

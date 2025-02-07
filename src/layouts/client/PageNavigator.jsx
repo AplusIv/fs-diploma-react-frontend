@@ -3,7 +3,16 @@ import { NavLink } from "react-router-dom"
 import dayjs from "dayjs";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+
+
 // обновить дни недели на русском
+import updateLocale from 'dayjs/plugin/updateLocale'; // ES 2015
+
+dayjs.extend(updateLocale);
+
+dayjs.updateLocale('en', {
+  weekdays: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
+});
 
 
 const PageNavigator = () => {
@@ -14,6 +23,9 @@ const PageNavigator = () => {
     lastDay: 6
   });
 
+  // Для показа следующих/предыдущих дней
+  const paginateStep = 6;
+
   const handleActiveDay = (index) => {
     console.log(index);
     setActiveDay(index);
@@ -21,16 +33,16 @@ const PageNavigator = () => {
 
   const handleDaysIntervalToFuture = () => {
     setDaysInterval({
-      firstDay: daysInterval.firstDay + 1,
-      lastDay: daysInterval.lastDay + 1
+      firstDay: daysInterval.firstDay + paginateStep,
+      lastDay: daysInterval.lastDay + paginateStep
     });
   }
 
   const handleDaysIntervalToPast = () => {
     if (daysInterval.firstDay > 0) {
       setDaysInterval({
-        firstDay: daysInterval.firstDay - 1,
-        lastDay: daysInterval.lastDay - 1
+        firstDay: daysInterval.firstDay - paginateStep,
+        lastDay: daysInterval.lastDay - paginateStep
       });
     }    
   }
@@ -63,24 +75,28 @@ const PageNavigator = () => {
       {days.map((day, index) => (
         day.isSame(now) ? 
         <NavLink 
-          key={nanoid()} to='#' 
+          key={nanoid()} to={`./${day.format('YYYY-MM-DD')}`} 
           index={index} 
           className={activeDay === index ? 'page-nav__day page-nav__day_today page-nav__day_chosen' : 'page-nav__day page-nav__day_today'}
           onClick={(e) => {
-            e.preventDefault()
-            handleActiveDay(index)}}
+            // e.preventDefault();
+            handleActiveDay(index);
+            console.log(day.format('YYYY-MM-DD'));
+          }}
         >
         <span className="page-nav__day-week">{day.format('dd')}</span>
         <span className="page-nav__day-number">{day.format('D')}</span>
       </NavLink> : 
         <NavLink 
           key={nanoid()} 
-          to='#' 
+          to={`./${day.format('YYYY-MM-DD')}`} 
           index={index} 
           className={activeDay === index ? 'page-nav__day page-nav__day_chosen' : 'page-nav__day'}
           onClick={(e) => {
-            e.preventDefault()
-            handleActiveDay(index)}}
+            // e.preventDefault();
+            handleActiveDay(index);
+            console.log(day.format('YYYY-MM-DD'));            
+          }}
         >
           <span className="page-nav__day-week">{day.format('dd')}</span>
           <span className="page-nav__day-number">{day.format('D')}</span>

@@ -2,17 +2,29 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import BuyingButton from "./BuyingButton";
 import { nanoid } from "nanoid";
 import BuyingPlace from "./BuyingPlace";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import dayjs from "dayjs";
+import { addDataToDB, makeOrderWithTickets } from "../../services/DBUpdater";
+import { orderContext } from "../../services/OrderContext";
 
 const Buying = () => {
   // Достаю данные из ссылки на сеанс
   const location = useLocation();
-  const { hall, movie, session, places } = location.state;
+  const { hall, movie, session, places, tickets } = location.state;
   console.log(hall);
   console.log(movie);
   console.log(session);
 
   const navigate = useNavigate();
+
+  const {order, setOrder} = useContext(orderContext);
+  console.log({orderFromContext: order});
+  console.log({orderFromContext: setOrder});
+  
+
+  const [newOrder, setNewOrder] = useState({});
+  console.log({newOrder});
+  
 
   // Состояние зрительских мест
   const [placesState, setPlacesState] = useState([...places]);
@@ -48,6 +60,27 @@ const Buying = () => {
 
   const buyingPlaces = prepareHallPlaces(placesState, hall, compareFnByPlaceAssending);
 
+  // Билеты для добавления в DB при обработке кнопки "Забронировать"
+  // const [ticketsToAddInDB, setTicketsToAddInDB] = useState([]);
+
+  const handleTicketBooking = async () => {
+    const ticketsToAddInDB = selectedPlaces.map(selectedPlace => {
+      return {
+        place_id: selectedPlace.id,
+        session_id: session.id,
+        status: 'booked'
+      }
+    });
+    // await addDataToDB(ticketsToAddInDB, 'api/orders');
+    const newOrderData = await makeOrderWithTickets(ticketsToAddInDB, 'api/orders');
+    // setNewOrder((prevState) => ({...prevState, ...newOrderData}));
+    console.log({newOrderData});
+    
+    setNewOrder(newOrderData);
+    setOrder(newOrderData.newOrder);
+
+  }
+  
   // {buyingPlaces.map(row => <div key={nanoid()} className="buying-scheme__row">
   //       {row.map(place => <BuyingPlace key={nanoid()} place={place}/>)}
   //     </div>)}
@@ -85,15 +118,36 @@ const Buying = () => {
           //     chosenPlace.is_selected = false;
           //     break;
           // }
-        }  
+        } 
         return chosenPlace;      
       } else {
         return place;
       }
     })
-    console.log({ modifiedPlaces });
+    // console.log({ modifiedPlaces });
 
     setPlacesState(modifiedPlaces);
+  }
+
+  /**
+   * Получить сумму выбранных билетов
+   */
+  const getTotalSum = (selectedPlaces) => {
+    const totalSum = selectedPlaces.reduce((sum, currentPlace) => {
+      let currentPrice;
+      switch (currentPlace.type) {
+        case 'standart':
+          currentPrice = hall.normal_price;
+          break;
+        case 'vip':
+          currentPrice = hall.vip_price;
+          break;
+        default:
+          break;
+      }
+      return sum + currentPrice;
+    }, 0)  
+    return totalSum;
   }
 
   return (
@@ -101,6 +155,7 @@ const Buying = () => {
       <button onClick={() => navigate('../client')}>
         Вернуться на главную
       </button>
+      <Link to={"../client/schedule/" + dayjs().format('YYYY-MM-DD')}><h1>На главную</h1></Link>
       <section className="buying">
         <div className="buying__info">
           <div className="buying__info-description">
@@ -116,7 +171,12 @@ const Buying = () => {
           <div className="buying-scheme__wrapper">
             {/* {rows} */}
             {buyingPlaces.map(row => <div key={nanoid()} className="buying-scheme__row">
-              {row.map(place => <BuyingPlace key={nanoid()} place={place} handlePlaceSelected={handlePlaceSelected}/>)}
+              {row.map(place => <BuyingPlace 
+                                  key={nanoid()} 
+                                  place={place} 
+                                  handlePlaceSelected={handlePlaceSelected} 
+                                  tickets={tickets.filter(ticket => ticket.session_id === session.id)}
+                                />)}
             </div>)}
           </div>
           <div className="buying-scheme__legend">
@@ -148,7 +208,7 @@ const Buying = () => {
         {/* <Link to='../payment' relative="path">
             <BuyingButton component="button" className="acceptin-button">Забронировать</BuyingButton>
           </Link> */}
-        <BuyingButton component={Link} to="../payment" className="acceptin-button" state={{ movie, hall, session, selectedPlaces }}>Забронировать</BuyingButton>
+        <BuyingButton component={Link} to="../payment" className="acceptin-button" state={{ movie, hall, session, selectedPlaces, tickets: tickets.filter(ticket => ticket.session_id === session.id) }} onClick={handleTicketBooking}>Забронировать</BuyingButton>
       </section>
     </main>
   )
