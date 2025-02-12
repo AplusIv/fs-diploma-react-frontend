@@ -31,7 +31,7 @@ import BigSpinner from "./pages/BigSpinner"
 import { useCallback, useContext, useMemo, useState } from "react"
 
 // тест
-import Books from "./pages/Books"
+import Books from "../reserve/Books"
 import HallsApi from "./pages/HallsApi"
 import MovieList from "./layouts/client/MovieList"
 

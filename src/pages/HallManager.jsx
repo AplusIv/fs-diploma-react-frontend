@@ -1,8 +1,8 @@
 import { useState } from "react";
 import HallName from "./HallName";
 import SectionHeader from "./SectionHeader";
-import Popup from "./Popup";
-import Popup3 from "./Popup3";
+import Popup from "../../reserve/popup-reserve/Popup";
+import Popup3 from "../../reserve/popup-reserve/Popup3";
 import PopupBase from "./PopupBase";
 import Popup4 from "./Popup4";
 import { addHallToDB, addPlacesToDB, deleteHallFromDB, deletePlacesFromHall, getHallfromDB } from "../services/DBUpdater";

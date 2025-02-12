@@ -6,10 +6,13 @@ import SectionButtons from './SectionButtons'
 import SectionHeader from './SectionHeader'
 // import Popup from './Popup';
 // import Popup2 from './Popup2';
-import Popup3 from './Popup3';
+import Popup3 from '../../reserve/popup-reserve/Popup3';
 import PopupBase from './PopupBase';
 import Popup4 from './Popup4';
 import { addDataToDB, changeDataInDB, deleteDataInDB } from '../services/DBUpdater';
+import SessionDates from './SessionDates';
+import dayjs from "dayjs";
+
 
 const SessionManager = ({ halls, movies, sessions }) => {
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
@@ -22,6 +25,34 @@ const SessionManager = ({ halls, movies, sessions }) => {
     }
     // setIsActiveHeaderState(!isActiveHeaderState);
   }
+
+
+  // Сеансы на разные даты
+  const now = dayjs();
+  let days = [];
+  
+  for (let index = 0; index < 14; index++) {
+    const day = now.add(index, 'day');
+    days.push(day);
+  }
+
+  // console.log({days});
+  // console.log(typeof days[0].format('YYYY-MM-DD'));
+
+  // выбранная дата сеанса
+  // const [checked, setChecked] = useState((sessions.length > 0) ? '2025-02-09' : undefined);
+  const [date, setDate] = useState((sessions.length > 0) ? now.format('YYYY-MM-DD') : undefined);
+
+  const handleChangeDate = (e) => {
+    console.log(e.target.value);
+    // setChecked(e.target.value);
+    setDate(e.target.value);
+  }
+
+  // const handleClickDate = (e) => {
+  //   console.log(e.target.value);
+
+  // }
 
   const [movieInfo, setMovieInfo] = useState({});
   console.log(movieInfo);
@@ -65,6 +96,10 @@ const SessionManager = ({ halls, movies, sessions }) => {
   })
   const [hallsInfo, setHallsInfo] = useState(initialHallsInfo);
   console.log({hallsInfo});
+
+    // бэкграунд фильмов
+    const [movieBackgroundColors, setMovieBackgroundColors] = useState([]);
+
 
 
   // Фильмы для добавления в DB при обработке кнопки "Сохранить"
@@ -682,8 +717,8 @@ const SessionManager = ({ halls, movies, sessions }) => {
           <button className="conf-step__button conf-step__button-accent" onClick={() => handlePopupStatus('adding film popup')}>Добавить фильм</button>
         </p>
 
-        <div className="conf-step__movies">
-          {moviesInfo.map(movie => (
+        {/* <div className="conf-step__movies">
+          {moviesInfo.map(movie => (            
             <div key={movie.id} className="conf-step__movie" onClick={(e) => {
               console.log(window.getComputedStyle(e.currentTarget).backgroundColor);
               handlePopupStatus('editing film popup', movie)
@@ -694,11 +729,33 @@ const SessionManager = ({ halls, movies, sessions }) => {
             </div>
           )
           )}
+        </div> */}
+
+        <div className="conf-step__movies">
+          {moviesInfo.map(movie => {                 
+            const movieCard = <div key={movie.id} className="conf-step__movie" onClick={(e) => {
+              console.log(window.getComputedStyle(e.currentTarget).backgroundColor);
+              handlePopupStatus('editing film popup', movie)
+            }}>
+              <img className="conf-step__movie-poster" alt="poster" src={poster} />
+              <h3 className="conf-step__movie-title">{movie.title}</h3>
+              <p className="conf-step__movie-duration">{movie.duration} минут</p>
+            </div>
+
+            // console.log(window.getComputedStyle(movieCard).backgroundColor);            
+            
+            return movieCard;
+            }
+          )}
         </div>
 
         <p className="conf-step__paragraph">
           <button className="conf-step__button conf-step__button-accent" onClick={() => handlePopupStatus('editing sessions')}>Редактировать сеансы</button>
         </p>
+
+        {/* переключатели дат */}
+        <p className="conf-step__paragraph">Выберите дату сеансов для конфигурации:</p>
+        <SessionDates days={days} handleChangeDate={handleChangeDate} date={date} />
 
         <div className="conf-step__seances">
           {halls.map(hall => (
@@ -710,7 +767,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
                   sessionsInfo.map(session => (
                     // const duration = Number({session.duration});
                     // const sessionDurationWidth = 'calc(' + duration + '*' + '0.5)';
-                    session.hall_id === hall.id ? (<div key={session.id} className="conf-step__seances-movie" style={
+                    session.hall_id === hall.id && session.date === date ? (<div key={session.id} className="conf-step__seances-movie" style={
                       {
                         width: `calc(${session.duration}px * 0.5)`,
                         backgroundColor: 'rgb(133, 255, 137)',
