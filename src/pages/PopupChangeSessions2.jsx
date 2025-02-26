@@ -4,6 +4,10 @@ import PopupSelect from "./PopupSelect";
 import PopupNewDataAdding2 from "./PopupNewDataAdding2";
 import PopupChangeSession from "./PopupChangeSession";
 
+import dayjs from "dayjs";
+import customParseFormat from 'dayjs/plugin/customParseFormat' // ES 2015
+dayjs.extend(customParseFormat);
+
 
 const PopupChangeSessions2 = ({ movies, sessions, halls, lastSessionId, onChangeCallback, onAddCallback, onDeleteCallback }) => {
   // Выбранный фильм
@@ -18,8 +22,26 @@ const PopupChangeSessions2 = ({ movies, sessions, halls, lastSessionId, onChange
     setSelectedIndex(undefined); // сброс активного редактирования сеанса при смене фильма
   }
 
-  const filtredSessions = sessions.filter(session => session.movie_id === movies.find(movie => movie.title === selectedMovieTitle).id)
+  const compareFnByDateAssending = (a, b) => {
+    const dateTimestamp = dayjs(a.date).diff(dayjs(b.date));
 
+    if (dateTimestamp < 0) {
+      return -1
+    } else if (dateTimestamp > 0) {
+      return 1
+    }
+    // a === b
+    return dayjs(a.time, 'HH:mm').diff(dayjs(b.time, 'HH:mm')); // сортировка по столбцу "время" (возврат разницы в миллисекундах )
+}
+
+  const filtredSessions = sessions.filter(session => session.movie_id === movies.find(movie => movie.title === selectedMovieTitle).id);
+  filtredSessions.sort(compareFnByDateAssending); // сортировать массив по столбцам "дата" и "время" по возрастанию
+
+  // console.log({filtredSessions});
+  // console.log(dayjs('22:24', 'HH:mm').diff(dayjs('22:56', 'HH:mm')));
+  // console.log(dayjs('00:24', 'HH:mm'));  
+  // const compareFnByDateAssending = (a, b) => dayjs(a.date).diff(dayjs(b.date)); // возврат разницы в миллисекундах сортировка объектов по возрастанию
+   
 
   // добавить/отменить добавление сеанса
   const [isAdding, setIsAdding] = useState(false);

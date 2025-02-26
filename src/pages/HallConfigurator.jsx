@@ -6,7 +6,7 @@ import SectionButtons from "./SectionButtons"
 import SectionHeader from "./SectionHeader"
 import axios from "axios"
 import apiClient from "../services/api"
-import { addPlacesToDB, deletePlacesFromHall, getPlaces, getPlacesByHall, updateHallInDB, updatePlacesTypes } from "../services/DBUpdater"
+import { addPlacesToDB, addPlacesToHall, deletePlacesFromHall, deletePlacesFromHall2, getPlaces, getPlacesByHall, updateHallInDB, updateHallPlaces, updatePlacesTypes } from "../services/DBUpdater"
 
 const HallConfigurator = ({ halls, places }) => {
 
@@ -207,6 +207,26 @@ const HallConfigurator = ({ halls, places }) => {
     setPlacesState(handlePlaceStateFromDBData(places));
   }
 
+  // рабочий вариант
+  // const handleHallConfiguration = async (hall) => {
+  //   console.log(hall);
+
+  //   // const findedHall = halls.find(o => o.id === hall.hall_id);
+  //   const updatedHall = {
+  //     title: hall.title,
+  //     rows: hall.rows,
+  //     places: hall.places,
+  //     normal_price: Number(hall.normal_price).toFixed(2),
+  //     vip_price: Number(hall.vip_price).toFixed(2)
+  //   };
+
+  //   await updateHallInDB(hall.id, updatedHall); // обновить зал
+  //   await deletePlacesFromHall(hall.id); // удалить прошлые места из БД
+  //   await addPlacesToDB(hall); // заполнить новыми данными БД изменённой конфигурацией
+
+  //   await handleUpdatePlaces(findPLacesToUpdate, hall);
+  // }
+
   const handleHallConfiguration = async (hall) => {
     console.log(hall);
 
@@ -219,12 +239,15 @@ const HallConfigurator = ({ halls, places }) => {
       vip_price: Number(hall.vip_price).toFixed(2)
     };
 
-    await updateHallInDB(hall.id, updatedHall);
-    await deletePlacesFromHall(hall.id); // удалить прошлые места из БД
-    await addPlacesToDB(hall); // заполнить новыми данными БД изменённой конфигурацией
+    await updateHallInDB(hall.id, updatedHall); // обновить зал
+    await deletePlacesFromHall2(hall.id); // удалить прошлые места из БД
+    await addPlacesToHall(hall.id, updatedHall); // заполнить новыми местами БД с изменённой конфигурацией зала
 
-    await handleUpdatePlaces(findPLacesToUpdate, hall);
+    // вернуть
+    // await handleUpdatePlaces(placesState.filter(place => place.hall_id === hall.id), hall);
+    await handleUpdatePlaces(placesState.filter(place => place.hall_id === hall.id), hall.id); // обновить типы мест (при необходимости)
   }
+
 
   const findPLacesToUpdate = (places, hall) => {
     let putRequestDatas = [];
@@ -246,17 +269,23 @@ const HallConfigurator = ({ halls, places }) => {
     return putRequestDatas;
   }
 
-  const handleUpdatePlaces = async (findPlacesFn, hall) => {
-    const placesFromDB = await getPlaces();
-    console.log({ placesFromDB });
+  // рабочий вариант
+  // const handleUpdatePlaces = async (findPlacesFn, hall) => {
+  //   const placesFromDB = await getPlaces();
+  //   console.log({ placesFromDB });
 
-    const putRequestDatas = findPlacesFn(placesFromDB, hall)
+  //   const putRequestDatas = findPlacesFn(placesFromDB, hall)
 
-    if (putRequestDatas.length > 0) {
-      await updatePlacesTypes(putRequestDatas);
-    } else {
-      console.log('Места для обновления отсутствуют');
-    }
+  //   if (putRequestDatas.length > 0) {
+  //     await updatePlacesTypes(putRequestDatas);
+  //   } else {
+  //     console.log('Места для обновления отсутствуют');
+  //   }
+  // }
+
+
+  const handleUpdatePlaces = async (findPlacesFn, hall_id) => {
+    await updateHallPlaces(findPlacesFn, hall_id);
   }
 
   const handleSubmit = async (e) => {
@@ -280,24 +309,80 @@ const HallConfigurator = ({ halls, places }) => {
       }
     })
 
-    console.log({ configurationHallDiffs });
-    console.log({ sameConfigurationHalls });
+    // console.log({ configurationHallDiffs }); // Залы, где изменилась конфигурация мест
+    // console.log({ sameConfigurationHalls });
+
+    // Все залы, где изменились типы мест
+    const getDiffs = (arr1, arr2) => {
+      return arr1.filter(arr1El =>{
+        const arr2El = arr2.find(el => el.row === arr1El.row && el.place === arr1El.place && el.hall_id === arr1El.hall_id);
+        if (arr2El) return (arr1El.type !== arr2El.type) ? true : false;
+      })
+    };
+   
+    const arrDiffs = getDiffs(placesState, places);
+    const diffsMap = arrDiffs.map(diff => diff.hall_id);
+    const uniqueDiffs = [...new Set(diffsMap)]; // добавить единожды номера залов
+    console.log({uniqueDiffs});
+
+    uniqueDiffs.forEach(hall_id => {
+      const differentHallConfiguration = configurationHallDiffs.find(configuration => configuration.id === hall_id);
+      if (differentHallConfiguration) {
+        console.log('зал с изменённой конфигурацией -> обновить зал и места');
+        handleHallConfiguration(differentHallConfiguration);
+      } else {
+        console.log('зал с прежней конфигурацией -> обновить места');
+        handleUpdatePlaces(placesState.filter(place => place.hall_id === hall_id), hall_id);
+      }
+      // вернуть рабочий вариант
+      // handleUpdatePlaces(findPLacesToUpdate, hall); // Обновить типы мест (если требуется)
+    });
 
     // 2) Есть изменения в конфигурации залов
-    if (configurationHallDiffs.length > 0) {
-      configurationHallDiffs.forEach(hall => {
-        handleHallConfiguration(hall);
-      })
-    } 
+    // if (configurationHallDiffs.length > 0) {
+    //   console.log('залы с изменённой конфигурацией');
+    //   configurationHallDiffs.forEach(hall => {
+    //     handleHallConfiguration(hall);
+    //   })
+    // } 
 
     // 3) Нет изменений в конфигурации залов
-    if (sameConfigurationHalls.length > 0) {
-      console.log('залы с прежней конфигурацией');
+    // if (sameConfigurationHalls.length > 0) {
+    //   // console.log('залы с прежней конфигурацией');
       
-      sameConfigurationHalls.forEach(hall => {
-        handleUpdatePlaces(findPLacesToUpdate, hall); // Обновить типы мест (если требуется)
-      })
-    }
+    //   // // Все залы, где изменились типы мест
+    //   // const diffs = (arr1, arr2) => {
+    //   //   return arr1.filter(arr1El =>{
+    //   //     const arr2El = arr2.find(el => el.row === arr1El.row && el.place === arr1El.place && el.hall_id === arr1El.hall_id);
+    //   //     if (arr2El) return (arr1El.type !== arr2El.type) ? true : false;
+    //   //   })
+    //   // };
+     
+    //   // const arrDiffs = diffs(placesState, places);
+    //   // const diffsMap = arrDiffs.map(diff => diff.hall_id);
+    //   // const uniqueDiffs = [...new Set(diffsMap)]; // добавить единожды номера залов
+    //   // console.log({uniqueDiffs});
+
+    //   // uniqueDiffs.forEach(hall_id => {
+    //   //   const differentHallConfiguration = configurationHallDiffs.find(configuration => configuration.hall_id === hall_id);
+    //   //   if (differentHallConfiguration) {
+    //   //     console.log('зал с изменённой конфигурацией -> обновить зал и места');
+    //   //     handleHallConfiguration(differentHallConfiguration);
+    //   //   } else {
+    //   //     console.log('зал с прежней конфигурацией -> обновить места');
+    //   //     handleUpdatePlaces(placesState.filter(place => place.hall_id === hall_id), hall_id);
+    //   //   }
+    //   //   // вернуть рабочий вариант
+    //   //   // handleUpdatePlaces(findPLacesToUpdate, hall); // Обновить типы мест (если требуется)
+    //   // });
+      
+    //   // // рабочий вариант
+    //   // sameConfigurationHalls.forEach(hall => {
+    //   //   handleUpdatePlaces(placesState.filter(place => place.hall_id === hall.id), hall.id);
+    //   //   // вернуть рабочий вариант
+    //   //   // handleUpdatePlaces(findPLacesToUpdate, hall); // Обновить типы мест (если требуется)
+    //   // })
+    // }
   }
   
   const handlePlaceType = (placeId) => {

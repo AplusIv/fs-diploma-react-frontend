@@ -108,7 +108,7 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], editedEleme
             {
               // id: `${++lastHallId}`,
               rows: 5,
-              places: 6,
+              places: 8,
               normal_price: Number(250).toFixed(2),
               vip_price: Number(550.5).toFixed(2)
             }}

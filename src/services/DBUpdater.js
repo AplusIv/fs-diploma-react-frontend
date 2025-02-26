@@ -115,6 +115,16 @@ const addPlacesToDB = async (hall) => {
   }
 }
 
+const addPlacesToHall = async (id, hallData) => {
+  try {
+    const response = await apiClient.post(`api/halls/${id}/places`, hallData);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // const deletePlacesFromHall = async (id) => {
 //   const places = await getPlacesByHall(id);
 //   console.log(places);
@@ -149,6 +159,17 @@ const deletePlacesFromHall = async (id) => {
     console.log(error);
   }
 }
+
+const deletePlacesFromHall2 = async (id) => {
+  try {
+    const response = await apiClient.delete(`api/halls/${id}/places`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 const getPlacesByHall = async (id) => {
   console.log('places by exact Hall get request');
@@ -351,6 +372,22 @@ const getDataById = async (url, id) => {
   }
 }
 
+// Функционал: обновление всех мест в выбранном зале
+const updateHallPlaces = async (data, id) => {
+  // e.preventDefault();
+
+  console.log('array put request');
+
+  try {
+    const response = await apiClient.put(`api/halls/${id}/places`, data)
+    // response.json().then(data => console.log(data));
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // // Функционал: Добавление новых фильмов/сеансов
 // // рабочий вариант для JSON server
 // const addDataToDB = (array, url) => {
@@ -429,7 +466,9 @@ export {
   addHallToDB,
   getHallfromDB,
   addPlacesToDB,
+  addPlacesToHall,
   deletePlacesFromHall,
+  deletePlacesFromHall2,
   getPlacesByHall,
   getPlaces,
   deleteHallFromDB,
@@ -442,4 +481,5 @@ export {
   makeOrderWithTickets,
   updateOrderAndTicketStatus,
   getDataById,
+  updateHallPlaces,
 }

@@ -70,16 +70,27 @@ const HallManager = ({ halls }) => {
   }
 
     // Универсальный колбэк onAddCallback + функции обновления массивов сущностей
+    // рабочий, но долгий вариант 
+    // const handleAddData = async (newData) => {
+    //   // добавление зала
+    //   if (Object.prototype.hasOwnProperty.call(newData, "rows")) {
+    //     handleAddHall(newData);
+    //     addHallToDB(newData);
 
+    //     const newHall = await getHallfromDB(newData.title);
+    //     console.log({newHall});
+    //     await addPlacesToDB(newHall);        
+    //   }
+    // }
     const handleAddData = async (newData) => {
       // добавление зала
       if (Object.prototype.hasOwnProperty.call(newData, "rows")) {
         handleAddHall(newData);
         addHallToDB(newData);
 
-        const newHall = await getHallfromDB(newData.title);
-        console.log({newHall});
-        await addPlacesToDB(newHall);        
+        // const newHall = await getHallfromDB(newData.title);
+        // console.log({newHall});
+        // await addPlacesToDB(newHall);        
       }
     }
   

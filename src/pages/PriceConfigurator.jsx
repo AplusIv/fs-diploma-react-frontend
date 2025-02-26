@@ -123,13 +123,12 @@ const PriceConfigurator = ({ halls }) => {
   }
 
   const handleInput = (e) => {
-    // setPrices((previousPrices) => ({...previousPrices, normal_price: e.target.value}))
     console.log(e);
     
     // Уточнить, как сделать ввод нескольких символов без обновления 
     const newConfigurations = configurations.map(configuration => {
       if (configuration.hall_id === hall.id) {
-        return { ...configuration, [e.target.name]: e.target.value }
+        return { ...configuration, [e.target.name]: e.target.value } // ввод любого символа (в т.ч. букв, знаков препинания и т.д.)
       } else {
         return configuration;
       }
@@ -139,13 +138,12 @@ const PriceConfigurator = ({ halls }) => {
   }
 
   const handleBlur = (e) => {
-    // setPrices((previousPrices) => ({...previousPrices, normal_price: e.target.value}))
     console.log(e);
     
     // Уточнить, как 
     const newConfigurations = configurations.map(configuration => {
       if (configuration.hall_id === hall.id) {
-        return { ...configuration, [e.target.name]: Number(parseFloat(e.target.value).toFixed(2)) }
+        return { ...configuration, [e.target.name]: e.target.value ? Number(parseFloat(e.target.value).toFixed(2)) : 0 }
       } else {
         return configuration;
       }
@@ -174,12 +172,9 @@ const PriceConfigurator = ({ halls }) => {
                 name="normal_price"
                 placeholder="0"
                 value={configurations.find(configuration => configuration.hall_id === hall.id).normal_price}
-                // onClick={handleInput}
                 onChange={handleInput} 
                 onBlur={handleBlur}
-              // onChange={(e) => setPrices((previousPrices) => ({...previousPrices, normal_price: e.target.value}))}
               />
-              {/* <input type="text" className="conf-step__input" placeholder="0" value={normalPrice} onChange={(e) => setNormalPrice(e.target.value)}/> */}
             </label>
             за <span className="conf-step__chair conf-step__chair_standart"></span> обычные кресла
           </div>
