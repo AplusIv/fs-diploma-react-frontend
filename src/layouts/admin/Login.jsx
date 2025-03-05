@@ -15,11 +15,11 @@ const Login = () => {
 
   // const isLoggedContext = createContext(loggedIn);
 
-  const {loggedIn, setLoggedIn, login} = useContext(isLoggedContext);
+  const { loggedIn, setLoggedIn, login } = useContext(isLoggedContext);
   console.log(loggedIn, setLoggedIn, login);
 
   const navigate = useNavigate();
-  
+
 
   // const login = () => {
   //   setLoggedIn(!loggedIn);
@@ -40,13 +40,27 @@ const Login = () => {
             sessionStorage.setItem('loggedIn', true);
             console.log('пользователь авторизован');
 
-            setToHome(true);      
-            
-            console.log({loggedIn});            
+            setToHome(true);
+
+            console.log({ loggedIn });
             navigate('/')
           }
+        }).catch(err => {
+          console.log(err);
+          // Когда пользователь залогинен, но отсутствует запись в сессии
+          if (err.response.status === 403 && err.response.data.message === "Already Authenticated") {
+            // if (response.data.message === "Already Authenticated") {
+
+            console.log('сессия пользователя обновлена');
+            login(); // если основной запрос 302 -> залогиниться
+            sessionStorage.setItem('loggedIn', true);
+            navigate('/');
+          }
         })
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        console.log(err);
+        // console.log({err});  
+      });
   }
 
   // if (toHome === true) {
@@ -56,7 +70,7 @@ const Login = () => {
   if (loggedIn === true) {
     // return redirect('http://localhost:5173/api/books');
     console.log('пользователь авторизован, можно перенаправлять на главную');
-    
+
   }
 
   return (

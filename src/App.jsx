@@ -28,7 +28,7 @@ import Ticket from "./layouts/client/Ticket"
 // import { hallsLoader } from "./pages/HallManager"
 import { loader } from "./services/loader"
 import BigSpinner from "./pages/BigSpinner"
-import { useCallback, useContext, useMemo, useState } from "react"
+import { useCallback, useContext, useEffect, useMemo, useState } from "react"
 
 // тест
 import Books from "../reserve/Books"
@@ -85,6 +85,7 @@ function App() {
       setLoggedIn(!loggedIn);
     }, [loggedIn]);
   const contextValue = useMemo(() => ({ loggedIn, setLoggedIn }), [loggedIn]); // запоминает функцию ,не перерисовывает без изменения значений
+    
   // const { data, setData } = useContext(isLoggedContext)
 
   // const [count, setCount] = useState(0)

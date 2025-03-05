@@ -49,11 +49,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
     setDate(e.target.value);
   }
 
-  // const handleClickDate = (e) => {
-  //   console.log(e.target.value);
-
-  // }
-
+  // Выбранный фильм
   const [movieInfo, setMovieInfo] = useState({});
   console.log(movieInfo);
 
@@ -97,8 +93,8 @@ const SessionManager = ({ halls, movies, sessions }) => {
   const [hallsInfo, setHallsInfo] = useState(initialHallsInfo);
   console.log({hallsInfo});
 
-    // бэкграунд фильмов
-    const [movieBackgroundColors, setMovieBackgroundColors] = useState([]);
+  // бэкграунд фильмов
+  const [movieBackgroundColors, setMovieBackgroundColors] = useState([]);
 
 
 
@@ -133,8 +129,8 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
   const [editedSessionId, setEditedSessionId] = useState('');
 
-  // возмоность обновления сеансов
-  const [edit, setEdit] = useState(true)
+  // возможность обновления сеансов
+  const [edit, setEdit] = useState(true);
 
   // 'adding film popup', 'editing film popup', 'hide popup'
   // const [popupStatus, setPopupStatus] = useState('hide popup');
@@ -217,40 +213,42 @@ const SessionManager = ({ halls, movies, sessions }) => {
   //   setPopupTitle('Изменить фильм');
   // }
 
-  const handleChange = (e) => {
-    setMovieInfo({ ...movieInfo, [e.target.name]: e.target.value });
-    console.log(e.target.value);
-  }
+
+
+  // const handleChange = (e) => {
+  //   setMovieInfo({ ...movieInfo, [e.target.name]: e.target.value });
+  //   console.log(e.target.value);
+  // }
 
 
   // 
   // 
 
-  const handleChanges = (id, changeInfo, name) => {
-    console.log({ changeInfo, name });
-    // setSessionsInfo([...sessionsInfo, [target]: changeInfo]);
-    const session = sessionsInfo.find(session => session.id === id);
-    console.log(session);
+  // const handleChanges = (id, changeInfo, name) => {
+  //   console.log({ changeInfo, name });
+  //   // setSessionsInfo([...sessionsInfo, [target]: changeInfo]);
+  //   const session = sessionsInfo.find(session => session.id === id);
+  //   console.log(session);
 
-    let editedSession;
+  //   let editedSession;
 
-    if (name === "hall_id") {
-      const editedHallId = halls.find(hall => hall.title === changeInfo).id;
-      editedSession = { ...session, [name]: editedHallId };
-    } else {
-      editedSession = { ...session, [name]: changeInfo };
-    }
-    const editedSessions = sessionsInfo.map(session => {
-      if (session.id === id) {
-        return editedSession;
-      } else {
-        return session;
-      }
-    })
+  //   if (name === "hall_id") {
+  //     const editedHallId = halls.find(hall => hall.title === changeInfo).id;
+  //     editedSession = { ...session, [name]: editedHallId };
+  //   } else {
+  //     editedSession = { ...session, [name]: changeInfo };
+  //   }
+  //   const editedSessions = sessionsInfo.map(session => {
+  //     if (session.id === id) {
+  //       return editedSession;
+  //     } else {
+  //       return session;
+  //     }
+  //   })
 
-    setSessionsInfo(editedSessions);
-    console.log(editedSessions);
-  }
+  //   setSessionsInfo(editedSessions);
+  //   console.log(editedSessions);
+  // }
 
   // 
   // 
@@ -657,20 +655,6 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
   return (
     <section className="conf-step">
-
-
-      {/* Резервный вариант */}
-      {/* <Popup3
-        popupInfo={popupInfo}
-        lastId={lastId}
-        movieInfo={movieInfo}
-        handleChange={handleChange}
-        handlePopup={handlePopupStatus}
-      > */}
-      {/* <PopupBase popupInfo={popupInfo} handlePopup={handlePopupStatus}>
-        </PopupBase> */}
-      {/* </Popup3> */}
-
       <Popup4
         popupInfo={popupInfo}
         // lastId={lastId}

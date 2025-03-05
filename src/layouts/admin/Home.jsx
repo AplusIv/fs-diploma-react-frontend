@@ -7,43 +7,35 @@ import HallConfigurator from '../../pages/HallConfigurator';
 import PriceConfigurator from '../../pages/PriceConfigurator';
 import SessionManager from '../../pages/SessionManager';
 import SellsConfigurator from '../../pages/SellsConfigurator';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { isLoggedContext } from '../../services/Context';
 
-const Home = () => {
- 
-
-  // const {status} = useLoaderData();
-  // console.log({statusLoader: status});
-
-  // const navigate = useNavigate();
-
-  // if (status === 401) {
-  //   return navigate('/login');
-  // } 
-  
+const Home = () => {  
   const { halls, movies, sessions, places } = useLoaderData();
-
-  // const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
-
-  // const handleClick = (e) => {
-  //   console.log(e.target.className);
-  //   // if (e.target.contains)
-  //   if (e.target.classList.contains('conf-step__header')) {
-  //     setIsActiveHeaderState(!isActiveHeaderState);
-  //   }
-  //   // setIsActiveHeaderState(!isActiveHeaderState);
-  // }
 
   // вернуть
   const {loggedIn} = useContext(isLoggedContext); 
   console.log({loggedIn});
   
+  // const navigate = useNavigate();
+
+  // if (!loggedIn) {
+  //   navigate('/login');
+  // }  
+
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!loggedIn) {
+      console.log('navigate');
+      // Redirect the user back to /login route
+      navigate("/login", { replace: true } );
+    }
+  }, [loggedIn]);
+
   if (!loggedIn) {
-    navigate('/login');
-  }  
+    return (<div>Требуется авторизация</div>)
+  }
 
   return (
     <main className="conf-steps">
