@@ -39,6 +39,10 @@ import MovieList from "./layouts/client/MovieList"
 import { isLoggedContext } from "./services/Context"
 import { orderContext } from "./services/OrderContext"
 
+// redux
+import { Provider } from "react-redux"
+import { store } from "./redux/store"
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -100,12 +104,24 @@ function App() {
   // order context
   const [order, setOrder] = useState({});
   const orderContextValue = useMemo(() => ({ order, setOrder }), [order]); // запоминает функцию ,не перерисовывает без изменения значений
+
+  console.log(store.getState());
+  
+  
   return (
-    <isLoggedContext.Provider value={{...contextValue, login: login}}>
-      <orderContext.Provider value={orderContextValue}>
-        <RouterProvider router={router} fallbackElement={<BigSpinner />} />
-      </orderContext.Provider>
-    </isLoggedContext.Provider>
+    <Provider store={store}>
+      <isLoggedContext.Provider value={{...contextValue, login: login}}>
+        <orderContext.Provider value={orderContextValue}>
+          <RouterProvider router={router} fallbackElement={<BigSpinner />} />
+        </orderContext.Provider>
+      </isLoggedContext.Provider>
+    </Provider>
+    // <isLoggedContext.Provider value={{...contextValue, login: login}}>
+    //   <orderContext.Provider value={orderContextValue}>
+    //     <RouterProvider router={router} fallbackElement={<BigSpinner />} />
+    //   </orderContext.Provider>
+    // </isLoggedContext.Provider>
+
     // <isLoggedContext.Provider value={{...contextValue, login: login}}>
     //   <RouterProvider router={router} fallbackElement={<BigSpinner />} />
     // </isLoggedContext.Provider>

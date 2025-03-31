@@ -1,6 +1,6 @@
-// import apiClient from "../services/jsonServerApi";
-// import axios from "axios";
-// import { useState } from "react";
+import apiClient from "../services/jsonServerApi";
+import axios from "axios";
+import { useState } from "react";
 import PopupBase from "./PopupBase";
 // import PopupSessionInfo from "./PopupSessionInfo";
 // import PopupNewDataAdding from "../../reserve/PopupNewDataAdding";
@@ -19,9 +19,9 @@ import PopupHallAdding from "./PopupHallAdding";
 import PopupMovieAdding from "./PopupMovieAdding";
 // import PopupChangeSessions from "../../reserve/PopupChangeSessions";
 import PopupChangeSessions2 from "./PopupChangeSessions2";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], /* editedElement = {}, handleInput, handleSelect,  */onChangeCallback, onAddCallback, onDeleteCallback, /* edit, handleChange, */ handlePopup }) => {
+const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], editedElement = {}, handleInput, handleSelect, onChangeCallback, onAddCallback, onDeleteCallback, edit, handleChange, handlePopup }) => {
 
   // Выбранный зал
   // const initialSelectedHallTitle = halls[0].title;
@@ -44,12 +44,12 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], /* editedEl
   // const hallPopupInfo = useSelector(state => state.hallPopupInfoReducer.hallPopupInfo);
 
 
-  /* // before redux 
+
   // возможность редакировать инпуты
   const [isDisabled, setisDisabled] = useState(false);
 
   // добавить/отменить добавление сеанса
-  const [isAdding, setIsAdding] = useState(false); */
+  const [isAdding, setIsAdding] = useState(false);
 
   // const [edit, setEdit] = useState(false)F
 
@@ -95,11 +95,11 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], /* editedEl
     return (
       <PopupBase popupInfo={popupInfo} handlePopup={handlePopup}>
         <PopupMovieAdding
-          /* initialItem={
+          initialItem={
             {
               id: ++lastMovieId,
               // пустой объект, который будет заполнен данными из формы
-            }} */
+            }}
           buttonTitle={'Добавить фильм'}
           onAddCallback={onAddCallback}
           handlePopup={handlePopup}
@@ -112,14 +112,14 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], /* editedEl
     return (
       <PopupBase popupInfo={popupInfo} handlePopup={handlePopup}>
         <PopupHallAdding
-          // initialItem={
-          //   {
-          //     // id: `${++lastHallId}`,
-          //     rows: 5,
-          //     places: 8,
-          //     normal_price: Number(250).toFixed(2),
-          //     vip_price: Number(550.5).toFixed(2)
-          //   }}
+          initialItem={
+            {
+              // id: `${++lastHallId}`,
+              rows: 5,
+              places: 8,
+              normal_price: Number(250).toFixed(2),
+              vip_price: Number(550.5).toFixed(2)
+            }}
           buttonTitle={'Добавить зал'}
           onAddCallback={onAddCallback}
           handlePopup={handlePopup} />
@@ -132,7 +132,7 @@ const Popup4 = ({ popupInfo, halls = [], movies = [], sessions = [], /* editedEl
       <>
         <PopupBase popupInfo={popupInfo} handlePopup={handlePopup}>
           <PopupChangeForm
-            // editedElement={editedElement}
+            editedElement={editedElement}
             onChangeCallback={onChangeCallback}
             onDeleteCallback={onDeleteCallback}
             buttonTitle={'Изменить фильм'}

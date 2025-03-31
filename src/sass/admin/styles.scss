@@ -793,6 +793,12 @@ input[type='radio'], input[type='submit'], input[type='time'], button, .conf-ste
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 5px;
+
+    // textarea размеры
+    textarea {
+      width: 450px;
+      resize: both;
+    }
   }
 
   .session-popup {

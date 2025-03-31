@@ -2,42 +2,32 @@ import { useState } from "react"
 import PopupInput from "./PopupInput";
 import PopupTextarea from "./PopupTextarea";
 import { useDispatch, useSelector } from "react-redux";
-import { changeData, setToInitialData } from "../redux/slices/popupAddMovieHandlerSlice";
 
 
-const PopupMovieAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, handlePopup }) => {
-  // before Redux
-  // const [newItem, setNewItem] = useState(initialItem);
-  // console.log({ newItem });
+const PopupMovieAdding = ({ initialItem = {}, buttonTitle, onAddCallback, handlePopup }) => {
+  const [newItem, setNewItem] = useState(initialItem);
+  console.log({ newItem });
 
-  // redux added movie data 
-  const popupData = useSelector(state => state.popupAddMovieReducer.popupAddMovieData);
-  console.log({ popupData });
-
-  const dispatch = useDispatch();
+   // redux added movie data 
+   const popupData = useSelector(state => state.popupAddMovieReducer.popupAddMovieData);
+   console.log({popupData});
+ 
+   const dispatch = useDispatch();
 
 
   const handleAddData = (e) => {
     e.preventDefault();
     console.log('добавление нового элемента в массив');
-    onAddCallback(popupData);
+    onAddCallback(newItem);
 
-    // onAddCallback(newItem);
-    // setNewItem(initialItem);
-
+    setNewItem(initialItem);
+    // setAdding(false);
     handlePopup('hide popup');
-    dispatch(setToInitialData());
   }
 
   const onChangeItemData = (editedValue, name) => {
-    // redux
-    dispatch(changeData({ property: name, value: editedValue }));
+    (name === 'duration') ? setNewItem({ ...newItem, [name]: Number(editedValue) }) : setNewItem({ ...newItem, [name]: editedValue });
   }
-
-  // before redux
-  //   const onChangeItemData = (editedValue, name) => {
-  //   (name === 'duration') ? setNewItem({ ...newItem, [name]: Number(editedValue) }) : setNewItem({ ...newItem, [name]: editedValue });
-  // }
 
   return (
     <form onSubmit={handleAddData}>
@@ -59,7 +49,6 @@ const PopupMovieAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, 
         <label>
           Описание фильма:{' '}
           <PopupTextarea
-            belongsTo='add movie'
             name="description"
             rows="5"
             cols="33"
@@ -73,9 +62,8 @@ const PopupMovieAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, 
         <label>
           Длительность фильма:{' '}
           <PopupInput
-            belongsTo='add movie'
-            // type="text"
-            type="number" // всё-таки длительность фильма это число
+            type="text"
+            // type="number" всё-таки длительность фильма это число
             name="duration"
             placeholder="Длительность фильма"
             autoComplete="on"
@@ -87,7 +75,6 @@ const PopupMovieAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, 
         <label>
           Название страны:{' '}
           <PopupInput
-            belongsTo='add movie'
             type="text"
             name="country"
             placeholder="Название страны"

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import apiClient from "../services/jsonServerApi";
 
 import HallConfiguratorTitles from "./HallConfiguratorTitles"
@@ -6,9 +6,6 @@ import SectionButtons from "./SectionButtons"
 import SectionHeader from "./SectionHeader"
 import axios from "axios";
 import { updateHallInDB } from "../services/DBUpdater";
-import { useDispatch, useSelector } from "react-redux";
-import { cancelPriceChanges, changeData, handleBlurData, putHallData, setHalls, setPrices, setSelectedHallId } from "../redux/slices/hallPricesSlice";
-import { getHalls } from "../redux/slices/hallSlice";
 
 const PriceConfigurator = ({ halls }) => {
 
@@ -43,29 +40,6 @@ const PriceConfigurator = ({ halls }) => {
   const [configurations, setConfigurations] = useState(initialConfigurations);
   console.log({ configurations });
 
-  const dispatch = useDispatch();
-  // redux prices 
-  const pricesRedux = useSelector(state => state.hallPricesReducer.prices);
-  console.log({pricesRedux});
-
-  const selectedHallId = useSelector(state => state.hallPricesReducer.selectedHallId);
-  
-  const hallsRedux2 = useSelector(state => state.hallsReducer.halls);
-  console.log({ hallsRedux2 });
-
-  useEffect(() => {
-    console.log('price effect is on');    
-    dispatch(getHalls()); // загрузка залов
-  }, [])
-
-  useEffect(() => {
-    console.log('price effect 2 is on');
-    
-    dispatch(setPrices(hallsRedux2)); // заполнение конфигурации цен данными залов, загруженных из hallSlice при помощи эффекта
-    dispatch(setHalls(hallsRedux2));
-  }, [hallsRedux2])
-
-
   const handleChange = (e) => {
     console.log(checked);
 
@@ -75,77 +49,13 @@ const PriceConfigurator = ({ halls }) => {
     console.log(e);
     console.dir(e.target);
 
-    // redux
-    dispatch(setSelectedHallId(e.target.value))
-
-    // before redux
-    // const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
-    // setHall((previousHall) => ({ ...previousHall, ...chosenHall }));
-    // console.log(hall);
+    const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
+    // console.log(chosenHall);
+    setHall((previousHall) => ({ ...previousHall, ...chosenHall }));
+    console.log(hall);
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    console.log('handleSubmit');
-
-    // 1) Есть ли изменения в ценах залов
-    let hallPriceDiffs = []; // Залы с изменившимися ценами
-
-    hallsRedux2.filter(hallData => {
-      const configuration = pricesRedux.find(configuration => configuration.hall_id === hallData.id);
-
-      // return (!(hallData.rows === configuration.rows && hallData.places === configuration.places))
-
-      if (!(hallData.normal_price === configuration.normal_price && hallData.vip_price === configuration.vip_price)) {
-        hallPriceDiffs.push({ ...hallData, normal_price: configuration.normal_price, vip_price: configuration.vip_price });
-        return true;
-      }
-    })
-
-    console.log({ hallPriceDiffs });
-
-    if (hallPriceDiffs.length > 0) {
-      const updatedHalls = hallPriceDiffs.map(hallPriceDiff => {
-        return {
-          id: hallPriceDiff.id,
-          title: hallPriceDiff.title,
-          rows: hallPriceDiff.rows,
-          places: hallPriceDiff.places,
-          normal_price: Number(hallPriceDiff.normal_price).toFixed(2),
-          vip_price: Number(hallPriceDiff.vip_price).toFixed(2)
-        }
-      });
-      console.log({ updatedHalls });
-      dispatch(putHallData({dataArray: updatedHalls, url: 'api/halls'}));
-
-      /* const promises = hallPriceDiffs.map(async data => {
-        const updatedHall = {
-          title: data.title,
-          rows: data.rows,
-          places: data.places,
-          normal_price: Number(data.normal_price).toFixed(2),
-          vip_price: Number(data.vip_price).toFixed(2)
-        };
-        try {
-          // return await apiClient.put(`api/places/${data.id}`, updatedHall);
-          return await updateHallInDB(data.id, updatedHall);
-        } catch (error) {
-          console.log(error);
-        }
-      })
-    
-      try {
-        console.log({promises});        
-        const response = await Promise.all(promises);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      } */
-    }
-  }
-
-  /* const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log('handleSubmit');
@@ -191,7 +101,7 @@ const PriceConfigurator = ({ halls }) => {
         console.log(error);
       }
     }
-  } */
+  }
 
   const handleRefresh = (e) => {
     // Почему срабатывает при Enter в инпуте, будто это произошло событие Submit?
@@ -199,10 +109,7 @@ const PriceConfigurator = ({ halls }) => {
     console.log('handleRefresh');
     console.log(e.target);
 
-    dispatch(cancelPriceChanges());
 
-
-    /* // before redux
     // Возврат к конфигурации
     const refreshedConfigurations = configurations.map(configuration => {
       if (configuration.hall_id === hall.id) {
@@ -212,18 +119,13 @@ const PriceConfigurator = ({ halls }) => {
       }
     })
 
-    setConfigurations(refreshedConfigurations); */
+    setConfigurations(refreshedConfigurations);
   }
 
   const handleInput = (e) => {
     console.log(e);
-
-    const {name, value} = e.target;
-
-    // redux
-    dispatch(changeData({property: name, value})); // ввод любого символа (в т.ч. букв, знаков препинания и т.д.)
     
-   /*  // Уточнить, как сделать ввод нескольких символов без обновления 
+    // Уточнить, как сделать ввод нескольких символов без обновления 
     const newConfigurations = configurations.map(configuration => {
       if (configuration.hall_id === hall.id) {
         return { ...configuration, [e.target.name]: e.target.value } // ввод любого символа (в т.ч. букв, знаков препинания и т.д.)
@@ -232,17 +134,13 @@ const PriceConfigurator = ({ halls }) => {
       }
     })
 
-    setConfigurations(newConfigurations); */
+    setConfigurations(newConfigurations);
   }
 
   const handleBlur = (e) => {
     console.log(e);
-    const {name, value} = e.target;
-
-    // redux
-    dispatch(handleBlurData({property: name, value}));
-       
-    /* // Уточнить, как 
+    
+    // Уточнить, как 
     const newConfigurations = configurations.map(configuration => {
       if (configuration.hall_id === hall.id) {
         return { ...configuration, [e.target.name]: e.target.value ? Number(parseFloat(e.target.value).toFixed(2)) : 0 }
@@ -251,7 +149,7 @@ const PriceConfigurator = ({ halls }) => {
       }
     })
 
-    setConfigurations(newConfigurations); */
+    setConfigurations(newConfigurations);
   }
 
 
@@ -260,11 +158,11 @@ const PriceConfigurator = ({ halls }) => {
 
       <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
 
-      {hallsRedux2.length > 0 && pricesRedux.length > 0 &&<div className="conf-step__wrapper">
+      <div className="conf-step__wrapper">
         <form onSubmit={handleSubmit}>
 
           <p className="conf-step__paragraph">Выберите зал для конфигурации:</p>
-          <HallConfiguratorTitles halls={halls} name="prices-hall" handleChange={handleChange} /* checked={checked}  *//* onClick={handleInput} */ />
+          <HallConfiguratorTitles halls={halls} name="prices-hall" handleChange={handleChange} checked={checked} onClick={handleInput} />
 
           <p className="conf-step__paragraph">Установите цены для типов кресел:</p>
           <div className="conf-step__legend">
@@ -273,8 +171,7 @@ const PriceConfigurator = ({ halls }) => {
                 className="conf-step__input"
                 name="normal_price"
                 placeholder="0"
-                value={pricesRedux.find(configuration => configuration.hall_id === selectedHallId).normal_price}
-                // value={configurations.find(configuration => configuration.hall_id === hall.id).normal_price}
+                value={configurations.find(configuration => configuration.hall_id === hall.id).normal_price}
                 onChange={handleInput} 
                 onBlur={handleBlur}
               />
@@ -288,8 +185,7 @@ const PriceConfigurator = ({ halls }) => {
                 className="conf-step__input"
                 name="vip_price"
                 placeholder="0"
-                value={pricesRedux.find(configuration => configuration.hall_id === selectedHallId).vip_price}
-                // value={configurations.find(configuration => configuration.hall_id === hall.id).vip_price}
+                value={configurations.find(configuration => configuration.hall_id === hall.id).vip_price}
                 onChange={handleInput}
                 onBlur={handleBlur}
               />
@@ -303,7 +199,7 @@ const PriceConfigurator = ({ halls }) => {
             <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent"/>
           </fieldset> */}
         </form>
-      </div>}
+      </div>
     </section>
   )
 }

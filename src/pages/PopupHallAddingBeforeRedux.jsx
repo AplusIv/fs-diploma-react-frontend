@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeData } from "../redux/slices/hallPopupDataHandlerSlice";
 
 
-const PopupHallAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, handlePopup }) => {
+const PopupHallAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, handlePopup, children }) => {
   // const [newItem, setNewItem] = useState({
   //   id: `${++lastId}`
   // });
@@ -14,22 +14,11 @@ const PopupHallAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, h
   console.log({hallPopupData});
 
   const dispatch = useDispatch();
-
-  const handleAddData = (e) => {
-    e.preventDefault();
-    console.log('добавление нового элемента в массив');
-    onAddCallback(hallPopupData);
-
-    handlePopup('hide popup');
-  }
-
-  const onChangeItemData = (editedValue, name) => {
-    // redux
-    dispatch(changeData({property: name, value: editedValue}));
-  }
+  // const handleChangeData = dispatch(changeData({name, editedValue}))
+  // const addHallCallback = useCallback(() => dispatch(addHall()), []);
+  // const hidePopupCallback = useCallback(() => dispatch(hidePopup()), []);
 
   
-  /* (1) Рабочий вариант до redux
 
   const [newItem, setNewItem] = useState(initialItem);
   console.log({ newItem });
@@ -41,6 +30,7 @@ const PopupHallAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, h
     onAddCallback(newItem);
 
     setNewItem(initialItem);
+    // setAdding(false);
     handlePopup('hide popup');
   }
 
@@ -49,14 +39,13 @@ const PopupHallAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, h
 
     // redux
     dispatch(changeData({property: name, value: editedValue}));
-  } */
+  }
 
   return (
     <form onSubmit={handleAddData}>
       <div className="popup__row add-item">
         <label>Название зала:{' '}
           <PopupInput
-            belongsTo={'add hall'}
             name="title"
             type="text"
             autoComplete="on"
