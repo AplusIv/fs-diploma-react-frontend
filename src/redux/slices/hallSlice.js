@@ -12,7 +12,7 @@ export const hallSlice = createSlice({
     dataLoading: (state) => {
       console.log(state.loading);
       // Use a "state machine" approach for loading state instead of booleans
-      if (state.loading === 'idle') {
+      if (state.loading === 'idle' || state.loading === 'failed') {
         state.loading = 'pending'
       }
     },
@@ -27,6 +27,13 @@ export const hallSlice = createSlice({
         state.halls = [...payload];
       }
     },
+    dataFailed: (state) => {
+      console.log(state.loading);
+      if (state.loading === 'pending') {
+        state.loading = 'failed'
+        state.halls = [];
+      }
+    },
     getHalls: () => {}, // запуск worker saga get halls
     setHalls: (state, action) => {
       const { payload } = action;
@@ -38,6 +45,12 @@ export const hallSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {getHalls, setHalls, dataLoading, dataReceived} = hallSlice.actions;
+export const {
+  getHalls, 
+  setHalls, 
+  dataLoading, 
+  dataReceived,
+  dataFailed,
+} = hallSlice.actions;
 
 export default hallSlice.reducer;

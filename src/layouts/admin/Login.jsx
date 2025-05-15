@@ -4,19 +4,26 @@ import { redirect, useNavigate } from "react-router-dom";
 import { createContext, useContext, useState } from "react"
 import apiClient from "../../services/api";
 import { isLoggedContext } from "../../services/Context";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedIn } from "../../redux/slices/loginSlice";
 
 const Login = () => {
-  const [toHome, setToHome] = useState(false); // необязательно для глобального контекста
+  // const [toHome, setToHome] = useState(false); // необязательно для глобального контекста
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // const [loggedIn, setLoggedIn] = useState(false);
+  const [error, setError] = useState('');
 
-  // const isLoggedContext = createContext(loggedIn);
 
-  const { loggedIn, setLoggedIn, login } = useContext(isLoggedContext);
-  console.log(loggedIn, setLoggedIn, login);
+  /* const { loggedIn, setLoggedIn, login } = useContext(isLoggedContext);
+  console.log(loggedIn, setLoggedIn, login); */
+
+  const loginRedux = useSelector(state => state.loginReducer.loggedIn);
+  console.log({loginRedux});
+
+  const dispatch = useDispatch();
+
 
   const navigate = useNavigate();
 
@@ -36,24 +43,29 @@ const Login = () => {
         }).then(response => {
           console.log(response)
           if (response.status === 204) {
-            login(); // если основной запрос 302 -> залогиниться
-            sessionStorage.setItem('loggedIn', true);
-            console.log('пользователь авторизован');
+            // login(); // если основной запрос 302 -> залогиниться
+            // sessionStorage.setItem('loggedIn', true);
+            // console.log('пользователь авторизован');
 
-            setToHome(true);
+            // setToHome(true);
 
-            console.log({ loggedIn });
+            setError('');
+
+            // console.log({ loggedIn });
+            dispatch(setLoggedIn());
             navigate('/')
           }
         }).catch(err => {
           console.log(err);
+
+          setError(err.response.data.message);
+
           // Когда пользователь залогинен, но отсутствует запись в сессии
           if (err.response.status === 403 && err.response.data.message === "Already Authenticated") {
-            // if (response.data.message === "Already Authenticated") {
-
             console.log('сессия пользователя обновлена');
-            login(); // если основной запрос 302 -> залогиниться
-            sessionStorage.setItem('loggedIn', true);
+            /* login(); // если основной запрос 302 -> залогиниться
+            sessionStorage.setItem('loggedIn', true); */
+            dispatch(setLoggedIn());
             navigate('/');
           }
         })
@@ -67,10 +79,9 @@ const Login = () => {
   //   return redirect('http://localhost:5173/api/books');
   // }
 
-  if (loggedIn === true) {
+  if (loginRedux === true) {
     // return redirect('http://localhost:5173/api/books');
     console.log('пользователь авторизован, можно перенаправлять на главную');
-
   }
 
   return (
@@ -119,6 +130,9 @@ const Login = () => {
               />
             </div>
             <p>{email} + {password}</p>
+
+            {error ? <p>{error}</p> : null}
+
           </form>
         </div>
       </section>

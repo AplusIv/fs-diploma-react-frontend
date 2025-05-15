@@ -1,15 +1,18 @@
 import { takeLatest } from "redux-saga/effects";
 import { deleteHall, postHallData } from "../../slices/hallPopupDataHandlerSlice";
-import { handleAddHallData, handleDeleteHall, handleEditHallData, handleGetHalls } from "../handlers/hall";
+import { handleAddHallData, handleDeleteHall, handleEditHallData, handleGetGuestHalls, handleGetHalls } from "../handlers/hall";
 import { getHalls } from "../../slices/hallSlice";
 import { putHallData } from "../../slices/hallPricesSlice";
+
+import { getHalls as getGuestHalls} from "../../slices/guestHallSlice";
+
 
 export function* getHallsWatcherSaga() {
   yield takeLatest(getHalls.type, handleGetHalls);
 }
 
 export function* hallPostWatcherSaga() {
-    yield takeLatest(postHallData.type, handleAddHallData);
+  yield takeLatest(postHallData.type, handleAddHallData);
 }
 
 export function* hallPutWatcherSaga() {
@@ -18,5 +21,10 @@ export function* hallPutWatcherSaga() {
 
 export function* hallDeleteWatcherSaga() {
   yield takeLatest(deleteHall.type, handleDeleteHall);
+}
+
+// guest
+export function* getGuestHallsWatcherSaga() {
+  yield takeLatest(getGuestHalls.type, handleGetGuestHalls);
 }
 

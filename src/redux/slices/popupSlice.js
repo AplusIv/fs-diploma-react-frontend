@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // popup states:
-  // statuses: 'adding hall popup', 'adding film popup', 'editing film popup', 'editing sessions' 'hide popup'
+  // statuses: 'adding hall popup', 'adding movie popup', 'editing movie popup', 'editing sessions' 'hide popup'
   // titles: 'Добавить зал', 'Добавить фильм', 'Изменить фильм', 'Редактировать сеансы', 'popup is hidden'
   // isActive: true, false (показать / скрыть)
 const initialState = {
@@ -23,13 +23,13 @@ export const popupSlice = createSlice({
     //   state.popupInfo.hallPopup = true,
     //   state.popupInfo.isActive = true
     // },
-    addFilm: state => {
-      state.popupInfo.status = 'adding film popup',
+    addMovie: state => {
+      state.popupInfo.status = 'adding movie popup',
       state.popupInfo.title = 'Добавить фильм',
       state.popupInfo.isActive = true
     },
     editMovie: state => {
-      state.popupInfo.status = 'editing film popup',
+      state.popupInfo.status = 'editing movie popup',
       state.popupInfo.title = 'Изменить фильм',
       state.popupInfo.isActive = true
     },
@@ -48,6 +48,6 @@ export const popupSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {/* addHall,  */addFilm, editMovie, editSessions, hidePopup} = popupSlice.actions;
+export const {/* addHall,  */addMovie, editMovie, editSessions, hidePopup} = popupSlice.actions;
 
 export default popupSlice.reducer;

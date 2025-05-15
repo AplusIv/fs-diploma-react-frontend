@@ -1,23 +1,9 @@
-import dayjs from "dayjs";
 import { nanoid } from "nanoid";
 
 const SessionDates = ({ days, date, handleChangeDate }) => {
-
-  // const now = dayjs();
-  // let days = [];
-  
-  // for (let index = 0; index < 14; index++) {
-  //   const day = now.add(index, 'day');
-  //   days.push(day);
-  // }
-
-  // console.log({days});
-  // console.log(typeof days[0].format('YYYY-MM-DD'));
-  
-
   return (
     <ul className="conf-step__selectors-box" >
-      { days.map(day => (
+      { days && days.map(day => (
         <li key={ nanoid() }>
           <input 
             type="radio" 

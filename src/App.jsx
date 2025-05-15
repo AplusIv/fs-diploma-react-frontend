@@ -42,13 +42,18 @@ import { orderContext } from "./services/OrderContext"
 // redux
 import { Provider } from "react-redux"
 import { store } from "./redux/store"
+import BookingParent from "./layouts/client/BookingParent"
+import BuyingCheck from "./layouts/client/BuyingCheck"
+import PaymentCheck from "./layouts/client/PaymentCheck"
+import TicketCheck from "./layouts/client/TicketCheck"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/* <Route path="/" element={<RootLayout />} errorElement={<ShowError />}> */}
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<Home />} loader={loader} />
+        <Route index element={<Home />} />
+        {/* <Route index element={<Home />} loader={loader} /> */}
         <Route path="login" element={<Login />} />
 
         <Route path="*" element={<NotFound />} />
@@ -56,23 +61,37 @@ const router = createBrowserRouter(
       <Route path="client" element={<ClientRootLayout />}>
         {/* <Route index element={<Index />} loader={loader} /> */}
         {/* route params */}
-        <Route path="schedule" element={<Index />}>
+        {/* рабочий вариант */}
+        {/* <Route path="schedule" element={<Index />}>
           <Route path=":date" element={<MovieList />} loader={loader} />
-        </Route>
-      </Route>
-      <Route path="buying" element={<ClientRootLayout />}>
-        {/* <Route index element={<Booking/>} /> */}
-        <Route index element={<Buying />} />
-      </Route>
-      <Route path="payment" element={<ClientRootLayout />}>
-        <Route index element={<Payment />} />
-      </Route>
-      <Route path="ticket" element={<ClientRootLayout />}>
-        <Route index element={<Ticket />} />
-      </Route>
+        </Route> */}
 
-      <Route path='books' element={<Books />} />
-      <Route path='halls' element={<HallsApi />} />
+        <Route path="schedule/:date?" element={<Index />} />
+        {/* <Route path="schedule/:date?" element={<Index />} loader={loader}/> */}
+
+        {/* <Route path="buying" element={<Buying />}/> */}
+        {/* <Route path="buying" element={<BookingParent />}/> */}
+        <Route path="buying" element={<BuyingCheck />}/>
+        {/* <Route path="payment" element={<Payment />}/> */}
+        <Route path="payment" element={<PaymentCheck/>}/>
+        {/* <Route path="ticket" element={<Ticket />}/> */}
+        <Route path="ticket" element={<TicketCheck/>}/>
+
+      </Route>
+      {/* <Route path="buying" element={<ClientRootLayout />}>
+        <Route index element={<Buying />} />
+      </Route> */}
+      {/* <Route path="payment" element={<ClientRootLayout />}>
+        <Route index element={<Payment />} />
+      </Route> */}
+      {/* <Route path="ticket" element={<ClientRootLayout />}>
+        <Route index element={<Ticket />} />
+      </Route> */}
+
+
+
+      {/* <Route path='books' element={<Books />} />
+      <Route path='halls' element={<HallsApi />} /> */}
 
     </>
   )

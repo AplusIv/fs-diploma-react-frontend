@@ -333,6 +333,8 @@ const makeOrderWithTickets = async (dataArray, url) => {
   // e.preventDefault();
 
   console.log('array post request');
+  console.log({ticketsToAddInOrder: dataArray});
+  
 
   try {
     // const response = await apiClient.post(url, dataArray, {headers: {'Content-Type': 'application/json'}});

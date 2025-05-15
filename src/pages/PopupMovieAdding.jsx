@@ -1,16 +1,10 @@
-import { useState } from "react"
 import PopupInput from "./PopupInput";
 import PopupTextarea from "./PopupTextarea";
 import { useDispatch, useSelector } from "react-redux";
 import { changeData, setToInitialData } from "../redux/slices/popupAddMovieHandlerSlice";
 
 
-const PopupMovieAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, handlePopup }) => {
-  // before Redux
-  // const [newItem, setNewItem] = useState(initialItem);
-  // console.log({ newItem });
-
-  // redux added movie data 
+const PopupMovieAdding = ({ buttonTitle, onAddCallback, handlePopup }) => {
   const popupData = useSelector(state => state.popupAddMovieReducer.popupAddMovieData);
   console.log({ popupData });
 
@@ -22,9 +16,6 @@ const PopupMovieAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, 
     console.log('добавление нового элемента в массив');
     onAddCallback(popupData);
 
-    // onAddCallback(newItem);
-    // setNewItem(initialItem);
-
     handlePopup('hide popup');
     dispatch(setToInitialData());
   }
@@ -33,11 +24,6 @@ const PopupMovieAdding = ({ /* initialItem = {},  */buttonTitle, onAddCallback, 
     // redux
     dispatch(changeData({ property: name, value: editedValue }));
   }
-
-  // before redux
-  //   const onChangeItemData = (editedValue, name) => {
-  //   (name === 'duration') ? setNewItem({ ...newItem, [name]: Number(editedValue) }) : setNewItem({ ...newItem, [name]: editedValue });
-  // }
 
   return (
     <form onSubmit={handleAddData}>

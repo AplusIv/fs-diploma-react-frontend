@@ -1,167 +1,120 @@
-import { useLoaderData, useParams } from 'react-router-dom';
+import { Link, useLoaderData, useParams } from 'react-router-dom';
 import poster1 from '../../img/client/poster1.jpg';
 import poster2 from '../../img/client/poster2.jpg'
 import MovieInfo from './MovieInfo';
 import MovieSessions from './MovieSessions';
-import { getSessionsByDate } from '../../services/DBUpdater';
-import { useEffect, useState } from 'react';
+// import { getSessionsByDate } from '../../services/DBUpdater';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSessionsByDate } from '../../redux/slices/sessionsByDateSlice';
+
+import dayjs from 'dayjs';
+import { compareFnByDateAssending } from '../../services/sorterFunctions';
 
 
-const MovieList = (/* { halls, movies, sessions, places } */) => {
+const MovieList = (/* { halls, movies, sessions, places, tickets } */) => {
   // console.log(sessions);
   // console.log(movies);
-  
-  const { halls, movies, places, tickets } = useLoaderData();
-  
 
-  const [isLoading, setIsLoading] = useState(true);
+  // const { halls, movies, places, tickets } = useLoaderData();
 
-  const [sessionsByDateState, setSessionsByDateState] = useState([]);
-  console.log({sessionsByDateState});
-  
+  // Redux
+  const hallsRedux = useSelector(state => state.guestHallsReducer.halls);
+  console.log({ hallsRedux });
+  const moviesRedux = useSelector(state => state.guestMoviesReducer.movies);
+  console.log({ moviesRedux });
+  const placesRedux = useSelector(state => state.guestPlacesReducer.places);
+  console.log({ placesRedux });
+  const sessionsByDateRedux = useSelector(state => state.sessionsByDateReducer.sessionsByDate);
+  console.log({ sessionsByDateRedux });
+
+  // сатусы загрузки данных
+  const hallsReduxLoading = useSelector(state => state.guestHallsReducer.loading);
+  console.log({ hallsReduxLoading });
+  const moviesReduxLoading = useSelector(state => state.guestMoviesReducer.loading);
+  console.log({ moviesReduxLoading });
+  const placesReduxLoading = useSelector(state => state.guestPlacesReducer.loading);
+  console.log({ placesReduxLoading });
+  const sessionsByDateReduxLoading = useSelector(state => state.sessionsByDateReducer.loading);
+  console.log({ sessionsByDateReduxLoading });
+
+  const ticketsReduxLoading = useSelector(state => state.ticketsReducer.loading);
+  console.log({ ticketsReduxLoading });
+  const ordersReduxLoading = useSelector(state => state.orderReducer.loading);
+  console.log({ ordersReduxLoading });
+
+
+  const dispatch = useDispatch();
+
 
   const { date } = useParams();
   console.log(date);
 
   useEffect(() => {
-    (async () => {
-      setIsLoading(true); // прогрузка данных
-
-      // Получение сеансов на конкретные даты
-      const sessionsByDate = await getSessionsByDate(date);
-      console.log({sessionsByDate});
-      setSessionsByDateState(sessionsByDate);
-
-      setIsLoading(false); // прогрузка данных
-      console.log({isLoading});
-    })() // IIFE
-    
-    console.log('effect is on');
-    
-    // return () => {
-    //   second
-    // }
+    console.log('MovieList effect is on');
+    // Получение сеансов на конкретные даты
+    dispatch(getSessionsByDate(date));
   }, [date])
-  
 
-  // const sessionsByDate = getSessionsByDate('25.06.2024');
-  // console.log({sessionsByDate});
-  // // 1. Добавить изменение даты сеанса
-  // // 2. Убрать дефотное значение 25.06.2024
-  
+  const now = dayjs().format('YYYY-MM-DD');
+
+  // некорректная дата/отсутствие даты в адресной строке
+  if (sessionsByDateReduxLoading === 'failed') {
+    return (
+      <main>
+        <section className='movie'>
+          <h2>Вы выбрали некорректную дату.</h2>
+          <p>
+            <span>Дата сеансов не выбрана, либо менее текущей. <br/>Укажите корректную дату в адресной строке в допустимом формате (например, 2019-07-30) или воспользуйтесь навигатором дат. </span>
+            <br/>
+            <span>Также вы можете посмотреть сеансы на текущую дату по ссылке. <br/><Link to={`../schedule/${now}`}>Показать сеансы на текущую дату?</Link></span>
+          </p>
+        </section>
+      </main>
+    )
+  }
+
+  // Загрузка
+  if (
+    hallsReduxLoading !== 'idle' ||
+    moviesReduxLoading !== 'idle' ||
+    placesReduxLoading !== 'idle' ||
+    sessionsByDateReduxLoading !== 'idle'
+  ) {
+    return (
+      <main>
+        <span className="loader" ></span>
+      </main>
+    )
+  }
+
+
+  if (sessionsByDateRedux && sessionsByDateRedux.length === 0) {
+    return (
+      <main>
+        <section className='movie'>
+          <h2>Сеансы на выбранную дату отсутствуют.</h2>
+          <p>Выберите другую дату для поиска сеансов.</p>
+        </section>
+      </main>
+    )
+  }
 
   return (
-    !isLoading && <main>
-      {movies.map(movie => (
-        <section key={movie.id} className="movie">
-          <MovieInfo movie={movie} poster={poster1} />
-          <MovieSessions movie={movie} halls={halls} sessions={sessionsByDateState} places={places} tickets={tickets} />
-        </section>
-      ))}
-      {/* <section className="movie">
-        <div className="movie__info">
-          <div className="movie__poster">
-            <img className="movie__poster-image" alt="Звёздные войны постер" src={poster1}/>
-          </div>
-          <div className="movie__description">
-            <h2 className="movie__title">Звёздные войны XXIII: Атака клонированных клонов</h2>
-            <p className="movie__synopsis">Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.</p>
-            <p className="movie__data">
-              <span className="movie__data-duration">130 минут</span>
-              <span className="movie__data-origin">США</span>
-            </p>
-          </div>
-        </div>  
-        
-        <div className="movie-seances__hall">
-          <h3 className="movie-seances__hall-title">Зал 1</h3>
-          <ul className="movie-seances__list">
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">10:20</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">14:10</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">18:40</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">22:00</a></li>
-          </ul>
-        </div>
-        <div className="movie-seances__hall">
-          <h3 className="movie-seances__hall-title">Зал 2</h3>
-          <ul className="movie-seances__list">
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">11:15</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">14:40</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">16:00</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">18:30</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">21:00</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">23:30</a></li>     
-          </ul>
-        </div>      
-      </section>
-      
-      <section className="movie">
-        <div className="movie__info">      
-          <div className="movie__poster">
-            <img className="movie__poster-image" alt="Альфа постер" src={poster2}/>
-          </div>
-          <div className="movie__description">        
-            <h2 className="movie__title">Альфа</h2>
-            <p className="movie__synopsis">20 тысяч лет назад Земля была холодным и неуютным местом, в котором смерть подстерегала человека на каждом шагу.</p>
-            <p className="movie__data">
-              <span className="movie__data-duration">96 минут</span>
-              <span className="movie__data-origin">Франция</span>
-            </p>
-          </div>    
-        </div>  
-        <div className="movie-seances__hall">
-          <h3 className="movie-seances__hall-title">Зал 1</h3>
-          <ul className="movie-seances__list">
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">10:20</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">14:10</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">18:40</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">22:00</a></li>
-          </ul>
-        </div>
-        <div className="movie-seances__hall">
-          <h3 className="movie-seances__hall-title">Зал 2</h3>
-          <ul className="movie-seances__list">
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">11:15</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">14:40</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">16:00</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">18:30</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">21:00</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">23:30</a></li>     
-          </ul>
-        </div>      
-      </section>   
-      
-      <section className="movie">
-        <div className="movie__info">      
-          <div className="movie__poster">
-            <img className="movie__poster-image" alt="Хищник постер" src={poster2}/>
-          </div>
-          <div className="movie__description">        
-            <h2 className="movie__title">Хищник</h2>
-            <p className="movie__synopsis">Самые опасные хищники Вселенной, прибыв из глубин космоса, высаживаются на улицах маленького городка, чтобы начать свою кровавую охоту. Генетически модернизировав себя с помощью ДНК других видов, охотники стали ещё сильнее, умнее и беспощаднее.</p>
-            <p className="movie__data">
-              <span className="movie__data-duration">101 минута</span>
-              <span className="movie__data-origin">Канада, США</span>
-            </p>
-          </div>    
-        </div>  
-        <div className="movie-seances__hall">
-          <h3 className="movie-seances__hall-title">Зал 1</h3>
-          <ul className="movie-seances__list">
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">09:00</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">10:10</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">12:55</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">14:15</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">14:50</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">16:30</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">18:00</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">18:50</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">19:50</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">20:55</a></li>
-            <li className="movie-seances__time-block"><a className="movie-seances__time" href="hall.html">22:00</a></li>
-          </ul>
-        </div>     
-      </section>      */}
+    <main>
+      {sessionsByDateRedux && moviesRedux.map(movie => {
+        const sessionsByDateAndMovie = sessionsByDateRedux.filter(session => session.movie_id === movie.id);
+        if (sessionsByDateAndMovie.length > 0) {
+          sessionsByDateAndMovie.sort(compareFnByDateAssending); // сортировать массив по столбцам "дата" и "время" по возрастанию
+          return (
+            <section key={movie.id} className="movie">
+              <MovieInfo movie={movie} poster={poster1} />
+              <MovieSessions movie={movie} halls={hallsRedux} sessions={sessionsByDateAndMovie} places={placesRedux} />
+            </section>
+          )
+        }
+        return null;
+      })}      
     </main>
   )
 }

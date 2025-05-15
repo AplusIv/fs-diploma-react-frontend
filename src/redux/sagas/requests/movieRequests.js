@@ -1,6 +1,20 @@
 import axios from "axios";
 import apiClient from "../../../services/api";
 
+// Функционал: Получение всех фильмов гостем сайта (неавторизованный пользователь)
+export const getGuestMoviesFromDB = async () => {
+  console.log('Get Guest Movies request');
+  const response = await apiClient.get('/api/guest/movies');
+  return response;
+}
+
+// Функционал: Получение всех фильмов
+export const getMoviesFromDB = async () => {
+  console.log('Get Movies request');
+  const response = await apiClient.get('/api/movies');
+  return response;
+}
+
 // Функционал: Добавление новых фильмов/нескольких фильмов в массиве
 // {moviesToAddInDB, 'api/movies'}
 export const addDataToDB = async (dataArray, url) => {

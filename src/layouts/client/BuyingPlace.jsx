@@ -1,5 +1,3 @@
-import React from 'react'
-
 const BuyingPlace = ({ place, handlePlaceSelected, tickets }) => {
   const placeType = place.type;
   const placeSelected = place.is_selected;

@@ -1,26 +1,25 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import poster from '../img/admin/poster.png'
 import SectionButtons from './SectionButtons'
-
-
 import SectionHeader from './SectionHeader'
-// import Popup from './Popup';
-// import Popup2 from './Popup2';
-// import Popup3 from '../../reserve/popup-reserve/Popup3';
-// import PopupBase from './PopupBase';
 import Popup4 from './Popup4';
 // import { addDataToDB, changeDataInDB, deleteDataInDB } from '../services/DBUpdater';
 import SessionDates from './SessionDates';
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
+
+// redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addFilm, editMovie, editSessions, hidePopup } from '../redux/slices/popupSlice';
+import { addMovie, editMovie, editSessions, hidePopup } from '../redux/slices/popupSlice';
 import { deleteMovie, putMovieData, setData, setToInitialData } from '../redux/slices/popupEditMovieHandlerSlice';
 import { postMovieData, setMovieId, setToInitialData as setToInitialMovieData } from '../redux/slices/popupAddMovieHandlerSlice';
-import {setData as setSessionsData, setSelectedMovieTitle, setToInitialData as setToInitialSessionsData, putSessionData, deleteSession} from '../redux/slices/popupEditSessionsHandlerSlice'
+import { setData as setSessionsData, setSelectedMovieTitle, setToInitialData as setToInitialSessionsData, putSessionData, deleteSession } from '../redux/slices/popupEditSessionsHandlerSlice'
 import { postSessionData, setToInitialData as setToInitialNewSessionData } from '../redux/slices/popupAddSessionHandlerSlice';
+import { changeMovies, changeSessions, setDays, setHalls, setMovies, setRefreshDataStatus, setSelectedDay, setSessions } from '../redux/slices/sessionManagerSlice';
+import { getMovies } from '../redux/slices/movieSlice';
+import { getSessions } from '../redux/slices/sessionSlice';
 
 
-const SessionManager = ({ halls, movies, sessions }) => {
+const SessionManager = () => {
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
 
   const handleClick = (e) => {
@@ -32,76 +31,8 @@ const SessionManager = ({ halls, movies, sessions }) => {
     // setIsActiveHeaderState(!isActiveHeaderState);
   }
 
-
-  // Сеансы на разные даты
-  const now = dayjs();
-  let days = [];
-  
-  for (let index = 0; index < 14; index++) {
-    const day = now.add(index, 'day');
-    days.push(day);
-  }
-
-  // console.log({days});
-  // console.log(typeof days[0].format('YYYY-MM-DD'));
-
-  // выбранная дата сеанса
-  // const [checked, setChecked] = useState((sessions.length > 0) ? '2025-02-09' : undefined);
-  const [date, setDate] = useState((sessions.length > 0) ? now.format('YYYY-MM-DD') : undefined);
-
-  const handleChangeDate = (e) => {
-    console.log(e.target.value);
-    // setChecked(e.target.value);
-    setDate(e.target.value);
-  }
-
-  // Выбранный фильм
-  const [movieInfo, setMovieInfo] = useState({});
-  console.log(movieInfo);
-
-  // Сеансы
-  const initialSessionsInfo = sessions.map(session => {
-    return {
-      id: session.id,
-      movie_id: session.movie_id,
-      hall_id: session.hall_id,
-      date: session.date,
-      time: session.time,
-    }
-  })
-  const [sessionsInfo, setSessionsInfo] = useState(initialSessionsInfo);
-  console.log({sessionsInfo});
-
-  // Фильмы
-  const initialMoviesInfo = movies.map(movie => {
-    return {
-      id: movie.id,
-      title: movie.title,
-      description: movie.description,
-      duration: movie.duration,
-      country: movie.country,
-    }
-  })
-  const [moviesInfo, setMoviesInfo] = useState(initialMoviesInfo);
-  console.log({moviesInfo});
-
-  // Залы
-  const initialHallsInfo = halls.map(hall => {
-    return {
-      id: hall.id,
-      title: hall.title,
-      rows: hall.rows,
-      places: hall.places,
-      normal_price: hall.normal_price,
-      vip_price: hall.vip_price
-    }
-  })
-  const [hallsInfo, setHallsInfo] = useState(initialHallsInfo);
-  console.log({hallsInfo});
-
   // бэкграунд фильмов
   const [movieBackgroundColors, setMovieBackgroundColors] = useState([]);
-
 
 
   // Фильмы для добавления в DB при обработке кнопки "Сохранить"
@@ -128,51 +59,51 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
   console.log({ moviesToDeleteInDB }, { sessionsToDeleteInDB });
 
-
-
-  // const [sessionInfo, setSessionInfo] = useState({});
-  // console.log(sessionInfo);
-
-  /* // before redux
-  const [editedSessionId, setEditedSessionId] = useState('');
-
-  // возможность обновления сеансов
-  const [edit, setEdit] = useState(true); */
-
-  // popup states:
-  // statuses: 'adding film popup', 'editing film popup', 'editing sessions' 'hide popup'
-  // titles: 'Добавить фильм', 'Изменить фильм', 'Редактировать сеансы', 'popup is hidden'
-  // isActive: true, false (показать / скрыть)
-
-  // const [popupInfo, setPopupInfo] = useState({
-  //   status: 'hide popup',
-  //   title: 'popup is hidden',
-  //   isActive: false
-  // });
-
-  // console.log(popupInfo);
-
-
-  
   // Redux
   const hallsRedux = useSelector(state => state.hallsReducer.halls);
   console.log({ hallsRedux });
+  const moviesRedux = useSelector(state => state.moviesReducer.movies);
+  console.log({ moviesRedux });
+  const sessionsRedux = useSelector(state => state.sessionsReducer.sessions);
+  console.log({ sessionsRedux });
+
+  // сатусы загрузки данных
+  const hallsReduxLoading = useSelector(state => state.hallsReducer.loading);
+  console.log({ hallsReduxLoading });
+  const moviesReduxLoading = useSelector(state => state.moviesReducer.loading);
+  console.log({ moviesReduxLoading });
+  const sessionsReduxLoading = useSelector(state => state.sessionsReducer.loading);
+  console.log({ sessionsReduxLoading });
+
+  // sessionManagerSlice
+  const refreshDataStatusRedux = useSelector(state => state.sessionManagerReducer.refreshDataStatus);
+  console.log({ refreshDataStatusRedux });
+  const daysRedux = useSelector(state => state.sessionManagerReducer.days); // Сеансы на разные даты
+  console.log({ daysRedux });
+  const selectedDayRedux = useSelector(state => state.sessionManagerReducer.selectedDay);
+  console.log({ selectedDayRedux });
+  const hallsInfoRedux = useSelector(state => state.sessionManagerReducer.halls); // Сеансы на разные даты
+  console.log({ hallsInfoRedux });
+  const sessionsInfoRedux = useSelector(state => state.sessionManagerReducer.sessions); // Сеансы на разные даты
+  console.log({ sessionsInfoRedux });
+  const moviesInfoRedux = useSelector(state => state.sessionManagerReducer.movies); // Сеансы на разные даты
+  console.log({ moviesInfoRedux });
 
   // popupInfoRedux
   const popupInfoRedux = useSelector(state => state.popupInfoReducer.popupInfo)
-  console.log({popupInfoRedux});
+  console.log({ popupInfoRedux });
 
   const dispatch = useDispatch();
 
-  const addFilmCallback = useCallback((movies) => {
-    dispatch(addFilm());
+  const addMovieCallback = useCallback((movies) => {
+    dispatch(addMovie());
     dispatch(setMovieId(movies));
   }, []);
   const editMovieCallback = useCallback((movie) => {
     dispatch(editMovie());
     dispatch(setData(movie));
   }, []);
-  const editSessionsCallback = useCallback((title='i', sessions, movies) => {
+  const editSessionsCallback = useCallback((title = 'i', sessions, movies) => {
     dispatch(editSessions());
     dispatch(setSelectedMovieTitle({
       title,
@@ -182,7 +113,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
       // popupSelectedMovieTitle: title,
       sessions,
       movies
-    }));   
+    }));
   }, []);
   const hidePopupCallback = useCallback(() => {
     dispatch(hidePopup());
@@ -194,20 +125,17 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
   // redux
   const handlePopupStatus = (status, movie = {}) => {
-    console.log(movie);
     console.log('popup status handler');
-    Object.keys(movie).length !== 0 ? setMovieInfo({ ...movie }) : setMovieInfo({}); // проверка на пустой объект, который передаётся в handler
-    // setMovieInfo({...movie}); // обновить состояние фильма: либо добавить фильм, либо сбросить пустым объектом
-    if (status === 'adding film popup') {
-      addFilmCallback(moviesInfo);
-      // dispatch(addFilm());
+    if (status === 'adding movie popup') {
+      addMovieCallback(moviesInfoRedux);
+      // dispatch(addMovie());
     }
-    if (status === 'editing film popup') {
+    if (status === 'editing movie popup') {
       editMovieCallback(movie);
       // dispatch(editMovie());
     }
     if (status === 'editing sessions') {
-      editSessionsCallback(movies[0].title, sessions, movies);
+      editSessionsCallback(moviesInfoRedux[0].title, sessionsInfoRedux, moviesInfoRedux);
       // dispatch(editSessions());
     }
     if (status === 'hide popup') {
@@ -215,132 +143,44 @@ const SessionManager = ({ halls, movies, sessions }) => {
     }
   }
 
-  // const handlePopupStatus = (status, movie = {}) => {
-  //   console.log(movie);
-  //   console.log('popup status handler');
-  //   Object.keys(movie).length !== 0 ? setMovieInfo({ ...movie }) : setMovieInfo({}); // проверка на пустой объект, который передаётся в handler
-  //   // setMovieInfo({...movie}); // обновить состояние фильма: либо добавить фильм, либо сбросить пустым объектом
-  //   if (status === 'adding film popup') {
-  //     setPopupInfo({
-  //       status: 'adding film popup',
-  //       title: 'Добавить фильм',
-  //       isActive: true
-  //     })
+  useEffect(() => {
+    console.log('SessionManager effect is on');
+    // заполнение начальными данными из сервера
+    dispatch(setHalls(hallsRedux));
+    dispatch(setMovies(moviesRedux));
+    dispatch(setSessions(sessionsRedux));
+    dispatch(setDays(14)); // расписание на 14 дней
 
-  //     // addFilmCallback();
-  //     dispatch(addFilm());
-  //   }
-  //   if (status === 'editing film popup') {
-  //     setPopupInfo({
-  //       status: 'editing film popup',
-  //       title: 'Изменить фильм',
-  //       isActive: true
-  //     })
-
-  //     // editMovieCallback();
-  //     dispatch(editMovie());
-  //   }
-  //   if (status === 'editing sessions') {
-  //     setPopupInfo({
-  //       status: 'editing sessions',
-  //       title: 'Редактировать сеансы',
-  //       isActive: true
-  //     })
-
-  //     // editSessionsCallback();
-  //     dispatch(editSessions());
-  //   }
-  //   if (status === 'hide popup') {
-  //     setPopupInfo({
-  //       status: 'hide popup',
-  //       title: 'Попап неактивен',
-  //       isActive: false
-  //     })
-
-  //     // hidePopupCallback();
-  //     dispatch(hidePopup());
-  //   }
-  // }
-
-  // const lastId = movies.length; // для добавления нового id в форме
+    if (refreshDataStatusRedux !== 'initial data is loaded') {
+      dispatch(setRefreshDataStatus('data refreshed'));
+    }
+  }, [hallsRedux, moviesRedux, sessionsRedux, refreshDataStatusRedux]);
 
 
+  const handleChangeDate = (e) => {
+    const { value } = e.target;
+    dispatch(setSelectedDay(value));
+  }
 
-  // const handlePopup = (status) => {
-  //   console.log('popup2!');
-  //   setIsActivePopup(!isActivePopup);
-  //   setPopupStatus(status);
-  //   setMovieInfo({}); // сбросить информацию о выбранном фильме для добавления / закрытия формы
-  //   // setPopupTitle('Добавить фильм');
-  //   popupTitle === 'popup is hidden' ? setPopupTitle('Добавить фильм') : setPopupTitle('popup is hidden');
-  // }
-
-  // const handlePopup3 = (movie, status) => {
-  //   console.log(movie);
-  //   handlePopup(status);
-  //   // setActiveMovie({...movie});
-  //   setMovieInfo({ ...movie });
-  //   // setIsActivePopup(!isActivePopup);
-  //   setPopupTitle('Изменить фильм');
-  // }
-
-
-
-  // const handleChange = (e) => {
-  //   setMovieInfo({ ...movieInfo, [e.target.name]: e.target.value });
-  //   console.log(e.target.value);
-  // }
-
-
-  // 
-  // 
-
-  // const handleChanges = (id, changeInfo, name) => {
-  //   console.log({ changeInfo, name });
-  //   // setSessionsInfo([...sessionsInfo, [target]: changeInfo]);
-  //   const session = sessionsInfo.find(session => session.id === id);
-  //   console.log(session);
-
-  //   let editedSession;
-
-  //   if (name === "hall_id") {
-  //     const editedHallId = halls.find(hall => hall.title === changeInfo).id;
-  //     editedSession = { ...session, [name]: editedHallId };
-  //   } else {
-  //     editedSession = { ...session, [name]: changeInfo };
-  //   }
-  //   const editedSessions = sessionsInfo.map(session => {
-  //     if (session.id === id) {
-  //       return editedSession;
-  //     } else {
-  //       return session;
-  //     }
-  //   })
-
-  //   setSessionsInfo(editedSessions);
-  //   console.log(editedSessions);
-  // }
-
-  // 
-  // 
-
+  // Универсальный колбэк onChangeCallback + функции обновления массивов сущностей
   const handleChangeData = (newData, id) => {
-    // добавление сеанса
+    // изменение сеанса
     if (Object.prototype.hasOwnProperty.call(newData, "time")) {
       handleChangeSession(newData, id);
     }
-    // добавление фильма
+    // изменение фильма
     if (Object.prototype.hasOwnProperty.call(newData, "duration")) {
       handleChangeMovie(newData, id);
     }
   }
 
   const handleChangeSession = (newSession, id) => {
-    const updatedSessions = sessionsInfo.map(session => {
+    // redux
+    const updatedSessions = sessionsInfoRedux.map(session => {
       return session.id === id ? newSession : session
     })
-
-    setSessionsInfo(updatedSessions);
+    dispatch(changeSessions(updatedSessions));
+    // setSessionsInfo(updatedSessions);
     console.log(updatedSessions);
     console.log('сеанс обновлён');
 
@@ -365,11 +205,13 @@ const SessionManager = ({ halls, movies, sessions }) => {
   }
 
   const handleChangeMovie = (newMovie, id) => {
-    const updatedMovies = moviesInfo.map(movie => {
+    const updatedMovies = moviesInfoRedux.map(movie => {
       return movie.id === id ? newMovie : movie
     })
 
-    setMoviesInfo(updatedMovies);
+    // redux
+    dispatch(changeMovies(updatedMovies));
+    // setMoviesInfo(updatedMovies);
     console.log(updatedMovies);
     console.log('фильм обновлен');
 
@@ -393,62 +235,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
     }
   }
 
-  // const handleChangeData = (id, changeInfo, name, dataArray) => {
-  //   console.log({changeInfo, name});
-  //   const editedData = dataArray.find(data => data.id === id);
-  //   console.log(editedData);
-
-  //   // редактирование сеанса
-  //   if (Object.prototype.hasOwnProperty.call(editedData, "time")) {
-  //     handleChangeSession(editedData, name, changeInfo, id);
-  //   }
-  //   // редактирование фильма
-  //   if (Object.prototype.hasOwnProperty.call(editedData, "duration")) {
-  //     handleChangeMovie(editedData, name, changeInfo, id);
-  //   }    
-  // }
-
-  // const handleChangeSession = (session, name, changeInfo, id) => {
-  //   let editedSession;
-
-  //   if (name === "hall_id") {
-  //     const editedHallId = halls.find(hall => hall.title === changeInfo).id;
-  //     editedSession = {...session, [name]: editedHallId };
-  //   } else {
-  //     editedSession = {...session, [name]: changeInfo };
-  //   }
-  //   const editedSessions = sessionsInfo.map(session => {
-  //     if (session.id === id) {
-  //       return editedSession;
-  //     } else {
-  //       return session;
-  //     }
-  //   })
-
-  //   setSessionsInfo(editedSessions);
-  //   console.log(editedSessions);
-  // }
-
-  // const handleChangeMovie = (movie, name, changeInfo, id) => {
-  //   const editedMovie = {...movie, [name]: changeInfo };
-
-  //   const editedMovies = moviesInfo.map(movie => {
-  //     if (movie.id === id) {
-  //       return editedMovie;
-  //     } else {
-  //       return movie;
-  //     }
-  //   })
-
-  //   setMoviesInfo(editedMovies);
-  //   console.log(editedMovies);
-  // }
-
-  // 
-  // 
-
   // Универсальный колбэк onAddCallback + функции обновления массивов сущностей
-
   const handleAddData = (newData) => {
     // добавление сеанса
     if (Object.prototype.hasOwnProperty.call(newData, "time")) {
@@ -461,10 +248,10 @@ const SessionManager = ({ halls, movies, sessions }) => {
   }
 
   const handleAddSession = (newSession) => {
-    const updatedSessions = sessionsInfo.concat(newSession);
-    // return updatedSessions;
-
-    setSessionsInfo(updatedSessions);
+    // redux
+    const updatedSessions = sessionsInfoRedux.concat(newSession);
+    dispatch(changeSessions(updatedSessions));
+    // setSessionsInfo(updatedSessions);
     console.log(updatedSessions);
     console.log('сеанс добавлен');
 
@@ -473,10 +260,12 @@ const SessionManager = ({ halls, movies, sessions }) => {
   }
 
   const handleAddMovie = (newMovie) => {
-    const updatedMovies = moviesInfo.concat(newMovie);
+    const updatedMovies = moviesInfoRedux.concat(newMovie);
     // return updatedSessions;
 
-    setMoviesInfo(updatedMovies);
+    // redux
+    dispatch(changeMovies(updatedMovies));
+    // setMoviesInfo(updatedMovies);
     console.log(updatedMovies);
     console.log('фильм добавлен');
 
@@ -484,7 +273,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
     setMoviesToAddInDB(moviesToAddInDB.concat(newMovie));
   }
 
-
+  // Универсальный колбэк onDeleteCallback + функции обновления массивов сущностей
   const handleDeleteData = (data) => {
     // удаление сеанса
     if (Object.prototype.hasOwnProperty.call(data, "time")) {
@@ -497,9 +286,10 @@ const SessionManager = ({ halls, movies, sessions }) => {
   }
 
   const handleDeleteSession = (sessionId) => {
-    const updatedSessions = sessionsInfo.filter(session => session.id !== sessionId);
-
-    setSessionsInfo(updatedSessions);
+    // redux
+    const updatedSessions = sessionsInfoRedux.filter(session => session.id !== sessionId);
+    dispatch(changeSessions(updatedSessions));
+    // setSessionsInfo(updatedSessions);
     console.log(updatedSessions);
     console.log('сеанс удалён');
 
@@ -511,16 +301,18 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
     // подготовка для DB
     // Если изменены элементы, сохраненные в БД, удаляются
-    if (sessions.find(session => session.id == sessionId)) {
+    if (sessionsRedux.find(session => session.id == sessionId)) {
       setSessionsToDeleteInDB(sessionsToDeleteInDB.concat(sessionId)); // массив Id
     }
     // setSessionsToDeleteInDB(sessionsToDeleteInDB.concat(sessionId)); // массив Id
   }
 
   const handleDeleteMovie = (movieId) => {
-    const updatedMovies = moviesInfo.filter(movie => movie.id !== movieId);
+    const updatedMovies = moviesInfoRedux.filter(movie => movie.id !== movieId);
 
-    setMoviesInfo(updatedMovies);
+    // redux
+    dispatch(changeMovies(updatedMovies));
+    // setMoviesInfo(updatedMovies);
     console.log(updatedMovies);
     console.log('фильм удалён');
 
@@ -531,11 +323,14 @@ const SessionManager = ({ halls, movies, sessions }) => {
     setMoviesToAddInDB(moviesToAdd);
 
 
+    // !!! сеансы удалятся из БД каскадно, нужно только почистить визуальное отображение
 
     // Также нужно удалить сеансы, связанные с этим фильмом
-    const updatedSessions = sessionsInfo.filter(session => session.movie_id !== movieId);
+    // redux
+    const updatedSessions = sessionsInfoRedux.filter(session => session.movie_id !== movieId);
 
-    setSessionsInfo(updatedSessions);
+    // setSessionsInfo(updatedSessions);
+    dispatch(changeSessions(updatedSessions))
     console.log(updatedSessions);
     console.log('удалены сеансы на конкретный удалённый фильм');
 
@@ -544,12 +339,13 @@ const SessionManager = ({ halls, movies, sessions }) => {
     // setMoviesToDeleteInDB(moviesToDeleteInDB.concat(movieId));
     // подготовка для DB
     // Если изменены элементы, сохраненные в БД
-    if (movies.find(movie => movie.id == movieId)) {
+
+    if (moviesRedux.find(movie => movie.id == movieId)) {
       setMoviesToDeleteInDB(moviesToDeleteInDB.concat(movieId)); // массив Id
     }
 
     // найти Id связанных с фильмом сеансов и поместить в новый массив
-    
+
     // Удалить связаннные с фильмом сеансы из массивов для передачи в БД
     const sessionsToChange = sessionsToChangeInDB.filter(session => session.movie_id !== movieId)
     setSessionsToChangeInDB(sessionsToChange);
@@ -572,227 +368,92 @@ const SessionManager = ({ halls, movies, sessions }) => {
     //   setSessionsToDeleteInDB(sessionsToDeleteInDB.concat(sessionsToDelete.map(session => session.id)))
     // }
 
-    const sessionsToDelete = sessions.filter(session => session.movie_id === movieId);
 
-    if (sessionsToDelete.length > 0) {
-      setSessionsToDeleteInDB(sessionsToDeleteInDB.concat(sessionsToDelete.map(session => session.id)))
-    }
+    // Вернуть при ошибке!!!
+    // const sessionsToDelete = sessionsRedux.filter(session => session.movie_id === movieId);
+
+    // if (sessionsToDelete.length > 0) {
+    //   setSessionsToDeleteInDB(sessionsToDeleteInDB.concat(sessionsToDelete.map(session => session.id)))
+    // }
   }
-
-  // 
-  // 
-
-  /* // before Redux
-  const handleInput = (e) => {
-    const session = sessionsInfo.find(session => session.id === editedSessionId);
-    console.log(session);
-
-    const editedSession = { ...session, [e.target.name]: e.target.value };
-    const editedSessions = sessionsInfo.map(session => {
-      if (session.id === editedSessionId) {
-        return editedSession;
-      } else {
-        return session;
-      }
-    })
-
-    setSessionsInfo(editedSessions);
-    console.log(sessionsInfo);
-
-    // setisDisabled(!isDisabled);
-  }
-
-    // before Redux
-  const handleSelect = (e) => {
-    const session = sessionsInfo.find(session => session.id === editedSessionId);
-    console.log(session);
-
-    const editedSession = { ...session, [e.target.name]: e.target.value };
-    const editedSessions = sessionsInfo.map(session => {
-      if (session.id === editedSessionId) {
-        return editedSession;
-      } else {
-        return session;
-      }
-    })
-
-    setSessionsInfo(editedSessions);
-    console.log(sessionsInfo);
-
-    // setisDisabled(!isDisabled);
-  } */
 
   const handleDBUpdate = async (e) => {
     e.preventDefault();
-    console.log({ moviesToAddInDB });
 
-    // redux saga
     // добавление в БД (1)
     if (moviesToAddInDB.length > 0) {
       dispatch(postMovieData({
         dataArray: moviesToAddInDB,
         url: 'api/movies'
       }))
-      setMoviesToAddInDB([]);
+      // setMoviesToAddInDB([]);
     }
     if (sessionsToAddInDB.length > 0) {
       dispatch(postSessionData({
         dataArray: sessionsToAddInDB,
         url: 'api/sessions'
       }))
-      setSessionsToAddInDB([]);
+      // setSessionsToAddInDB([]);
     }
+
     // изменение сущностей в БД (2)
     if (moviesToChangeInDB.length > 0) {
       dispatch(putMovieData({
-        dataArray: moviesToChangeInDB, 
+        dataArray: moviesToChangeInDB,
         url: 'api/movies'
       }))
-      setMoviesToChangeInDB([]);
+      // setMoviesToChangeInDB([]);
     }
     if (sessionsToChangeInDB.length > 0) {
       dispatch(putSessionData({
-        dataArray: sessionsToChangeInDB, 
+        dataArray: sessionsToChangeInDB,
         url: 'api/sessions'
       }))
-      setSessionsToChangeInDB([]);
-    } 
-    // удаление сущностей в БД
+      // setSessionsToChangeInDB([]);
+    }
+
+    // удаление сущностей в БД (3)
     if (moviesToDeleteInDB.length > 0) {
       dispatch(deleteMovie({
         dataArray: moviesToDeleteInDB, // array with ids
         url: 'api/movies'
       }))
-      setMoviesToDeleteInDB([]);
+      // setMoviesToDeleteInDB([]);
     }
     if (sessionsToDeleteInDB.length > 0) {
       dispatch(deleteSession({
         dataArray: sessionsToDeleteInDB, // array with ids
         url: 'api/sessions'
       }))
+      // setSessionsToDeleteInDB([]);
+    }
+
+    if (sessionsToDeleteInDB.length > 0 ||
+      sessionsToChangeInDB.length > 0 ||
+      sessionsToAddInDB.length > 0
+    ) {
+      // dispatch(getSessions()); // загрузка сеансов   
+
+      setSessionsToAddInDB([]);
+      setSessionsToChangeInDB([]);
       setSessionsToDeleteInDB([]);
     }
-    
-    
-    // before Redux Saga
-    // добавление в БД (1)
-    // if (moviesToAddInDB.length > 0) {
-    //   await addDataToDB(moviesToAddInDB, 'api/movies');
-    //   setMoviesToAddInDB([]);
-    // }
-    // if (sessionsToAddInDB.length > 0) {
-    //   await addDataToDB(sessionsToAddInDB, 'api/sessions');
-    //   setSessionsToAddInDB([]);
-    // }
 
-    // // изменение сущностей в БД (2)
-    // if (moviesToChangeInDB.length > 0) {
-    //   await changeDataInDB(moviesToChangeInDB, 'api/movies');
-    //   setMoviesToChangeInDB([]);
-    // }
-    // if (sessionsToChangeInDB.length > 0) {
-    //   await changeDataInDB(sessionsToChangeInDB, 'api/sessions');
-    //   setSessionsToChangeInDB([]);
-    // }
+    if (moviesToDeleteInDB.length > 0 ||
+      moviesToChangeInDB.length > 0 ||
+      moviesToAddInDB.length > 0
+    ) {
+      // dispatch(getMovies()); // загрузка фильмов
+      dispatch(getSessions()); // загрузка сеансов   
 
-    // удаление сущностей в БД (3)
-    // if (moviesToDeleteInDB.length > 0) {
-    //   await deleteDataInDB(moviesToDeleteInDB, 'api/movies');
-    //   setMoviesToDeleteInDB([]);
-    // }
-    // if (sessionsToDeleteInDB.length > 0) {
-    //   await deleteDataInDB(sessionsToDeleteInDB, 'api/sessions');
-    //   setSessionsToDeleteInDB([]);
-    // }
+      setMoviesToAddInDB([]);
+      setMoviesToChangeInDB([]);
+      setMoviesToDeleteInDB([]);
+    }
   }
-/* 
-  // before Redux
-  const handleDBUpdate = async (e) => {
-    e.preventDefault();
-    console.log({ moviesToAddInDB });
-
-    // добавление в БД
-    if (moviesToAddInDB.length > 0) {
-      await addDataToDB(moviesToAddInDB, 'api/movies');
-      setMoviesToAddInDB([]);
-    }
-    if (sessionsToAddInDB.length > 0) {
-      await addDataToDB(sessionsToAddInDB, 'api/sessions');
-      setSessionsToAddInDB([]);
-    }
-
-    // изменение сущностей в БД
-    if (moviesToChangeInDB.length > 0) {
-      await changeDataInDB(moviesToChangeInDB, 'api/movies');
-      setMoviesToChangeInDB([]);
-    }
-    if (sessionsToChangeInDB.length > 0) {
-      await changeDataInDB(sessionsToChangeInDB, 'api/sessions');
-      setSessionsToChangeInDB([]);
-    }
-
-    // удаление сущностей в БД
-    if (moviesToDeleteInDB.length > 0) {
-      await deleteDataInDB(moviesToDeleteInDB, 'api/movies');
-      setMoviesToDeleteInDB([]);
-    }
-    if (sessionsToDeleteInDB.length > 0) {
-      await deleteDataInDB(sessionsToDeleteInDB, 'api/sessions');
-      setSessionsToDeleteInDB([]);
-    }
-
-    // // сброс данных для подготовки к отправке в БД
-    // setSessionsToAddInDB([]);
-    // setMoviesToAddInDB([]);
-    // setMoviesToChangeInDB([]);
-    // setSessionsToChangeInDB([]);
-  } */
-
-  /*   // не нужно
-  const handleDBUpdate2 = () => {
-    // добавление в БД
-    if (moviesToAddInDB.length > 0) {
-      addDataToDB(moviesToAddInDB, '/movies');
-      setMoviesToAddInDB([]);
-    }
-    if (sessionsToAddInDB.length > 0) {
-      addDataToDB(sessionsToAddInDB, '/sessions');
-      setSessionsToAddInDB([]);
-    }
-
-    // изменение сущностей в БД
-    if (moviesToChangeInDB.length > 0) {
-      changeDataInDB(moviesToChangeInDB, '/movies');
-      setMoviesToChangeInDB([]);
-    }
-    if (sessionsToChangeInDB.length > 0) {
-      changeDataInDB(sessionsToChangeInDB, '/sessions');
-      setSessionsToChangeInDB([]);
-    }
-
-    // удаление сущностей в БД
-    if (moviesToDeleteInDB.length > 0) {
-      deleteDataInDB(moviesToDeleteInDB, '/movies');
-      setMoviesToDeleteInDB([]);
-    }
-    if (sessionsToDeleteInDB.length > 0) {
-      deleteDataInDB(sessionsToDeleteInDB, '/sessions');
-      setSessionsToDeleteInDB([]);
-    }
-
-    // // сброс данных для подготовки к отправке в БД
-    // setSessionsToAddInDB([]);
-    // setMoviesToAddInDB([]);
-    // setMoviesToChangeInDB([]);
-    // setSessionsToChangeInDB([]);
-  } */
 
   const handleRefresh = () => {
-    console.log('handleRefresh');
-
-    // сброс состояний на первоначальные из БД
-    setSessionsInfo([...sessions]);
-    setMoviesInfo([...movies])
+    dispatch(setRefreshDataStatus('refresh data'));
 
     // сброс данных для подготовки к отправке в БД
     setSessionsToAddInDB([]);
@@ -803,59 +464,43 @@ const SessionManager = ({ halls, movies, sessions }) => {
     setSessionsToDeleteInDB([]);
   }
 
+  if (hallsReduxLoading !== 'idle' || moviesReduxLoading !== 'idle' || sessionsReduxLoading !== 'idle') {
+    return (
+      <section className="conf-step" >
+        <SectionHeader name={'Сетка сеансов'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
+        <div className="conf-step__wrapper">
+          <span className="loader" ></span>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="conf-step">
       <Popup4
         popupInfo={popupInfoRedux}
-        // lastId={lastId}
-        halls={hallsInfo}
-        movies={moviesInfo}
-        // sessions={sessions}
-        sessions={sessionsInfo}
-        // sessionId={sessionId}
-        // movieInfo={movieInfo}
-        // handleInput={handleInput}
-        // handleEdit={handleEdit}
-        // handleSelect={handleSelect}
+        halls={hallsInfoRedux}
+        movies={moviesInfoRedux}
+        sessions={sessionsInfoRedux}
         onChangeCallback={handleChangeData}
         onAddCallback={handleAddData}
         onDeleteCallback={handleDeleteData}
-        // editedElement={movieInfo}
-        // edit={edit}
-        // handleChange={handleChange}
         handlePopup={handlePopupStatus}
       >
-        {/* <PopupBase popupInfo={popupInfo} handlePopup={handlePopupStatus}>
-        </PopupBase> */}
       </Popup4>
 
       <SectionHeader name={'Сетка сеансов'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
 
       <div className="conf-step__wrapper">
-        {/* Рабочий вариант */}
-        {/* <p className="conf-step__paragraph">
-          <button className="conf-step__button conf-step__button-accent" onClick={()=>handlePopup('adding film popup')}>Добавить фильм</button>
-        </p>
-        <div className="conf-step__movies">
-          {movies.map(movie => (
-            <div key={movie.id} className="conf-step__movie" onClick={() => handlePopup3(movie, 'editing film popup')}>
-              <img className="conf-step__movie-poster" alt="poster" src={poster}/>
-              <h3 className="conf-step__movie-title">{movie.title}</h3>
-              <p className="conf-step__movie-duration">{movie.duration} минут</p>
-            </div>
-            )
-          )} 
-          </div> 
-          */}
         <p className="conf-step__paragraph">
-          <button className="conf-step__button conf-step__button-accent" onClick={() => handlePopupStatus('adding film popup')}>Добавить фильм</button>
+          <button className="conf-step__button conf-step__button-accent" onClick={() => handlePopupStatus('adding movie popup')}>Добавить фильм</button>
         </p>
 
         <div className="conf-step__movies">
-          {moviesInfo.map(movie => {                 
+          {moviesInfoRedux && moviesInfoRedux.map(movie => {
             const movieCard = <div key={movie.id} className="conf-step__movie" onClick={(e) => {
               console.log(window.getComputedStyle(e.currentTarget).backgroundColor);
-              handlePopupStatus('editing film popup', movie)
+              handlePopupStatus('editing movie popup', movie)
             }}>
               <img className="conf-step__movie-poster" alt="poster" src={poster} />
               <h3 className="conf-step__movie-title">{movie.title}</h3>
@@ -863,9 +508,9 @@ const SessionManager = ({ halls, movies, sessions }) => {
             </div>
 
             // console.log(window.getComputedStyle(movieCard).backgroundColor);            
-            
+
             return movieCard;
-            }
+          }
           )}
         </div>
 
@@ -876,19 +521,19 @@ const SessionManager = ({ halls, movies, sessions }) => {
 
         {/* переключатели дат */}
         <p className="conf-step__paragraph">Выберите дату сеансов для конфигурации:</p>
-        <SessionDates days={days} handleChangeDate={handleChangeDate} date={date} />
+        <SessionDates days={daysRedux} handleChangeDate={handleChangeDate} date={selectedDayRedux} />
 
         <div className="conf-step__seances">
-          {halls.map(hall => (
+          {hallsInfoRedux && hallsInfoRedux.map(hall => (
             <div key={hall.id} className="conf-step__seances-hall">
               <h3 className="conf-step__seances-title">{hall.title}</h3>
               <div className="conf-step__seances-timeline">
                 {
                   // изначально sessions
-                  sessionsInfo.map(session => (
+                  sessionsInfoRedux && sessionsInfoRedux.map(session => (
                     // const duration = Number({session.duration});
                     // const sessionDurationWidth = 'calc(' + duration + '*' + '0.5)';
-                    session.hall_id === hall.id && session.date === date ? (<div key={session.id} className="conf-step__seances-movie" style={
+                    session.hall_id === hall.id && session.date === selectedDayRedux ? (<div key={session.id} className="conf-step__seances-movie" style={
                       {
                         width: `calc(${session.duration}px * 0.5)`,
                         backgroundColor: 'rgb(133, 255, 137)',
@@ -896,7 +541,7 @@ const SessionManager = ({ halls, movies, sessions }) => {
                         left: `calc((${session.time.slice(0, 2)} + ${session.time.slice(3)} / 60) * 720px / 24)`
                       }
                     }>
-                      <p className="conf-step__seances-movie-title">{moviesInfo.find(movie => movie.id === session.movie_id).title}</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
+                      <p className="conf-step__seances-movie-title">{moviesInfoRedux && moviesInfoRedux.find(movie => movie.id === session.movie_id).title}</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
                       <p className="conf-step__seances-movie-start">{session.time}</p>
                     </div>) : null
                   ))

@@ -4,7 +4,8 @@ const initialState = {
   halls: [],
   prices: [], // Конфигурации цен всех залов
 
-  selectedHallId: undefined
+  selectedHallId: undefined,  
+  refreshDataStatus: 'initial data is loaded',
 }
 
 export const hallPricesSlice = createSlice({
@@ -48,7 +49,7 @@ export const hallPricesSlice = createSlice({
       
       state.prices.find(priceConfiguration => priceConfiguration.hall_id === state.selectedHallId)[property] = value ? Number(parseFloat(value).toFixed(2)) : 0; 
     },
-    cancelPriceChanges: (state) => {
+    /* cancelPriceChanges: (state) => {
       state.prices = state.halls.map(hall => {
         return {
           hall_id: hall.id,
@@ -56,12 +57,16 @@ export const hallPricesSlice = createSlice({
           vip_price: hall.vip_price,
         }
       });
-    },
+    }, */
     putHallData: () => {}, // запускает worker saga handleEditHallData
+    setRefreshDataStatus: (state, action) => {
+      const {payload} = action;      
+      state.refreshDataStatus = payload;
+    },
   }
 })
 
 // Action creators are generated for each case reducer function
-export const {setHalls, setPrices, setSelectedHallId, changeData, handleBlurData, cancelPriceChanges, putHallData} = hallPricesSlice.actions;
+export const {setHalls, setPrices, setSelectedHallId, changeData, handleBlurData, putHallData, setRefreshDataStatus} = hallPricesSlice.actions;
 
 export default hallPricesSlice.reducer;

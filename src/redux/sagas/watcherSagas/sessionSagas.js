@@ -1,7 +1,16 @@
 import { takeLatest } from "redux-saga/effects";
-import { handleAddSessionData, handleDeleteSession, handleEditSessionData } from "../handlers/session";
+import { handleAddSessionData, handleDeleteSession, handleEditSessionData, handleGetGuestSessions, handleGetSessions, handleGetSessionsByDate } from "../handlers/session";
 import { postSessionData } from "../../slices/popupAddSessionHandlerSlice";
 import { deleteSession, putSessionData } from "../../slices/popupEditSessionsHandlerSlice";
+import { getSessions } from "../../slices/sessionSlice";
+import { getSessionsByDate } from "../../slices/sessionsByDateSlice";
+
+import { getSessions as getGuestSessions} from "../../slices/guestSessionSlice";
+
+
+export function* getSessionsWatcherSaga() {
+  yield takeLatest(getSessions.type, handleGetSessions);
+}
 
 export function* sessionPostWatcherSaga() {
   yield takeLatest(postSessionData.type, handleAddSessionData);
@@ -14,3 +23,13 @@ export function* sessionPutWatcherSaga() {
 export function* sessionDeleteWatcherSaga() {
   yield takeLatest(deleteSession.type, handleDeleteSession);
 }
+
+// Клиентская часть
+export function* getSessionsByDateWatcherSaga() {
+  yield takeLatest(getSessionsByDate.type, handleGetSessionsByDate);
+}
+
+export function* getGuestSessionsWatcherSaga() {
+  yield takeLatest(getGuestSessions.type, handleGetGuestSessions);
+}
+

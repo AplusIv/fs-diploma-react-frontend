@@ -1,26 +1,20 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setSelectedHallId } from "../redux/slices/hallPricesSlice";
+import { useSelector } from "react-redux";
 
-const HallConfiguratorTitles = ({ halls, name, checked, handleChange, handleInput }) => {
-  const dispatch = useDispatch();
-  // dispatch(getHalls());
-  // dispatch(setPrices(halls));
+const HallConfiguratorTitles = ({ name, handleChange }) => {
   // redux prices 
   const hallsRedux = useSelector(state => state.hallPricesReducer.halls);
-  console.log({hallsRedux});
 
   const selectedHallIdInPriceConfigurator = useSelector(state => state.hallPricesReducer.selectedHallId);
-  console.log({selectedHallIdInPriceConfigurator});
+  const selectedHallIdInHallConfigurator = useSelector(state => state.hallPLacesReducer.selectedHallId);
 
   let selectedHallId;
-  // возможно нужно ещё будет что-то вроде let halls;
 
   switch (name) {
     case 'prices-hall':
       selectedHallId = selectedHallIdInPriceConfigurator;
       break;
     case 'chairs-hall':
-      // selectedHallId = editMovieDataValue;
+      selectedHallId = selectedHallIdInHallConfigurator;
       break;
 
     default:
@@ -29,7 +23,7 @@ const HallConfiguratorTitles = ({ halls, name, checked, handleChange, handleInpu
 
   return (
     <ul className="conf-step__selectors-box" >
-      { halls.map(hall => (
+      { hallsRedux.map(hall => (
         <li key={ hall.id }>
           <input 
             type="radio" 
@@ -37,10 +31,7 @@ const HallConfiguratorTitles = ({ halls, name, checked, handleChange, handleInpu
             name={ name } 
             value={ hall.title }
             onChange={handleChange}
-            // onChange={(e) => dispatch(setSelectedHallId(e.target.value))}
-            // onClick={handleInput}
             checked={selectedHallId === hall.id}
-            // checked={checked == hall.title ? true : false}
           />
           
           <span className="conf-step__selector">{ hall.title }</span>

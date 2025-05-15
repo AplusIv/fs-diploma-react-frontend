@@ -149,9 +149,9 @@ const PopupChangeSessions2 = ({ movies, sessions, halls, lastSessionId, onChange
         // setAdding={setIsAdding}
       />}
       
-      <p className="conf-step__paragraph">
+      {/* <p className="conf-step__paragraph">
         <button className="conf-step__button conf-step__button-accent">Подтвердить изменения</button>
-      </p>
+      </p> */}
     </div>
   )
 }

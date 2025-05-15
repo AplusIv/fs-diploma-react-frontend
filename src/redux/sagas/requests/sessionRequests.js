@@ -1,6 +1,20 @@
 import axios from "axios";
 import apiClient from "../../../services/api";
 
+// Функционал: Получение всех сеансов гостем сайта (неавторизованный пользователь)
+export const getGuestSessionsFromDB = async () => {
+  console.log('Get Guest Sessions request');
+  const response = await apiClient.get('/api/guest/sessions');
+  return response;
+}
+
+// Функционал: Получение всех сеансов
+export const getSessionsFromDB = async () => {
+  console.log('Get Sessions request');
+  const response = await apiClient.get('/api/sessions');
+  return response;
+}
+
 // Функционал: Добавление новых сеансов/нескольких сеансов в массиве
 // {sessionsToAddInDB, 'api/sessions'}
 export const addDataToDB = async (dataArray, url) => {
@@ -47,5 +61,18 @@ export const deleteDataInDB = async (dataArray, url) => {
     return responses;   
   } catch (error) {
     console.log(error);    
+  }
+}
+
+// КЛИЕНТСКАЯ ЧАСТЬ
+// Функционал: получение сеансов на конкретную дату
+export const getSessionsByDate = async (date) => {
+  console.log('Sessions by date get request');
+  try {
+    const response = await apiClient.get('api/guest/sessions/date/' + date);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 }

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import apiClient from "../services/jsonServerApi";
+// import apiClient from "../services/jsonServerApi";
 
 import HallConfiguratorTitles from "./HallConfiguratorTitles"
 import SectionButtons from "./SectionButtons"
 import SectionHeader from "./SectionHeader"
 import axios from "axios";
-import { updateHallInDB } from "../services/DBUpdater";
+// import { updateHallInDB } from "../services/DBUpdater";
 import { useDispatch, useSelector } from "react-redux";
-import { cancelPriceChanges, changeData, handleBlurData, putHallData, setHalls, setPrices, setSelectedHallId } from "../redux/slices/hallPricesSlice";
+import { changeData, handleBlurData, putHallData, setHalls, setPrices, setRefreshDataStatus, setSelectedHallId } from "../redux/slices/hallPricesSlice";
 import { getHalls } from "../redux/slices/hallSlice";
 
-const PriceConfigurator = ({ halls }) => {
+const PriceConfigurator = () => {
 
   // // Показ/скрытие секции
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
@@ -23,65 +23,53 @@ const PriceConfigurator = ({ halls }) => {
     // setIsActiveHeaderState(!isActiveHeaderState);
   }
 
-  // выбранное название зала
-  const [checked, setChecked] = useState((halls.length > 0) ? halls[0].title : undefined);
+  // const [isLoading, setIsLoading] = useState(undefined);
+  // console.log({isLoading});
 
-  // Выбранный зал
-  const [hall, setHall] = useState((halls.length > 0) ? halls[0] : undefined);
-
-  // Конфигурации цен всех залов
-  let initialConfigurations = [];
-  halls.forEach(hall => {
-    const configuration = {
-      hall_id: hall.id,
-      normal_price: hall.normal_price,
-      vip_price: hall.vip_price,
-    }
-    initialConfigurations.push(configuration);
-  })
-
-  const [configurations, setConfigurations] = useState(initialConfigurations);
-  console.log({ configurations });
-
-  const dispatch = useDispatch();
   // redux prices 
+  const dispatch = useDispatch();
+
+  const hallsReduxLoading = useSelector(state => state.hallsReducer.loading);
+  console.log({ hallsReduxLoading });
+  const placesReduxLoading = useSelector(state => state.placesReducer.loading);
+  console.log({ placesReduxLoading });
+
+
   const pricesRedux = useSelector(state => state.hallPricesReducer.prices);
   console.log({pricesRedux});
+  const hallsRedux = useSelector(state => state.hallsReducer.halls);
+  console.log({ hallsRedux });
+
 
   const selectedHallId = useSelector(state => state.hallPricesReducer.selectedHallId);
   
-  const hallsRedux2 = useSelector(state => state.hallsReducer.halls);
-  console.log({ hallsRedux2 });
+  const refreshDataStatusRedux = useSelector(state => state.hallPricesReducer.refreshDataStatus);
+  console.log({refreshDataStatusRedux});  
 
-  useEffect(() => {
-    console.log('price effect is on');    
-    dispatch(getHalls()); // загрузка залов
-  }, [])
+  // useEffect(() => {
+  //   console.log('price effect is on');    
+  //   dispatch(getHalls()); // загрузка залов
+  // }, []);
 
   useEffect(() => {
     console.log('price effect 2 is on');
     
-    dispatch(setPrices(hallsRedux2)); // заполнение конфигурации цен данными залов, загруженных из hallSlice при помощи эффекта
-    dispatch(setHalls(hallsRedux2));
-  }, [hallsRedux2])
+    dispatch(setPrices(hallsRedux)); // заполнение конфигурации цен данными залов, загруженных из hallSlice при помощи эффекта
+    dispatch(setHalls(hallsRedux));
+
+    // setIsLoading(false);
+      // setRefreshData('nothing to refresh');
+      // dispatch(setRefreshDataStatus('data refreshed'));
+  
+      if (refreshDataStatusRedux !== 'initial data is loaded') {
+        dispatch(setRefreshDataStatus('data refreshed'));
+      }
+  }, [hallsRedux, refreshDataStatusRedux]);
 
 
   const handleChange = (e) => {
-    console.log(checked);
-
-    console.log('checked true');
-    setChecked(e.target.value);
-
-    console.log(e);
-    console.dir(e.target);
-
-    // redux
-    dispatch(setSelectedHallId(e.target.value))
-
-    // before redux
-    // const chosenHall = halls.filter(hall => hall.title === e.target.value)[0]; // возвращаю первый элемент полученного массива
-    // setHall((previousHall) => ({ ...previousHall, ...chosenHall }));
-    // console.log(hall);
+    const {value} = e.target; 
+    dispatch(setSelectedHallId(value));
   }
 
   const handleSubmit = async (e) => {
@@ -92,10 +80,8 @@ const PriceConfigurator = ({ halls }) => {
     // 1) Есть ли изменения в ценах залов
     let hallPriceDiffs = []; // Залы с изменившимися ценами
 
-    hallsRedux2.filter(hallData => {
+    hallsRedux.filter(hallData => {
       const configuration = pricesRedux.find(configuration => configuration.hall_id === hallData.id);
-
-      // return (!(hallData.rows === configuration.rows && hallData.places === configuration.places))
 
       if (!(hallData.normal_price === configuration.normal_price && hallData.vip_price === configuration.vip_price)) {
         hallPriceDiffs.push({ ...hallData, normal_price: configuration.normal_price, vip_price: configuration.vip_price });
@@ -118,153 +104,50 @@ const PriceConfigurator = ({ halls }) => {
       });
       console.log({ updatedHalls });
       dispatch(putHallData({dataArray: updatedHalls, url: 'api/halls'}));
-
-      /* const promises = hallPriceDiffs.map(async data => {
-        const updatedHall = {
-          title: data.title,
-          rows: data.rows,
-          places: data.places,
-          normal_price: Number(data.normal_price).toFixed(2),
-          vip_price: Number(data.vip_price).toFixed(2)
-        };
-        try {
-          // return await apiClient.put(`api/places/${data.id}`, updatedHall);
-          return await updateHallInDB(data.id, updatedHall);
-        } catch (error) {
-          console.log(error);
-        }
-      })
-    
-      try {
-        console.log({promises});        
-        const response = await Promise.all(promises);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      } */
     }
   }
 
-  /* const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    console.log('handleSubmit');
-
-    // 1) Есть ли изменения в ценах залов
-    let hallPriceDiffs = []; // Залы с изменившимися ценами
-
-    halls.filter(hallData => {
-      const configuration = configurations.find(configuration => configuration.hall_id === hallData.id);
-
-      // return (!(hallData.rows === configuration.rows && hallData.places === configuration.places))
-
-      if (!(hallData.normal_price === configuration.normal_price && hallData.vip_price === configuration.vip_price)) {
-        hallPriceDiffs.push({ ...hallData, normal_price: configuration.normal_price, vip_price: configuration.vip_price });
-        return true;
-      }
-    })
-
-    console.log({ hallPriceDiffs });
-
-    if (hallPriceDiffs.length > 0) {
-      const promises = hallPriceDiffs.map(async data => {
-        const updatedHall = {
-          title: data.title,
-          rows: data.rows,
-          places: data.places,
-          normal_price: Number(data.normal_price).toFixed(2),
-          vip_price: Number(data.vip_price).toFixed(2)
-        };
-        try {
-          // return await apiClient.put(`api/places/${data.id}`, updatedHall);
-          return await updateHallInDB(data.id, updatedHall);
-        } catch (error) {
-          console.log(error);
-        }
-      })
-    
-      try {
-        console.log({promises});        
-        const response = await Promise.all(promises);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  } */
-
-  const handleRefresh = (e) => {
+  const handleRefresh = () => {
     // Почему срабатывает при Enter в инпуте, будто это произошло событие Submit?
 
     console.log('handleRefresh');
-    console.log(e.target);
-
-    dispatch(cancelPriceChanges());
-
-
-    /* // before redux
-    // Возврат к конфигурации
-    const refreshedConfigurations = configurations.map(configuration => {
-      if (configuration.hall_id === hall.id) {
-        return { ...configuration, normal_price: Number(hall.normal_price), vip_price: Number(hall.vip_price) }
-      } else {
-        return configuration;
-      }
-    })
-
-    setConfigurations(refreshedConfigurations); */
+    dispatch(setRefreshDataStatus('refresh data')); // перезапуск стартового useEffect c начальными данными с сервера
+    // dispatch(cancelPriceChanges());
   }
 
   const handleInput = (e) => {
-    console.log(e);
-
     const {name, value} = e.target;
-
-    // redux
     dispatch(changeData({property: name, value})); // ввод любого символа (в т.ч. букв, знаков препинания и т.д.)
-    
-   /*  // Уточнить, как сделать ввод нескольких символов без обновления 
-    const newConfigurations = configurations.map(configuration => {
-      if (configuration.hall_id === hall.id) {
-        return { ...configuration, [e.target.name]: e.target.value } // ввод любого символа (в т.ч. букв, знаков препинания и т.д.)
-      } else {
-        return configuration;
-      }
-    })
-
-    setConfigurations(newConfigurations); */
   }
 
   const handleBlur = (e) => {
     console.log(e);
     const {name, value} = e.target;
-
-    // redux
     dispatch(handleBlurData({property: name, value}));
-       
-    /* // Уточнить, как 
-    const newConfigurations = configurations.map(configuration => {
-      if (configuration.hall_id === hall.id) {
-        return { ...configuration, [e.target.name]: e.target.value ? Number(parseFloat(e.target.value).toFixed(2)) : 0 }
-      } else {
-        return configuration;
-      }
-    })
-
-    setConfigurations(newConfigurations); */
   }
 
+  if (hallsReduxLoading !== 'idle') {
+    return (
+      <section className="conf-step" > 
+        <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
+        <div className="conf-step__wrapper">
+          <span className="loader" ></span>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="conf-step">
 
       <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
 
-      {hallsRedux2.length > 0 && pricesRedux.length > 0 &&<div className="conf-step__wrapper">
+      <div className="conf-step__wrapper">
         <form onSubmit={handleSubmit}>
 
           <p className="conf-step__paragraph">Выберите зал для конфигурации:</p>
-          <HallConfiguratorTitles halls={halls} name="prices-hall" handleChange={handleChange} /* checked={checked}  *//* onClick={handleInput} */ />
+          {/* <HallConfiguratorTitles halls={halls} name="prices-hall" handleChange={handleChange} /> */}
+          <HallConfiguratorTitles name="prices-hall" handleChange={handleChange} />
 
           <p className="conf-step__paragraph">Установите цены для типов кресел:</p>
           <div className="conf-step__legend">
@@ -273,7 +156,9 @@ const PriceConfigurator = ({ halls }) => {
                 className="conf-step__input"
                 name="normal_price"
                 placeholder="0"
-                value={pricesRedux.find(configuration => configuration.hall_id === selectedHallId).normal_price}
+                value={pricesRedux.length > 0 ? 
+                  pricesRedux.find(configuration => configuration.hall_id === selectedHallId).normal_price :
+                   ''}
                 // value={configurations.find(configuration => configuration.hall_id === hall.id).normal_price}
                 onChange={handleInput} 
                 onBlur={handleBlur}
@@ -288,7 +173,9 @@ const PriceConfigurator = ({ halls }) => {
                 className="conf-step__input"
                 name="vip_price"
                 placeholder="0"
-                value={pricesRedux.find(configuration => configuration.hall_id === selectedHallId).vip_price}
+                value={pricesRedux.length > 0 ?
+                   pricesRedux.find(configuration => configuration.hall_id === selectedHallId).vip_price :
+                    ''}
                 // value={configurations.find(configuration => configuration.hall_id === hall.id).vip_price}
                 onChange={handleInput}
                 onBlur={handleBlur}
@@ -298,12 +185,8 @@ const PriceConfigurator = ({ halls }) => {
           </div>
 
           <SectionButtons handleRefresh={handleRefresh} />
-          {/* <fieldset className="conf-step__buttons text-center">
-            <button className="conf-step__button conf-step__button-regular">Отмена</button>
-            <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent"/>
-          </fieldset> */}
         </form>
-      </div>}
+      </div>
     </section>
   )
 }

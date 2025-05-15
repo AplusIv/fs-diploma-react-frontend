@@ -14,3 +14,7 @@ export const compareFnByDateAssending = (a, b) => {
     // a === b
     return dayjs(a.time, 'HH:mm').diff(dayjs(b.time, 'HH:mm')); // сортировка по столбцу "время" (возврат разницы в миллисекундах )
 }
+
+  // Функции сравнения для сортировки массивов
+  export const compareFnByIdAssending = (a, b) => Number(a.id) - Number(b.id); // сортировка объектов по возрастанию
+  export const compareFnByPlaceAssending = (a, b) => Number(a.place) - Number(b.place); // сортировка объектов по возрастанию
