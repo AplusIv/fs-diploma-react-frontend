@@ -35,8 +35,8 @@ export const loginSlice = createSlice({
       // заполнить данными из хранилища при перезагрузке страницы
       state.loggedIn = JSON.parse(sessionStorage.getItem('loggedIn'));
       if (sessionStorage.getItem('loginErrorStatus') && sessionStorage.getItem('loginErrorStatusText')) {
-        state.loginErrorStatus = JSON.parse(sessionStorage.getItem('loginErrorStatus'));
-        state.loginErrorStatusText = JSON.parse(sessionStorage.getItem('loginErrorStatusText'));
+        state.loginErrorStatus = Number(sessionStorage.getItem('loginErrorStatus'));
+        state.loginErrorStatusText = sessionStorage.getItem('loginErrorStatusText');
       }
     },
   }

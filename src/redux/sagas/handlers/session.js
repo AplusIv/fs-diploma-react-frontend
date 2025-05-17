@@ -48,7 +48,7 @@ export function* handleGetSessions() {
     // yield put({ type: 'USER_FETCH_SUCCEEDED', user: user })
   } catch (e) {
     console.log(e);
-    yield put(sessionRequestFailed());
+    yield put(sessionRequestFailed(e));
     
     if (e.response.status === 401) {
       yield put(setLoggedOut());

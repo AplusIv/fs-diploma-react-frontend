@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: 'idle',
+  errorStatus: sessionStorage.getItem('sessionRequestErrorStatus') || undefined,
+  errorStatusText: sessionStorage.getItem('sessionRequestErrorStatusText') || undefined,
   sessions: []
 }
 
@@ -25,13 +27,24 @@ export const sessionSlice = createSlice({
         console.log({ payload });
       
         state.sessions = [...payload];
+
+        state.errorStatus = null;        
+        state.errorStatusText = null;
+        sessionStorage.removeItem('sessionRequestErrorStatus');
+        sessionStorage.removeItem('sessionRequestErrorStatusText');
       }
     },
-    dataFailed: (state) => {
+    dataFailed: (state, action) => {
+      const { payload } = action;
       console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'failed'
         state.sessions = [];
+
+        state.errorStatus = payload.response.status;
+        state.errorStatusText = payload.response.statusText;
+        sessionStorage.setItem('sessionRequestErrorStatus', payload.response.status);
+        sessionStorage.setItem('sessionRequestErrorStatusText', payload.response.statusText);
       }
     },
     getSessions: () => {}, // запуск worker saga get sessions
@@ -40,7 +53,14 @@ export const sessionSlice = createSlice({
       console.log({ payload });
       
       state.sessions = [...payload];
-    }
+    },
+    setStateByStorageData: (state) => {
+      // заполнить данными из хранилища при перезагрузке страницы
+      if (sessionStorage.getItem('sessionRequestErrorStatus') && sessionStorage.getItem('sessionRequestErrorStatusText')) {
+        state.errorStatus = sessionStorage.getItem('sessionRequestErrorStatus');
+        state.errorStatusText = sessionStorage.getItem('sessionRequestErrorStatusText');
+      }
+    },
   }
 })
 
@@ -50,7 +70,8 @@ export const {
   dataReceived, 
   dataFailed,
   getSessions, 
-  setSessions
+  setSessions,
+  setStateByStorageData,
 } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

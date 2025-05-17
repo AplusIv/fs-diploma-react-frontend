@@ -62,7 +62,7 @@ export function* handleGetPlaces() {
     // yield put({ type: 'USER_FETCH_SUCCEEDED', user: user })
   } catch (e) {
     console.log(e);
-    yield put(dataFailed());
+    yield put(dataFailed(e));
 
     if (e.response.status === 401) {
       yield put(setLoggedOut());

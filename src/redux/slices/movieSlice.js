@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: 'idle',
+  errorStatus: sessionStorage.getItem('movieRequestErrorStatus') || undefined,
+  errorStatusText: sessionStorage.getItem('movieRequestErrorStatusText') || undefined,
   movies: []
 }
 
@@ -25,13 +27,24 @@ export const movieSlice = createSlice({
         console.log({ payload });
       
         state.movies = [...payload];
+
+        state.errorStatus = null;        
+        state.errorStatusText = null;
+        sessionStorage.removeItem('movieRequestErrorStatus');
+        sessionStorage.removeItem('movieRequestErrorStatusText');
       }
     },
-    dataFailed: (state) => {
+    dataFailed: (state, action) => {
+      const { payload } = action;
       console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'failed'
         state.movies = [];
+
+        state.errorStatus = payload.response.status;
+        state.errorStatusText = payload.response.statusText;
+        sessionStorage.setItem('movieRequestErrorStatus', payload.response.status);
+        sessionStorage.setItem('movieRequestErrorStatusText', payload.response.statusText);
       }
     },
     getMovies: () => {}, // запуск worker saga get movies
@@ -40,7 +53,14 @@ export const movieSlice = createSlice({
       console.log({ payload });
       
       state.movies = [...payload];
-    }
+    },
+    setStateByStorageData: (state) => {
+      // заполнить данными из хранилища при перезагрузке страницы
+      if (sessionStorage.getItem('movieRequestErrorStatus') && sessionStorage.getItem('movieRequestErrorStatusText')) {
+        state.errorStatus = sessionStorage.getItem('movieRequestErrorStatus');
+        state.errorStatusText = sessionStorage.getItem('movieRequestErrorStatusText');
+      }
+    },
   }
 })
 
@@ -51,6 +71,7 @@ export const {
   dataFailed,
   getMovies, 
   setMovies,
+  setStateByStorageData,
 } = movieSlice.actions;
 
 export default movieSlice.reducer;

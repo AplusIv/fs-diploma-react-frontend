@@ -5,8 +5,6 @@ import { setLoggedOut } from "../../redux/slices/loginSlice";
 
 const Logout = () => {
   const loginRedux = useSelector(state => state.loginReducer.loggedIn);
-  console.log({loginRedux});
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,8 +14,6 @@ const Logout = () => {
       if (response.status === 204) {
         dispatch(setLoggedOut());
         navigate('/login');
-        // setLoggedIn(false);
-        // sessionStorage.setItem('loggedIn', false);
       }
     }).catch(err => {
       console.log(err);

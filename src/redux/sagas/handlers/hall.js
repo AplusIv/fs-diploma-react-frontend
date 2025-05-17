@@ -48,7 +48,10 @@ export function* handleGetHalls() {
     // yield put({ type: 'USER_FETCH_SUCCEEDED', user: user })
   } catch (e) {
     console.log(e);
-    yield put(dataFailed());
+    yield put(dataFailed(e));
+    // if (e.response.status === 403) {
+
+    // }
     if (e.response.status === 401) {
       yield put(setLoggedOut());
     }
