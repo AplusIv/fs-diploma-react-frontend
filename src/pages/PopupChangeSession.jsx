@@ -1,73 +1,31 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeData, filterData, setHalls, setSelectedSession } from "../redux/slices/popupEditSessionsHandlerSlice";
 import PopupInput from "./PopupInput";
 import PopupSelect from "./PopupSelect";
-import dayjs from "dayjs";
-import { useDispatch, useSelector } from "react-redux";
-// import { changeData, setData, setHalls } from "../redux/slices/popupEditSessionHandlerSlice";
-import { changeData, filterData, setHalls, setSelectedSession } from "../redux/slices/popupEditSessionsHandlerSlice";
 
 
-
-const PopupChangeSession = ({ /* editedElement, */ halls, onChangeCallback, onDeleteCallback, selectedIndex/* , setSelectedIndex, isEdit, handleSubmit */ }) => {
-  // const [newItem, setNewItem] = useState(editedElement);
-  // console.log({ newItem });
+const PopupChangeSession = ({ halls, onChangeCallback, onDeleteCallback, selectedIndex }) => {
   
-  // redux state
   const sessionRedux = useSelector(state => state.popupEditSessionsReducer.popupEditSessionsData[selectedIndex]);
-  console.log({sessionRedux});
-
   const sessionsRedux = useSelector(state => state.popupEditSessionsReducer.popupEditSessionsData);
   const editedSessionIndex = useSelector(state => state.popupEditSessionsReducer.popupSelectedSession);
 
-
-  // const editedSessionRedux = useSelector(state => state.popupEditSessionReducer.popupEditSessionData);
-  // console.log({editedSessionRedux});
-
   const dispatch = useDispatch();
-  
+
   const sessionEditFlag = selectedIndex === editedSessionIndex;
-
-  // console.log({selectedIndex, editedSessionIndex, sessionEditFlag});
-
-
-  // редактируемый зал
-  // const initialHallTitle = halls.find(hall => hall.id === newItem.hall_id).title;
 
   const handleData = () => {
     console.log('изменение элемента в массиве');
-    // redux
-    // onChangeCallback(sessionRedux, sessionRedux.id);
     onChangeCallback(sessionsRedux[editedSessionIndex], sessionsRedux[editedSessionIndex].id);
-
-
-
-    // onChangeCallback(newItem, newItem.id);
-
-    // setNewItem({});
-    // setAdding(false);
-    // handlePopup('hide popup');
   }
 
-  const handleDelete = () => {  
-    // redux
-    onDeleteCallback(sessionRedux);    
-    dispatch(filterData({id: sessionRedux.id})); // удаление сеансов из разметки
-
-    // onDeleteCallback(editedElement);
-    // setNewItem({});
+  const handleDelete = () => {
+    onDeleteCallback(sessionRedux);
+    dispatch(filterData({ id: sessionRedux.id })); // удаление сеансов из разметки
   }
 
   const onChangeItemData = (editedValue, name) => {
-    // redux
-    dispatch(changeData({property: name, value: editedValue}));
-    
-
-    // if (name === "hall_id") {
-    //   const editedHallId = halls.find(hall => hall.title === editedValue).id;
-    //   setNewItem({ ...newItem, [name]: editedHallId });
-    // } else {
-    //   setNewItem({ ...newItem, [name]: editedValue });
-    // }
+    dispatch(changeData({ property: name, value: editedValue }));
   }
 
   return (
@@ -77,56 +35,42 @@ const PopupChangeSession = ({ /* editedElement, */ halls, onChangeCallback, onDe
           {<PopupSelect
             belongsTo="edit session"
             selectedIndex={selectedIndex}
-            // info={sessionInfo}
-            // initialValue={initialHallTitle}
             optionsData={halls}
             name="hall_id"
-            // edit={isEdit}
             edit={sessionEditFlag}
             onChangeCallback={onChangeItemData} />}
         </label>
         <label>Время сеанса:{' '}
           <PopupInput
-            // info={sessionInfo}
             belongsTo="edit session"
             selectedIndex={selectedIndex}
-            // initialValue={editedElement.time}
             name="time"
             type="time"
             autoComplete="on"
-            // edit={isEdit}
             edit={sessionEditFlag}
             onChangeCallback={onChangeItemData} />
         </label>
         <label>Дата сеанса:{' '}
           <PopupInput
-            // info={sessionInfo}
             belongsTo="edit session"
             selectedIndex={selectedIndex}
-            // initialValue={editedElement.date}
-            // initialValue={dayjs(editedElement.date).format('YYYY-MM-DD')}
             name="date"
             type="date"
             autoComplete="on"
-            // edit={isEdit}
             edit={sessionEditFlag}
             onChangeCallback={onChangeItemData} />
         </label>
 
         {sessionEditFlag ?
-          <button className="conf-step__button conf-step__button-regular" onClick={() => {           
-            // setSelectedIndex(undefined);
+          <button className="conf-step__button conf-step__button-regular" onClick={() => {
             handleData();
-            dispatch(setSelectedSession(undefined));            
+            dispatch(setSelectedSession(undefined));
           }}>Принять изменения</button>
           : <button className="conf-step__button conf-step__button-regular" onClick={() => {
-            // setSelectedIndex(selectedIndex);
-
             dispatch(setHalls(halls));
             dispatch(setSelectedSession(selectedIndex));
-            // dispatch(setData(sessionRedux));
-            }}>Редактировать сеанс</button>}
-       
+          }}>Редактировать сеанс</button>}
+
         <button type="button" className="conf-step__button conf-step__button-warning" onClick={handleDelete} >Удалить сеанс</button>
       </li>
     </>

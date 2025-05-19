@@ -13,8 +13,7 @@ const PopupInput = ({
   const hallDataValue = useSelector(state => state.hallPopupDataReducer.hallPopupData[name]); // имя поля из импута соответствует свойству объекта из состояния
   const editMovieDataValue = useSelector(state => state.popupEditMovieReducer.popupEditedMovieData[name]); // имя поля из импута соответствует свойству объекта из состояния
   const addMovieDataValue = useSelector(state => state.popupAddMovieReducer.popupAddMovieData[name]); // имя поля из импута соответствует свойству объекта из состояния
-
-  const selectedSessionIndex = useSelector(state => state.popupEditSessionsReducer.popupSelectedSession);
+  // const selectedSessionIndex = useSelector(state => state.popupEditSessionsReducer.popupSelectedSession);
   const sessionData = useSelector(state => state.popupEditSessionsReducer.popupEditSessionsData[selectedIndex]);
   const addSessionDataValue = useSelector(state => state.popupAddSessionReducer.popupAddSessionData[name]); // имя поля из импута соответствует свойству объекта из состояния
 

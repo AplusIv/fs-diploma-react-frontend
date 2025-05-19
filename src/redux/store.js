@@ -21,24 +21,19 @@ import hallPricesReducer from './slices/hallPricesSlice'
 import hallPLacesReducer from './slices/hallPlacesSlice'
 import sessionManagerReducer from './slices/sessionManagerSlice'
 
-// (3) client side reducers
+// (3) client side reducers (no protected by admin)
 import guestHallsReducer from './slices/guestHallSlice'
 import guestMoviesReducer from './slices/guestMovieSlice'
 import guestPlacesReducer from './slices/guestPlaceSlice'
 import guestSessionsReducer from './slices/guestSessionSlice'
-
-
-
 import ticketsReducer from './slices/ticketSlice'
 import orderReducer from './slices/orderSlice'
-
 import pageNavigatorReducer from './slices/pageNavigatorSlice'
 import sessionsByDateReducer from './slices/sessionsByDateSlice'
 import buyingReducer from './slices/buyingSlice'
 
 // (4) login reducer
 import loginReducer from './slices/loginSlice'
-
 
 // saga
 import createSagaMiddleware from 'redux-saga'
@@ -76,8 +71,7 @@ export const store = configureStore({
     guestHallsReducer,
     guestMoviesReducer,
     guestPlacesReducer,
-    guestSessionsReducer,
-    
+    guestSessionsReducer,    
     ticketsReducer,
     orderReducer,
     pageNavigatorReducer,

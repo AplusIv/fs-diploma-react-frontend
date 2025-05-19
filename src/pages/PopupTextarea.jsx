@@ -1,14 +1,18 @@
-// import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const PopupTextarea = ({ /* elementId, initialValue = "",  */belongsTo, name, rows, cols, placeholder = "", autoComplete, edit = true, onChangeCallback }) => {
-  // Рабочий вариант до Redux
-  // const [value, setValue] = useState(initialValue);
-
+const PopupTextarea = ({
+  belongsTo,
+  name,
+  rows,
+  cols,
+  placeholder = "",
+  autoComplete,
+  edit = true,
+  onChangeCallback
+}) => {
   const hallDataValue = useSelector(state => state.hallPopupDataReducer.hallPopupData[name]); // имя поля из импута соответствует свойству объекта из состояния
   const editMovieDataValue = useSelector(state => state.popupEditMovieReducer.popupEditedMovieData[name]); // имя поля из импута соответствует свойству объекта из состояния
   const addMovieDataValue = useSelector(state => state.popupAddMovieReducer.popupAddMovieData[name]); // имя поля из импута соответствует свойству объекта из состояния
-
 
   let value;
 
@@ -37,7 +41,6 @@ const PopupTextarea = ({ /* elementId, initialValue = "",  */belongsTo, name, ro
       placeholder={placeholder}
       autoComplete={autoComplete}
       onChange={(e) => {
-        // setValue(e.target.value);
         onChangeCallback && onChangeCallback(e.target.value, name)
       }}
       disabled={!edit}

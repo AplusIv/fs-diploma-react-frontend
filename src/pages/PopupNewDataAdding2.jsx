@@ -1,22 +1,14 @@
-// import { useState } from "react"
-import PopupSelect from "./PopupSelect";
-import PopupInput from "./PopupInput";
 import { useDispatch, useSelector } from "react-redux";
 import { changeData, setToInitialData } from "../redux/slices/popupAddSessionHandlerSlice";
-// import { setData, setSelectedMovieTitle } from "../redux/slices/popupEditSessionsHandlerSlice";
+import PopupSelect from "./PopupSelect";
+import PopupInput from "./PopupInput";
 
 
-const PopupNewDataAdding2 = ({ /* initialItem = {},  */halls, movies, sessions, buttonTitle, onAddCallback,/*  setAdding, */ edit }) => {
-  // before redux
-  // const [newItem, setNewItem] = useState(initialItem);
-  // console.log({ newItem });
-
+const PopupNewDataAdding2 = ({ halls, movies, buttonTitle, onAddCallback, edit }) => {
   // redux added session data 
   const popupData = useSelector(state => state.popupAddSessionReducer.popupAddSessionData);
-  console.log({ popupData });
 
   const dispatch = useDispatch();
-
 
   const handleAddData = (e) => {
     e.preventDefault();
@@ -25,29 +17,8 @@ const PopupNewDataAdding2 = ({ /* initialItem = {},  */halls, movies, sessions, 
     // redux
     onAddCallback(popupData);
     dispatch(setToInitialData());
-
-    // // обновить список редактируемых фильмов
-    // dispatch(setSelectedMovieTitle({title: 'Утиные истории'})); 
-    // dispatch(setData({movies, sessions}));
-    
-    // before redux
-    // onAddCallback(newItem);
-
-    // setNewItem(initialItem);
-    // setAdding(false);
   }
 
-  // const onChangeItemData = (editedValue, name) => {
-  //   if (name === "hall_id") {
-  //     const editedHallId = halls.find(hall => hall.title === editedValue).id;
-  //     setNewItem({ ...newItem, [name]: editedHallId });
-  //   } else if (name === "movie_id") {
-  //     const editedMovieId = movies.find(movie => movie.title === editedValue).id;
-  //     setNewItem({ ...newItem, [name]: editedMovieId });
-  //   } else {
-  //     setNewItem({ ...newItem, [name]: editedValue });
-  //   }
-  // }
   const onChangeItemData = (editedValue, name) => {
     dispatch(changeData({ property: name, value: editedValue }))
   }
@@ -58,7 +29,6 @@ const PopupNewDataAdding2 = ({ /* initialItem = {},  */halls, movies, sessions, 
         <label> Зал:{' '}
           <PopupSelect
             belongsTo='add session'
-            // initialValue={(halls.length > 0) ? halls[0].title : ''}
             optionsData={halls}
             name="hall_id"
             edit={!edit}
@@ -68,7 +38,6 @@ const PopupNewDataAdding2 = ({ /* initialItem = {},  */halls, movies, sessions, 
         <label> Фильм:{' '}
           <PopupSelect
             belongsTo='add session'
-            // initialValue={(movies.length > 0) ? movies[0].title : ''}
             optionsData={movies}
             name="movie_id"
             edit={!edit}

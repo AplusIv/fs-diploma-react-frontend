@@ -15,7 +15,36 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // axios.defaults.withCredentials = true;
+
+    try {
+      await apiClient.get('/sanctum/csrf-cookie');
+      const response = await apiClient.post('/login', {
+        email: email,
+        password: password
+      });
+      console.log(response)
+      if (response.status === 204) {
+        setError('');
+        dispatch(setLoggedIn());
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error);
+      setError(error.response.data.message);
+
+      // Когда пользователь залогинен, но отсутствует запись в сессии
+      if (error.response.status === 403 && error.response.data.message === "Already Authenticated") {
+        console.log('сессия пользователя обновлена');
+        dispatch(setLoggedIn());
+        navigate('/');
+      }
+    }
+  }
+
+  /* const handleSubmit = (e) => {
     e.preventDefault();
     // axios.defaults.withCredentials = true;
     apiClient.get('/sanctum/csrf-cookie')
@@ -44,7 +73,7 @@ const Login = () => {
       }).catch(err => {
         console.log(err);
       });
-  }
+  } */
 
   return (
     <main>

@@ -14,7 +14,6 @@ export const hallPricesSlice = createSlice({
   reducers: {
     setHalls: (state, action) => {
       const { payload } = action;
-      console.log({ payload });
       
       state.halls = [...payload];
 
@@ -33,20 +32,15 @@ export const hallPricesSlice = createSlice({
     },
     setSelectedHallId: (state, action) => {
       const { payload } = action;
-      console.log({ payload });
       const selectedHallTitle = state.halls.find(hall => hall.title === payload);
       state.selectedHallId = selectedHallTitle.id;
     },
     changeData: (state, action) => {
-      const { property, value } = action.payload;
-      console.log(action.payload);
-      
+      const { property, value } = action.payload;     
       state.prices.find(priceConfiguration => priceConfiguration.hall_id === state.selectedHallId)[property] = value;
     },
     handleBlurData: (state, action) => {
-      const { property, value } = action.payload;
-      console.log(action.payload);
-      
+      const { property, value } = action.payload;      
       state.prices.find(priceConfiguration => priceConfiguration.hall_id === state.selectedHallId)[property] = value ? Number(parseFloat(value).toFixed(2)) : 0; 
     },
     /* cancelPriceChanges: (state) => {

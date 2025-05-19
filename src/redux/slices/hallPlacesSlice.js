@@ -18,9 +18,7 @@ export const hallPlacesSlice = createSlice({
   initialState,
   reducers: {
     setHalls: (state, action) => {
-      const { payload } = action;
-      console.log({ payload });
-      
+      const { payload } = action;     
       state.halls = [...payload];
 
       state.selectedHallId = state.halls.length > 0 ? state.halls[0]?.id : null; // установить первый выбранный зал или null
@@ -54,7 +52,6 @@ export const hallPlacesSlice = createSlice({
     },
     setSelectedHallId: (state, action) => {
       const { payload } = action;
-      console.log({ payload });
       const selectedHallTitle = state.halls.find(hall => hall.title === payload);
       state.selectedHallId = selectedHallTitle.id;
     },
@@ -77,7 +74,6 @@ export const hallPlacesSlice = createSlice({
     },
     changeData: (state, action) => {
       const { property, value } = action.payload;
-      console.log(action.payload);
 
       // 1) изменение конфигурации зала
       state.configuration.find(configuration => configuration.hall_id === state.selectedHallId)[property] = value ? Number.parseFloat(value) : 0;
@@ -86,7 +82,6 @@ export const hallPlacesSlice = createSlice({
       const filtredSortedStatePlaces = state.places.filter(place => !(place.hall_id === state.selectedHallId)); // удаление мест с прошлой конфигурацией
       const newConfiguration = state.configuration.find(configuration => configuration.hall_id === state.selectedHallId);
       const lastStatePlacesId = filtredSortedStatePlaces[filtredSortedStatePlaces.length - 1].id;
-      console.log({ lastStatePlacesId });
       const newPlacesOfCurrentHall = handleNewPlaces(newConfiguration, lastStatePlacesId, compareFnByIdAssending); // создание мест с изменённой конфигурацией
 
       const newPlaces = [...filtredSortedStatePlaces, ...newPlacesOfCurrentHall].sort(compareFnByIdAssending);

@@ -1,8 +1,7 @@
-import PopupInput from "./PopupInput";
-import PopupTextarea from "./PopupTextarea";
 import { useDispatch, useSelector } from "react-redux";
 import { changeData, setToInitialData } from "../redux/slices/popupAddMovieHandlerSlice";
-
+import PopupInput from "./PopupInput";
+import PopupTextarea from "./PopupTextarea";
 
 const PopupMovieAdding = ({ buttonTitle, onAddCallback, handlePopup }) => {
   const popupData = useSelector(state => state.popupAddMovieReducer.popupAddMovieData);
@@ -21,7 +20,6 @@ const PopupMovieAdding = ({ buttonTitle, onAddCallback, handlePopup }) => {
   }
 
   const onChangeItemData = (editedValue, name) => {
-    // redux
     dispatch(changeData({ property: name, value: editedValue }));
   }
 
@@ -60,7 +58,6 @@ const PopupMovieAdding = ({ buttonTitle, onAddCallback, handlePopup }) => {
           Длительность фильма:{' '}
           <PopupInput
             belongsTo='add movie'
-            // type="text"
             type="number" // всё-таки длительность фильма это число
             name="duration"
             placeholder="Длительность фильма"

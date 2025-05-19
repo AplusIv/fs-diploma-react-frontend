@@ -1,78 +1,48 @@
 import { useEffect, useState } from "react";
-// import apiClient from "../services/jsonServerApi";
-
+import { useDispatch, useSelector } from "react-redux";
+import { changeData, handleBlurData, putHallData, setHalls, setPrices, setRefreshDataStatus, setSelectedHallId } from "../redux/slices/hallPricesSlice";
 import HallConfiguratorTitles from "./HallConfiguratorTitles"
 import SectionButtons from "./SectionButtons"
 import SectionHeader from "./SectionHeader"
-import axios from "axios";
-// import { updateHallInDB } from "../services/DBUpdater";
-import { useDispatch, useSelector } from "react-redux";
-import { changeData, handleBlurData, putHallData, setHalls, setPrices, setRefreshDataStatus, setSelectedHallId } from "../redux/slices/hallPricesSlice";
-import { getHalls } from "../redux/slices/hallSlice";
 
 const PriceConfigurator = () => {
-
   // // Показ/скрытие секции
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
-  const handleClick = (e) => {
-    console.log(e.currentTarget.className);
-    // if (e.target.contains)
-    if (e.currentTarget.classList.contains('conf-step__header')) {
-      setIsActiveHeaderState(!isActiveHeaderState);
-    }
-    // setIsActiveHeaderState(!isActiveHeaderState);
+  const toggleSectionVisibility = () => {
+    setIsActiveHeaderState(!isActiveHeaderState);
   }
 
-  // const [isLoading, setIsLoading] = useState(undefined);
-  // console.log({isLoading});
-
   // redux prices 
+  const pricesRedux = useSelector(state => state.hallPricesReducer.prices);
+  const hallsRedux = useSelector(state => state.hallsReducer.halls);
+  const selectedHallId = useSelector(state => state.hallPricesReducer.selectedHallId);
+
+  // статус обновления начальными данными
+  const refreshDataStatusRedux = useSelector(state => state.hallPricesReducer.refreshDataStatus);
+  console.log({ refreshDataStatusRedux });
+
+  // статусы загрузки
+  const hallsReduxLoading = useSelector(state => state.hallsReducer.loading);
+
   const dispatch = useDispatch();
 
-  const hallsReduxLoading = useSelector(state => state.hallsReducer.loading);
-  console.log({ hallsReduxLoading });
-  const placesReduxLoading = useSelector(state => state.placesReducer.loading);
-  console.log({ placesReduxLoading });
-
-
-  const pricesRedux = useSelector(state => state.hallPricesReducer.prices);
-  console.log({pricesRedux});
-  const hallsRedux = useSelector(state => state.hallsReducer.halls);
-  console.log({ hallsRedux });
-
-
-  const selectedHallId = useSelector(state => state.hallPricesReducer.selectedHallId);
-  
-  const refreshDataStatusRedux = useSelector(state => state.hallPricesReducer.refreshDataStatus);
-  console.log({refreshDataStatusRedux});  
-
-  // useEffect(() => {
-  //   console.log('price effect is on');    
-  //   dispatch(getHalls()); // загрузка залов
-  // }, []);
-
   useEffect(() => {
-    console.log('price effect 2 is on');
-    
+    // console.log('price effect is on');
     dispatch(setPrices(hallsRedux)); // заполнение конфигурации цен данными залов, загруженных из hallSlice при помощи эффекта
     dispatch(setHalls(hallsRedux));
 
-    // setIsLoading(false);
-      // setRefreshData('nothing to refresh');
-      // dispatch(setRefreshDataStatus('data refreshed'));
-  
-      if (refreshDataStatusRedux !== 'initial data is loaded') {
-        dispatch(setRefreshDataStatus('data refreshed'));
-      }
+    if (refreshDataStatusRedux !== 'initial data is loaded') {
+      dispatch(setRefreshDataStatus('data refreshed'));
+    }
   }, [hallsRedux, refreshDataStatusRedux]);
 
 
   const handleChange = (e) => {
-    const {value} = e.target; 
+    const { value } = e.target;
     dispatch(setSelectedHallId(value));
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log('handleSubmit');
@@ -89,8 +59,6 @@ const PriceConfigurator = () => {
       }
     })
 
-    console.log({ hallPriceDiffs });
-
     if (hallPriceDiffs.length > 0) {
       const updatedHalls = hallPriceDiffs.map(hallPriceDiff => {
         return {
@@ -102,34 +70,29 @@ const PriceConfigurator = () => {
           vip_price: Number(hallPriceDiff.vip_price).toFixed(2)
         }
       });
-      console.log({ updatedHalls });
-      dispatch(putHallData({dataArray: updatedHalls, url: 'api/halls'}));
+      dispatch(putHallData({ dataArray: updatedHalls, url: 'api/halls' }));
     }
   }
 
   const handleRefresh = () => {
-    // Почему срабатывает при Enter в инпуте, будто это произошло событие Submit?
-
     console.log('handleRefresh');
     dispatch(setRefreshDataStatus('refresh data')); // перезапуск стартового useEffect c начальными данными с сервера
-    // dispatch(cancelPriceChanges());
   }
 
   const handleInput = (e) => {
-    const {name, value} = e.target;
-    dispatch(changeData({property: name, value})); // ввод любого символа (в т.ч. букв, знаков препинания и т.д.)
+    const { name, value } = e.target;
+    dispatch(changeData({ property: name, value })); // ввод любого символа (в т.ч. букв, знаков препинания и т.д.)
   }
 
   const handleBlur = (e) => {
-    console.log(e);
-    const {name, value} = e.target;
-    dispatch(handleBlurData({property: name, value}));
+    const { name, value } = e.target;
+    dispatch(handleBlurData({ property: name, value }));
   }
 
   if (hallsReduxLoading !== 'idle') {
     return (
-      <section className="conf-step" > 
-        <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
+      <section className="conf-step" >
+        <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={toggleSectionVisibility} />
         <div className="conf-step__wrapper">
           <span className="loader" ></span>
         </div>
@@ -140,13 +103,12 @@ const PriceConfigurator = () => {
   return (
     <section className="conf-step">
 
-      <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={handleClick} />
+      <SectionHeader name={'Конфигурация цен'} isActiveHeaderState={isActiveHeaderState} handleClick={toggleSectionVisibility} />
 
       <div className="conf-step__wrapper">
         <form onSubmit={handleSubmit}>
 
           <p className="conf-step__paragraph">Выберите зал для конфигурации:</p>
-          {/* <HallConfiguratorTitles halls={halls} name="prices-hall" handleChange={handleChange} /> */}
           <HallConfiguratorTitles name="prices-hall" handleChange={handleChange} />
 
           <p className="conf-step__paragraph">Установите цены для типов кресел:</p>
@@ -156,11 +118,10 @@ const PriceConfigurator = () => {
                 className="conf-step__input"
                 name="normal_price"
                 placeholder="0"
-                value={pricesRedux.length > 0 ? 
+                value={pricesRedux.length > 0 ?
                   pricesRedux.find(configuration => configuration.hall_id === selectedHallId).normal_price :
-                   ''}
-                // value={configurations.find(configuration => configuration.hall_id === hall.id).normal_price}
-                onChange={handleInput} 
+                  ''}
+                onChange={handleInput}
                 onBlur={handleBlur}
               />
             </label>
@@ -174,9 +135,8 @@ const PriceConfigurator = () => {
                 name="vip_price"
                 placeholder="0"
                 value={pricesRedux.length > 0 ?
-                   pricesRedux.find(configuration => configuration.hall_id === selectedHallId).vip_price :
-                    ''}
-                // value={configurations.find(configuration => configuration.hall_id === hall.id).vip_price}
+                  pricesRedux.find(configuration => configuration.hall_id === selectedHallId).vip_price :
+                  ''}
                 onChange={handleInput}
                 onBlur={handleBlur}
               />

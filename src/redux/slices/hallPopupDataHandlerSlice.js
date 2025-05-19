@@ -16,10 +16,7 @@ export const hallPopupDataHandlerSlice = createSlice({
   reducers: {
     changeData: (state, action) => {
       const { property, value } = action.payload;
-      // state = {...state.hallPopupData, [property]: value}
       state.hallPopupData[property] = value;
-
-      // state.hallPopupData.title = action.payload
     },
     setToInitialData: state => {
       state.hallPopupData.title = ''

@@ -1,25 +1,14 @@
-// import { useState } from "react";
-import PopupInput from "./PopupInput";
-import PopupTextarea from "./PopupTextarea";
-
-// redux
 import { useDispatch, useSelector } from "react-redux";
 import { changeData } from "../redux/slices/popupEditMovieHandlerSlice";
 import { hidePopup } from "../redux/slices/popupSlice";
+import PopupInput from "./PopupInput";
+import PopupTextarea from "./PopupTextarea";
 
-
-const PopupChangeForm = ({/*  editedElement,  */onChangeCallback, buttonTitle, handlePopup, onDeleteCallback }) => {
+const PopupChangeForm = ({onChangeCallback, buttonTitle, handlePopup, onDeleteCallback }) => {
   // redux edited movie data 
   const popupData = useSelector(state => state.popupEditMovieReducer.popupEditedMovieData);
-  console.log({popupData});
 
   const dispatch = useDispatch();
-
-  
-  // console.log({editedElement});
-  
-  // const [newItem, setNewItem] = useState(editedElement);
-  // console.log({ newItem });
 
   const handleData = (e) => {
     e.preventDefault();
@@ -27,45 +16,23 @@ const PopupChangeForm = ({/*  editedElement,  */onChangeCallback, buttonTitle, h
     onChangeCallback(popupData, popupData.id);
 
     dispatch(hidePopup());
-    
-    // before Redux
-    // onChangeCallback(newItem, newItem.id);
-    
-
-    // setNewItem({});
-
-    // before Redux
-    // handlePopup('hide popup');
   }
 
   const handleDelete = () => {  
     onDeleteCallback(popupData);
-
-    // setNewItem({});
-
-    // before Redux 
-    // handlePopup('hide popup');
-
     dispatch(hidePopup());
   }
 
   const onChangeItemData = (editedValue, name) => {
-    // redux
     dispatch(changeData({property: name, value: editedValue}));
   }
 
-  // before redux
-  // const onChangeItemData = (editedValue, name) => {
-  //   (name === 'duration') ? setNewItem({ ...newItem, [name]: Number(editedValue) }) : setNewItem({ ...newItem, [name]: editedValue });
-  // }
   return (
     <form onSubmit={handleData}>
       <div className="popup__row">
         <label> Название:{' '}
           <PopupInput
-            // elementId={editedElement}
             belongsTo={'edit movie'}
-            // initialValue={editedElement.title}
             name="title"
             type="text"
             placeholder="Название фильма"
@@ -77,8 +44,6 @@ const PopupChangeForm = ({/*  editedElement,  */onChangeCallback, buttonTitle, h
       <div className="popup__row">
         <label> Описание:{' '}
           <PopupTextarea
-            // elementId={editedElement}
-            // initialValue={editedElement.description}
             belongsTo={'edit movie'}
             name="description"
             placeholder="Название фильма"
@@ -90,12 +55,9 @@ const PopupChangeForm = ({/*  editedElement,  */onChangeCallback, buttonTitle, h
       <div className="popup__row">
         <label> Длительность, мин:{' '}
           <PopupInput
-            // elementId={editedElement}
-            // initialValue={editedElement.duration}
             belongsTo={'edit movie'}
             name="duration"
             type="number"
-            // type="text" number возможно лучше
             placeholder="Название фильма"
             autoComplete="on"
             edit={true}
@@ -105,8 +67,6 @@ const PopupChangeForm = ({/*  editedElement,  */onChangeCallback, buttonTitle, h
       <div>
         <label> Производство:{' '}
           <PopupInput
-            // elementId={editedElement}
-            // initialValue={editedElement.country}
             belongsTo={'edit movie'}
             name="country"
             type="text"

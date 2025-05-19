@@ -53,7 +53,7 @@ export const sessionManagerSlice = createSlice({
     },
     setDays: (state, action) => {
       const { payload } = action;
-      console.log({ payload }); // количество дней для выбора - 1
+      // console.log({ payload }); // количество дней для выбора - 1
       const now = dayjs();
       let days = [];
 
@@ -64,7 +64,6 @@ export const sessionManagerSlice = createSlice({
 
       state.days = days;
       state.selectedDay = days[0].format('YYYY-MM-DD');
-      // const [date, setDate] = useState((sessions.length > 0) ? now.format('YYYY-MM-DD') : undefined);
     },
     setSelectedDay: (state, action) => {
       const { payload } = action;

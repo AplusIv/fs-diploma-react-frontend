@@ -13,7 +13,6 @@ export const hallSlice = createSlice({
   reducers: {
     dataLoading: (state) => {
       console.log(state.loading);
-      // Use a "state machine" approach for loading state instead of booleans
       if (state.loading === 'idle' || state.loading === 'failed') {
         state.loading = 'pending'
       }

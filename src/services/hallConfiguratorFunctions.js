@@ -8,7 +8,7 @@
       placesGroupedByRow.push(rowPlaces.sort(sorterFn));
     }
 
-    console.log({ placesGroupedByRow });
+    // console.log({ placesGroupedByRow });
     return placesGroupedByRow;
   }
 

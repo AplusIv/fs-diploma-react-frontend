@@ -16,34 +16,34 @@ import SellsConfigurator from '../../pages/SellsConfigurator';
 
 const Home = () => {
   // загрузка основных сущностей: залы, места, фильмы, сеансы
-  const hallsRedux = useSelector(state => state.hallsReducer.halls);
-  console.log({ hallsRedux });
-  const placesRedux = useSelector(state => state.placesReducer.places);
-  console.log({ placesRedux });
-  const moviesRedux = useSelector(state => state.moviesReducer.movies);
-  console.log({ moviesRedux });
-  const sessionsRedux = useSelector(state => state.sessionsReducer.sessions);
-  console.log({ sessionsRedux });
+  // const hallsRedux = useSelector(state => state.hallsReducer.halls);
+  // const placesRedux = useSelector(state => state.placesReducer.places);
+  // const moviesRedux = useSelector(state => state.moviesReducer.movies);
+  // const sessionsRedux = useSelector(state => state.sessionsReducer.sessions);
+  // console.log({ hallsRedux });
+  // console.log({ placesRedux });
+  // console.log({ moviesRedux });
+  // console.log({ sessionsRedux });
 
   // статусы загрузки данных
   const hallsReduxLoading = useSelector(state => state.hallsReducer.loading);
-  console.log({ hallsReduxLoading });
   const placesReduxLoading = useSelector(state => state.placesReducer.loading);
-  console.log({ placesReduxLoading });
   const moviesReduxLoading = useSelector(state => state.moviesReducer.loading);
-  console.log({ moviesReduxLoading });
   const sessionsReduxLoading = useSelector(state => state.sessionsReducer.loading);
-  console.log({ sessionsReduxLoading });
+  // console.log({ hallsReduxLoading });
+  // console.log({ placesReduxLoading });
+  // console.log({ moviesReduxLoading });
+  // console.log({ sessionsReduxLoading });
 
   // статусы наличия ошибок при загрузке основных данных
   const hallsReduxErrorStatus = useSelector(state => state.hallsReducer.errorStatus);
-  console.log({ hallsReduxErrorStatus });
   const placesReduxErrorStatus = useSelector(state => state.placesReducer.errorStatus);
-  console.log({ placesReduxErrorStatus });
   const moviesReduxErrorStatus = useSelector(state => state.moviesReducer.errorStatus);
-  console.log({ moviesReduxErrorStatus });
   const sessionsReduxErrorStatus = useSelector(state => state.sessionsReducer.errorStatus);
-  console.log({ sessionsReduxErrorStatus });
+  // console.log({ hallsReduxErrorStatus });
+  // console.log({ placesReduxErrorStatus });
+  // console.log({ moviesReduxErrorStatus });
+  // console.log({ sessionsReduxErrorStatus });
 
   const dispatch = useDispatch();
 

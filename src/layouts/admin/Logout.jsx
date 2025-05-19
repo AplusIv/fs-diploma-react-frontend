@@ -8,17 +8,30 @@ const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logout = () => {
-    apiClient.post('/logout').then(response => {
+  const logout = async () => {
+    try {
+      const response = await apiClient.post('/logout');
       console.log({response});      
       if (response.status === 204) {
         dispatch(setLoggedOut());
         navigate('/login');
       }
-    }).catch(err => {
-      console.log(err);
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // const logout = () => {
+  //   apiClient.post('/logout').then(response => {
+  //     console.log({response});      
+  //     if (response.status === 204) {
+  //       dispatch(setLoggedOut());
+  //       navigate('/login');
+  //     }
+  //   }).catch(err => {
+  //     console.log(err);
+  //   });
+  // };
 
   return (
     loginRedux ? <button type="button" className="conf-step__button conf-step__button-warning" onClick={logout} >Выйти</button> : null

@@ -1,19 +1,19 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setData, setSelectedMovieTitle } from "../redux/slices/popupEditSessionsHandlerSlice";
 
-const PopupSelect = ({ /* initialValue = "", */belongsTo, optionsData, name, edit=true, onChangeCallback, /* movies, */ sessions, selectedIndex=null }) => {
-  // const [value, setValue] = useState(initialValue);
+const PopupSelect = ({ 
+  belongsTo, 
+  optionsData, 
+  name, 
+  edit=true, 
+  onChangeCallback, 
+  sessions, 
+  selectedIndex=null }) => {
 
-  const selectedMovieValue = useSelector(state => state.popupEditSessionsReducer.popupSelectedMovieTitle);
-  // const editSessionDataValue = useSelector(state => state.popupEditSessionReducer.popupEditSessionData[name]); // имя поля из импута соответствует свойству объекта из состояния
-  
-  const selectedSessionIndex = useSelector(state => state.popupEditSessionsReducer.popupSelectedSession);
+  const selectedMovieValue = useSelector(state => state.popupEditSessionsReducer.popupSelectedMovieTitle); // имя поля из импута соответствует свойству объекта из состояния
+  // const selectedSessionIndex = useSelector(state => state.popupEditSessionsReducer.popupSelectedSession);
   const sessionData = useSelector(state => state.popupEditSessionsReducer.popupEditSessionsData[selectedIndex]);
-  //   const sessionDataValue = useSelector(state => state.popupEditSessionsReducer.popupEditSessionsData[selectedIndex]);
-
   const addSessionDataValue = useSelector(state => state.popupAddSessionReducer.popupAddSessionData[name]); // имя поля из импута соответствует свойству объекта из состояния
-
 
   let value;
 
@@ -41,9 +41,6 @@ const PopupSelect = ({ /* initialValue = "", */belongsTo, optionsData, name, edi
       className="popup__select"
       value={value}
       onChange={(e) => {
-        // setValue(e.target.value);
-
-        // redux state
         if (belongsTo === 'sessions filter') {
           dispatch(setSelectedMovieTitle({title: e.target.value})); 
           dispatch(setData({movies: optionsData, sessions}));
