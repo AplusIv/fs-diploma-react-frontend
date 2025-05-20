@@ -14,13 +14,6 @@ const initialState = {
   popupMovies: []
 }
 
-// {
-//   id: ++lastSessionId,
-//   movie_id: movies[0].id,
-//   hall_id: halls[0].id,
-//   date: "25.06.2024"
-// }}
-
 export const popupAddSessionHandlerSlice = createSlice({
   name: 'popupAddSessionData',
   initialState,
@@ -37,14 +30,12 @@ export const popupAddSessionHandlerSlice = createSlice({
     },
     setHalls: (state, action) => {
       const { payload } = action;
-      console.log({payload});
       state.popupHalls = [...payload];
 
       state.popupAddSessionData.hall_id = payload[0].id
     },
     setMovies: (state, action) => {
       const { payload } = action;
-      console.log({payload});
       state.popupMovies = [...payload];
 
       state.popupAddSessionData.movie_id = payload[0].id
@@ -72,13 +63,20 @@ export const popupAddSessionHandlerSlice = createSlice({
       } else {
         state.popupAddSessionData[property] = value;
       }
-      // state.popupAddSessionData[property] = value;
     },
     postSessionData: () => {}, // запускает worker saga handleAddSessionData
   }
 })
 
 // Action creators are generated for each case reducer function
-export const {setAddSessionFlag, setSessionId, setHalls, setMovies, changeData, setToInitialData, postSessionData} = popupAddSessionHandlerSlice.actions;
+export const {
+  setAddSessionFlag, 
+  setSessionId, 
+  setHalls, 
+  setMovies, 
+  changeData, 
+  setToInitialData, 
+  postSessionData
+} = popupAddSessionHandlerSlice.actions;
 
 export default popupAddSessionHandlerSlice.reducer;

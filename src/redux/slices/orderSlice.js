@@ -4,8 +4,6 @@ const initialState = {
   loading: 'idle',
   orders: [],
   newOrder: undefined,
-  // newOrderTickets: [],
-  // selectedTickets: [],
 }
 
 export const orderSlice = createSlice({
@@ -13,22 +11,14 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     dataLoading: (state) => {
-      console.log(state.loading);
-      // Use a "state machine" approach for loading state instead of booleans
-        state.loading = 'pending'
+      state.loading = 'pending'
     },
     dataReceived: (state) => {
-      console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'idle'
-        // const { payload } = action;
-        // console.log({ payload });
-      
-        // state.orders = [...payload];
       }
     },
     dataFailed: (state) => {
-      console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'failed'
 
@@ -37,10 +27,10 @@ export const orderSlice = createSlice({
         state.selectedTickets = [];
       }
     },
-    getOrders: () => {}, // запуск worker saga get orders
+    getOrders: () => { }, // запуск worker saga get orders
     setOrders: (state, action) => {
       const { payload } = action;
-      console.log({ payload });      
+      console.log({ payload });
       state.orders = [...payload];
     },
     // setSelectedTickets: (state, action) => {
@@ -48,19 +38,19 @@ export const orderSlice = createSlice({
     //   console.log({ payload });      
     //   state.selectedTickets = [...payload];
     // },
-    postNewOrder: () => {}, // запуск worker saga post new order
+    postNewOrder: () => { }, // запуск worker saga post new order
     setNewOrder: (state, action) => {
       const { payload } = action;
-      console.log({ payload });      
+      // console.log({ payload });
       state.newOrder = payload;
       sessionStorage.setItem('newOrder', JSON.stringify(payload)); // запись в сессию браузера
     },
-    putNewOrderAndTickets: () => {}, // запуск worker saga post new order
-    setToInitialData: (state) => { 
+    putNewOrderAndTickets: () => { }, // запуск worker saga post new order
+    setToInitialData: (state) => {
       state.loading = 'idle';
 
       state.orders = [];
-      state.newOrder = undefined;    
+      state.newOrder = undefined;
 
       sessionStorage.removeItem('newOrder'); // очистка сессии
     },
@@ -78,13 +68,13 @@ export const orderSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  dataLoading, 
-  dataReceived, 
-  dataFailed, 
-  getOrders, 
-  setOrders, 
+  dataLoading,
+  dataReceived,
+  dataFailed,
+  getOrders,
+  setOrders,
   // setSelectedTickets, 
-  postNewOrder, 
+  postNewOrder,
   setNewOrder,
   putNewOrderAndTickets,
   setToInitialData,

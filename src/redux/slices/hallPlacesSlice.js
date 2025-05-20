@@ -47,23 +47,12 @@ export const hallPlacesSlice = createSlice({
           places: hall.places
         }
       });
-
-      // setPlacesCombinedByHalls(); // скомбинировать места, исходя из количества залов и их конфигураций 
     },
     setSelectedHallId: (state, action) => {
       const { payload } = action;
       const selectedHallTitle = state.halls.find(hall => hall.title === payload);
       state.selectedHallId = selectedHallTitle.id;
     },
-    // setPlacesCombinedByHalls: (state, action) => {
-    //   const {places, configuration, halls} = action.payload;
-    //   state.placesCombinedByHalls = prepareHallPlaces(
-    //     places, 
-    //     configuration.find(configuration => configuration.hall_id === state.selectedHallId), 
-    //     halls.find(hall => hall.id === state.selectedHallId), 
-    //     compareFnByPlaceAssending)
-    // },
-
     setPlacesCombinedByHalls: (state) => {
       state.placesCombinedByHalls = prepareHallPlaces(
         state.places, 
@@ -87,12 +76,6 @@ export const hallPlacesSlice = createSlice({
       const newPlaces = [...filtredSortedStatePlaces, ...newPlacesOfCurrentHall].sort(compareFnByIdAssending);
       state.places = newPlaces;
     },
-    // handleBlurData: (state, action) => {
-    //   const { property, value } = action.payload;
-    //   console.log(action.payload);
-      
-    //   state.configuration.find(configuration => configuration.hall_id === state.selectedHallId)[property] = value ? Number(parseFloat(value).toFixed(2)) : 0; 
-    // },
     setPlaceType: (state, action) => {
       const {payload} = action;      
       const modifiedPlaces = state.places.map(place => {

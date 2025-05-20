@@ -11,41 +11,37 @@ export const ticketSlice = createSlice({
   initialState,
   reducers: {
     dataLoading: (state) => {
-      console.log(state.loading);
-      // Use a "state machine" approach for loading state instead of booleans
-        state.loading = 'pending'
+      state.loading = 'pending'
     },
     dataReceived: (state) => {
-      console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'idle'
       }
     },
     dataFailed: (state) => {
-      console.log(state.loading);
+      // console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'failed'
         state.tickets = [];
       }
     },
-    getTickets: () => {}, // запуск worker saga get tickets
+    getTickets: () => { }, // запуск worker saga get tickets
     setTickets: (state, action) => {
       const { payload } = action;
-      console.log({ payload });      
       state.tickets = [...payload];
     },
-    getNewOrderTickets: () => {}, // запуск worker saga get new order tickets
+    getNewOrderTickets: () => { }, // запуск worker saga get new order tickets
     setNewOrderTickets: (state, action) => {
       const { payload } = action;
-      console.log({ payload });      
+      // console.log({ payload });
       state.newOrderTickets = [...payload];
       sessionStorage.setItem('newOrderTickets', JSON.stringify([...payload])); // запись в сессию браузера
     },
-    setToInitialData: (state) => { 
+    setToInitialData: (state) => {
       state.loading = 'idle';
 
       state.tickets = [];
-      state.newOrderTickets = [];    
+      state.newOrderTickets = [];
 
       sessionStorage.removeItem('newOrderTickets'); // очистка сессии
     },
@@ -58,12 +54,12 @@ export const ticketSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  dataLoading, 
-  dataReceived, 
-  dataFailed, 
-  getTickets, 
-  setTickets, 
-  getNewOrderTickets, 
+  dataLoading,
+  dataReceived,
+  dataFailed,
+  getTickets,
+  setTickets,
+  getNewOrderTickets,
   setNewOrderTickets,
   setToInitialData,
   setStateByStorageData,

@@ -21,12 +21,17 @@ export const hallPopupDataHandlerSlice = createSlice({
     setToInitialData: state => {
       state.hallPopupData.title = ''
     },
-    postHallData: () => {}, // запускает worker saga handleAddHallData
-    deleteHall: () => {} // запускает worker saga handleAddHallData
+    postHallData: () => { }, // запускает worker saga handleAddHallData
+    deleteHall: () => { } // запускает worker saga handleAddHallData
   }
 })
 
 // Action creators are generated for each case reducer function
-export const {changeData, setToInitialData, postHallData, deleteHall} = hallPopupDataHandlerSlice.actions;
+export const {
+  changeData,
+  setToInitialData,
+  postHallData,
+  deleteHall
+} = hallPopupDataHandlerSlice.actions;
 
 export default hallPopupDataHandlerSlice.reducer;

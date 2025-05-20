@@ -1,4 +1,3 @@
-// import poster from '../../img/admin/poster.png'
 import { useEffect } from 'react';
 // redux
 import { getHalls, setStateByStorageData as setHallsErrorStorageData } from '../../redux/slices/hallSlice';
@@ -6,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPlaces, setStateByStorageData as setPlacesErrorStorageData } from '../../redux/slices/placeSlice';
 import { getMovies, setStateByStorageData as setMoviesErrorStorageData } from '../../redux/slices/movieSlice';
 import { getSessions, setStateByStorageData as setSessionsErrorStorageData } from '../../redux/slices/sessionSlice';
-
 //pages
 import HallManager from '../../pages/HallManager'
 import HallConfigurator from '../../pages/HallConfigurator';
@@ -48,7 +46,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('Home page effect is on');
+    // console.log('Home page effect is on');
     dispatch(setHallsErrorStorageData()); // синхронизация с хранилищем при перезагрузке
     dispatch(setPlacesErrorStorageData()); // синхронизация с хранилищем при перезагрузке
     dispatch(setMoviesErrorStorageData()); // синхронизация с хранилищем при перезагрузке

@@ -28,17 +28,20 @@ export const popupAddMovieHandlerSlice = createSlice({
       const { payload } = action;
       const { property, value } = payload;
 
-      (property === 'duration') ? 
-      state.popupAddMovieData[property] = Number(value) : 
-      state.popupAddMovieData[property] = value;
-
-      // state.popupAddMovieData[property] = value;
+      (property === 'duration') ?
+        state.popupAddMovieData[property] = Number(value) :
+        state.popupAddMovieData[property] = value;
     },
-    postMovieData: () => {}, // запускает worker saga handleAddMovieData
+    postMovieData: () => { }, // запускает worker saga handleAddMovieData
   }
 })
 
 // Action creators are generated for each case reducer function
-export const {setMovieId, changeData, setToInitialData, postMovieData} = popupAddMovieHandlerSlice.actions;
+export const {
+  setMovieId,
+  changeData,
+  setToInitialData,
+  postMovieData
+} = popupAddMovieHandlerSlice.actions;
 
 export default popupAddMovieHandlerSlice.reducer;

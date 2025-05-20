@@ -3,10 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setStateByStorageData, setToInitialData } from "../../redux/slices/buyingSlice";
 import { getTickets, setToInitialData as setToInitialTicketData } from "../../redux/slices/ticketSlice";
-import { getOrders, setToInitialData as setToInitialOrderData } from "../../redux/slices/orderSlice";
+import { setToInitialData as setToInitialOrderData } from "../../redux/slices/orderSlice";
 import dayjs from "dayjs";
 import Buying from "./Buying";
-import ShowError from "../../pages/ShowError";
 
 
 const BuyingCheck = () => {
@@ -18,38 +17,27 @@ const BuyingCheck = () => {
 
   // сатусы загрузки данных
   const ticketsReduxLoading = useSelector(state => state.ticketsReducer.loading);
-  console.log({ ticketsReduxLoading });
   const ordersReduxLoading = useSelector(state => state.orderReducer.loading);
-  console.log({ ordersReduxLoading });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // sessionStorage
-  const hallStorage = sessionStorage.getItem('hall'); // поиск сохраненных данных в хранилище
-  const movieStorage = sessionStorage.getItem('movie'); // поиск сохраненных данных в хранилище
-  const cinemaSessionStorage = sessionStorage.getItem('session'); // поиск сохраненных данных в хранилище
-  const placesByHallStorage = sessionStorage.getItem('placesByHall'); // поиск сохраненных данных в хранилище
+  // const hallStorage = sessionStorage.getItem('hall'); // поиск сохраненных данных в хранилище
+  // const movieStorage = sessionStorage.getItem('movie'); // поиск сохраненных данных в хранилище
+  // const cinemaSessionStorage = sessionStorage.getItem('session'); // поиск сохраненных данных в хранилище
+  // const placesByHallStorage = sessionStorage.getItem('placesByHall'); // поиск сохраненных данных в хранилище
 
 
   useEffect(() => {
-    console.log('Buying page effect is on');
-
+    // console.log('Buying page effect is on');
     dispatch(getTickets());
 
     if (!hallRedux && !movieRedux && !sessionRedux && placesByHallRedux) {
       console.log('Обновление данных из хранилища после перезагрузки страницы');      
       dispatch(setStateByStorageData());
     }
-    // dispatch(getOrders()); // нет необходимости
   }, []);
-
-  // useEffect(() => {
-  //   console.log('Обновление данных из хранилища');
-  //   dispatch(setStateByStorageData());  
-    
-  // }, [])
-
 
   // Проблемы с загрузкой (запрос вернулся с ошибкой)
   if (ticketsReduxLoading === 'failed' || ordersReduxLoading === 'failed') {
@@ -64,21 +52,17 @@ const BuyingCheck = () => {
         }}>
           Вернуться на главную
         </button>
-        {/* <Link to={"../schedule/" + dayjs().format('YYYY-MM-DD')}><h1>На главную</h1></Link> */}
-       {/* <ShowError/> */}
           <section className="buying">
           <br />
           <h2>Упс, что-то сломалось :( Проносим Вам свои извинения.</h2>
           <p>
             <span>Вернитесь на главную и повторите запрос позднее.</span>
             <br />
-            {/* <Link to={`../schedule/${dayjs().format('YYYY-MM-DD')}`}>Показать сеансы на текущую дату?</Link> */}
           </p>
         </section>
       </main>
     )
-  }
-  
+  }  
 
   // Загрузка
   if (ticketsReduxLoading !== 'idle' || ordersReduxLoading !== 'idle') {
@@ -90,14 +74,9 @@ const BuyingCheck = () => {
         }}>
           Вернуться на главную
         </button>
-        {/* <Link to={"../schedule/" + dayjs().format('YYYY-MM-DD')}><h1>На главную</h1></Link> */}
         <div>
           <span className="loader" ></span>
         </div>
-
-        {/* <section className="buying">
-          <span className="loader" ></span>
-        </section> */}
       </main>
     )
   }
@@ -113,7 +92,6 @@ const BuyingCheck = () => {
         }}>
           Вернуться на главную
         </button>
-        {/* <Link to={`../schedule/${dayjs().format('YYYY-MM-DD')}`}><h1>На главную</h1></Link> */}
         <section className="buying">
           <h2>Не так быстро :)</h2>
           <p>

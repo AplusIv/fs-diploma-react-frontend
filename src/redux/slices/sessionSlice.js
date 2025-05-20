@@ -12,19 +12,15 @@ export const sessionSlice = createSlice({
   initialState,
   reducers: {
     dataLoading: (state) => {
-      console.log(state.loading);
-      // Use a "state machine" approach for loading state instead of booleans
       if (state.loading === 'idle') {
         state.loading = 'pending'
       }
     },
     dataReceived: (state, action) => {
-      console.log(state.loading);
-
       if (state.loading === 'pending' || state.loading === 'failed') {
         state.loading = 'idle'
         const { payload } = action;
-        console.log({ payload });
+        // console.log({ payload });
       
         state.sessions = [...payload];
 
@@ -36,7 +32,7 @@ export const sessionSlice = createSlice({
     },
     dataFailed: (state, action) => {
       const { payload } = action;
-      console.log(state.loading);
+      // console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'failed'
         state.sessions = [];
@@ -50,7 +46,6 @@ export const sessionSlice = createSlice({
     getSessions: () => {}, // запуск worker saga get sessions
     setSessions: (state, action) => {
       const { payload } = action;
-      console.log({ payload });
       
       state.sessions = [...payload];
     },

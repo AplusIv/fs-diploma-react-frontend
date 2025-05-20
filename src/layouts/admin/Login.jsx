@@ -1,15 +1,18 @@
 // import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLoggedIn } from "../../redux/slices/loginSlice";
-
+import Tooltip from "../client/Tooltip";
 import apiClient from "../../services/api";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [tooltip, setTooltip] = useState({
+    text: '',
+    active: false
+  });
 
   // redux
   const dispatch = useDispatch();
@@ -27,13 +30,21 @@ const Login = () => {
       });
       console.log(response)
       if (response.status === 204) {
-        setError('');
         dispatch(setLoggedIn());
         navigate('/')
       }
     } catch (error) {
       console.log(error);
-      setError(error.response.data.message);
+      setTooltip({
+        text: error.response.data.message,
+        active: true
+      });
+      setTimeout(() => {
+        setTooltip({
+          text: '',
+          active: false
+        });
+      }, 2000);
 
       // Когда пользователь залогинен, но отсутствует запись в сессии
       if (error.response.status === 403 && error.response.data.message === "Already Authenticated") {
@@ -43,37 +54,6 @@ const Login = () => {
       }
     }
   }
-
-  /* const handleSubmit = (e) => {
-    e.preventDefault();
-    // axios.defaults.withCredentials = true;
-    apiClient.get('/sanctum/csrf-cookie')
-      .then(() => {
-        apiClient.post('/login', {
-          email: email,
-          password: password
-        }).then(response => {
-          console.log(response)
-          if (response.status === 204) {
-            setError('');
-            dispatch(setLoggedIn());
-            navigate('/')
-          }
-        }).catch(err => {
-          console.log(err);
-          setError(err.response.data.message);
-
-          // Когда пользователь залогинен, но отсутствует запись в сессии
-          if (err.response.status === 403 && err.response.data.message === "Already Authenticated") {
-            console.log('сессия пользователя обновлена');
-            dispatch(setLoggedIn());
-            navigate('/');
-          }
-        })
-      }).catch(err => {
-        console.log(err);
-      });
-  } */
 
   return (
     <main>
@@ -119,7 +99,7 @@ const Login = () => {
             </div>
             {/* <p>{email} + {password}</p> */}
 
-            {error ? <p>{error}</p> : null}
+            {tooltip.active && <Tooltip text={tooltip.text} />}
 
           </form>
         </div>

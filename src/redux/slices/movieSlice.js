@@ -12,19 +12,15 @@ export const movieSlice = createSlice({
   initialState,
   reducers: {
     dataLoading: (state) => {
-      console.log(state.loading);
-      // Use a "state machine" approach for loading state instead of booleans
       if (state.loading === 'idle' || state.loading === 'failed') {
         state.loading = 'pending'
       }
     },
     dataReceived: (state, action) => {
-      console.log(state.loading);
-
       if (state.loading === 'pending') {
         state.loading = 'idle'
         const { payload } = action;
-        console.log({ payload });
+        // console.log({ payload });
       
         state.movies = [...payload];
 
@@ -50,7 +46,6 @@ export const movieSlice = createSlice({
     getMovies: () => {}, // запуск worker saga get movies
     setMovies: (state, action) => {
       const { payload } = action;
-      console.log({ payload });
       
       state.movies = [...payload];
     },

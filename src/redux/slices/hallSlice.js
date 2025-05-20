@@ -12,18 +12,15 @@ export const hallSlice = createSlice({
   initialState,
   reducers: {
     dataLoading: (state) => {
-      console.log(state.loading);
       if (state.loading === 'idle' || state.loading === 'failed') {
         state.loading = 'pending'
       }
     },
     dataReceived: (state, action) => {
-      console.log(state.loading);
-
       if (state.loading === 'pending') {
         state.loading = 'idle'
         const { payload } = action;
-        console.log({ payload });
+        // console.log({ payload });
       
         state.halls = [...payload];
 
@@ -36,7 +33,7 @@ export const hallSlice = createSlice({
     dataFailed: (state, action) => {
       const { payload } = action;
 
-      console.log(state.loading);
+      // console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'failed'
         state.halls = [];
@@ -50,7 +47,6 @@ export const hallSlice = createSlice({
     getHalls: () => {}, // запуск worker saga get halls
     setHalls: (state, action) => {
       const { payload } = action;
-      console.log({ payload });
       
       state.halls = [...payload];
     },

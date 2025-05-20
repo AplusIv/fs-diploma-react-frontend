@@ -12,7 +12,6 @@ import dayjs from "dayjs";
 const initialState = {
   days: undefined,
   selectedDayIndex: undefined,
-  // selectedDate: dayjs().format('YYYY-MM-DD'),
   selectedDate: undefined,
 
   paginateStep: 6,
@@ -29,7 +28,6 @@ export const pageNavigatorSlice = createSlice({
   reducers: {
     setDays: (state, action) => {
       const {payload} = action;
-      console.log({setDaysPayload: payload});
 
       const now = dayjs();
       let days = [];
@@ -37,10 +35,10 @@ export const pageNavigatorSlice = createSlice({
       if (payload) {
         const date = dayjs(payload);
         const dateDiff = date.diff(now, 'day') + 1; // разница в днях между 2-мя датами + 1 день для корректного переноса календаря
-        console.log({dateDiff});
+        // console.log({dateDiff});
 
         const shift = Math.trunc(dateDiff / state.paginateStep);
-        console.log({shift});
+        // console.log({shift});
         
         // сместить интервал календаря
         state.daysIntervalIndexes.firstDay = 0 + shift * state.paginateStep;
@@ -50,9 +48,7 @@ export const pageNavigatorSlice = createSlice({
         for (let index = state.daysIntervalIndexes.firstDay; index < state.daysIntervalIndexes.lastDay; index++) {
           const day = now.add(index, 'day');
           days.push(day);
-          console.log({day});
-          
-  
+ 
           if (day.isSame(date, 'day')) {
             state.selectedDayIndex = selected;
           }
@@ -63,44 +59,32 @@ export const pageNavigatorSlice = createSlice({
           const day = now.add(index, 'day');
           days.push(day);  
         }
-        // state.selectedDayIndex = 0;
-        // state.selectedDate = now.format('YYYY-MM-DD');
         state.selectedDayIndex = undefined;
         state.selectedDate = undefined;
       }
 
       state.days = days;
     },
+    // не используется
     setDaysIntervalToFuture: (state) => {
       state.daysIntervalIndexes = {
         firstDay: state.daysIntervalIndexes.firstDay + state.paginateStep,
         lastDay: state.daysIntervalIndexes.lastDay + state.paginateStep
       };
-
-      // const date = dayjs(state.selectedDate);
-      // const nextDate = date.add(state.paginateStep, 'day');
-      // console.log({nextDate: nextDate.format('YYYY-MM-DD')});
-      
-      // state.selectedDate = nextDate.format('YYYY-MM-DD');
     },
+    // не используется
     setDaysIntervalToPast: (state) => {
       if (state.daysIntervalIndexes.firstDay > 0) {
         state.daysIntervalIndexes = {
           firstDay: state.daysIntervalIndexes.firstDay - state.paginateStep,
           lastDay: state.daysIntervalIndexes.lastDay - state.paginateStep
         };
-
-        // const date = dayjs(state.selectedDate);
-        // const nextDate = date.subtract(state.paginateStep, 'day');
-        // console.log({nextDate: nextDate.format('YYYY-MM-DD')});
-
-        // state.selectedDate = nextDate.format('YYYY-MM-DD');
       }
     },
+    // не используется
     setSelectedDayIndex: (state, action) => {
       const { payload } = action;
       state.selectedDayIndex = payload;
-      // state.selectedDate = state.days[payload].format('YYYY-MM-DD');
     },
     setSelectedDate: (state, action) => {
       const {payload} = action;
@@ -108,9 +92,7 @@ export const pageNavigatorSlice = createSlice({
       
       if (payload) {
         state.selectedDate = payload;
-      } /* else {
-        state.selectedDate = state.days[state.selectedDayIndex].format('YYYY-MM-DD');
-      } */
+      } 
     },
     setPaginateStep: (state, action) => {
       const { payload } = action;

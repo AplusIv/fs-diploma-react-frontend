@@ -13,10 +13,8 @@ export const hallPricesSlice = createSlice({
   initialState,
   reducers: {
     setHalls: (state, action) => {
-      const { payload } = action;
-      
+      const { payload } = action;      
       state.halls = [...payload];
-
       state.selectedHallId = state.halls[0]?.id; // установить первый выбранный зал
     },
     setPrices: (state, action) => {
@@ -43,15 +41,6 @@ export const hallPricesSlice = createSlice({
       const { property, value } = action.payload;      
       state.prices.find(priceConfiguration => priceConfiguration.hall_id === state.selectedHallId)[property] = value ? Number(parseFloat(value).toFixed(2)) : 0; 
     },
-    /* cancelPriceChanges: (state) => {
-      state.prices = state.halls.map(hall => {
-        return {
-          hall_id: hall.id,
-          normal_price: hall.normal_price,
-          vip_price: hall.vip_price,
-        }
-      });
-    }, */
     putHallData: () => {}, // запускает worker saga handleEditHallData
     setRefreshDataStatus: (state, action) => {
       const {payload} = action;      

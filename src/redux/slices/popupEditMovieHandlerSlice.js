@@ -10,15 +10,13 @@ export const popupEditMovieHandlerSlice = createSlice({
   reducers: {
     setData: (state, action) => {
       const { payload } = action;
-      console.log({payload});
+      // console.log({payload});
       
       for (const key in payload) {
         if (Object.prototype.hasOwnProperty.call(payload, key)) {
           state.popupEditedMovieData[key] = payload[key];          
         }
       }
-      // const { property, value } = action.payload;
-      // state.hallPopupData[property] = value;
     },
     setToInitialData: state => {
       state.popupEditedMovieData = {}
@@ -26,13 +24,10 @@ export const popupEditMovieHandlerSlice = createSlice({
     changeData: (state, action) => {
       const { payload } = action;
       const { property, value } = payload;
-      console.log({payload});
 
       (property === 'duration') ? 
       state.popupEditedMovieData[property] = Number(value) : 
       state.popupEditedMovieData[property] = value;
-
-      // state.popupEditedMovieData[property] = value;
     },
     putMovieData: () => {}, // запускает worker saga handleEditMovieData
     deleteMovie: () => {} // запускает worker saga handleDeleteMovie

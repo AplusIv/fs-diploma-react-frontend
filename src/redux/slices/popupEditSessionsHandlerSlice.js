@@ -15,25 +15,20 @@ export const popupEditSessionsHandlerSlice = createSlice({
   reducers: {
     setHalls: (state, action) => {
       const { payload } = action;
-      console.log({payload});
       state.popupHalls = [...payload];
     },
     setSelectedSession: (state, action) => {
       const { payload } = action;
-      console.log({payload});
-      // const {selectedIndex} = payload;
       state.popupSelectedSession = payload;
     },
     setSelectedMovieTitle: (state, action) => {
       const { payload } = action;
-      console.log({payload});
-      const {title} = payload;
+      const { title } = payload;
       state.popupSelectedMovieTitle = title;
     },
     setData: (state, action) => {
       const { payload } = action;
-      console.log({payload});
-      const {sessions, movies} = payload; // все неотфильтрованные сеансы
+      const { sessions, movies } = payload; // все неотфильтрованные сеансы
 
       const filtredSessions = sessions.filter(session => session.movie_id === movies.find(movie => movie.title === state.popupSelectedMovieTitle).id);
       filtredSessions.sort(compareFnByDateAssending); // сортировать массив по столбцам "дата" и "время" по возрастанию
@@ -42,12 +37,11 @@ export const popupEditSessionsHandlerSlice = createSlice({
     },
     setToInitialData: state => {
       state.popupSelectedMovieTitle = undefined,
-      state.popupEditSessionsData = []
+        state.popupEditSessionsData = []
     },
     changeData: (state, action) => {
       const { payload } = action;
       const { property, value } = payload;
-      console.log({payload});
 
       if (property === 'hall_id') {
         const editedHallId = state.popupHalls.find(hall => hall.title === value).id;
@@ -55,22 +49,29 @@ export const popupEditSessionsHandlerSlice = createSlice({
       } else {
         state.popupEditSessionsData[state.popupSelectedSession][property] = value;
       }
-
-      // state.popupEditSessionData[property] = value;
     },
     filterData: (state, action) => {
       const { payload } = action;
-      console.log({payload});
-      const {id} = payload;
+      const { id } = payload;
 
       state.popupEditSessionsData = state.popupEditSessionsData.filter(session => session.id !== id);
     },
-    putSessionData: () => {}, // запускает worker saga handleEditSessionData
-    deleteSession: () => {} // запускает worker saga handleDeleteSession
+    putSessionData: () => { }, // запускает worker saga handleEditSessionData
+    deleteSession: () => { } // запускает worker saga handleDeleteSession
   }
 })
 
 // Action creators are generated for each case reducer function
-export const {setHalls, setSelectedSession, setData, setSelectedMovieTitle, setToInitialData, changeData, filterData, putSessionData, deleteSession} = popupEditSessionsHandlerSlice.actions;
+export const {
+  setHalls,
+  setSelectedSession,
+  setData,
+  setSelectedMovieTitle,
+  setToInitialData,
+  changeData,
+  filterData,
+  putSessionData,
+  deleteSession
+} = popupEditSessionsHandlerSlice.actions;
 
 export default popupEditSessionsHandlerSlice.reducer;

@@ -1,57 +1,46 @@
-import { Link, useLoaderData, useParams } from 'react-router-dom';
-import poster1 from '../../img/client/poster1.jpg';
-import poster2 from '../../img/client/poster2.jpg'
-import MovieInfo from './MovieInfo';
-import MovieSessions from './MovieSessions';
-// import { getSessionsByDate } from '../../services/DBUpdater';
 import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSessionsByDate } from '../../redux/slices/sessionsByDateSlice';
+import MovieInfo from './MovieInfo';
+import MovieSessions from './MovieSessions';
+
+import poster1 from '../../img/client/poster1.jpg';
+import poster2 from '../../img/client/poster2.jpg'
 
 import dayjs from 'dayjs';
 import { compareFnByDateAssending } from '../../services/sorterFunctions';
 
 
-const MovieList = (/* { halls, movies, sessions, places, tickets } */) => {
-  // console.log(sessions);
-  // console.log(movies);
-
-  // const { halls, movies, places, tickets } = useLoaderData();
-
-  // Redux
+const MovieList = () => {
   const hallsRedux = useSelector(state => state.guestHallsReducer.halls);
-  console.log({ hallsRedux });
   const moviesRedux = useSelector(state => state.guestMoviesReducer.movies);
-  console.log({ moviesRedux });
   const placesRedux = useSelector(state => state.guestPlacesReducer.places);
-  console.log({ placesRedux });
   const sessionsByDateRedux = useSelector(state => state.sessionsByDateReducer.sessionsByDate);
-  console.log({ sessionsByDateRedux });
 
   // сатусы загрузки данных
   const hallsReduxLoading = useSelector(state => state.guestHallsReducer.loading);
-  console.log({ hallsReduxLoading });
   const moviesReduxLoading = useSelector(state => state.guestMoviesReducer.loading);
-  console.log({ moviesReduxLoading });
   const placesReduxLoading = useSelector(state => state.guestPlacesReducer.loading);
-  console.log({ placesReduxLoading });
   const sessionsByDateReduxLoading = useSelector(state => state.sessionsByDateReducer.loading);
-  console.log({ sessionsByDateReduxLoading });
-
-  const ticketsReduxLoading = useSelector(state => state.ticketsReducer.loading);
-  console.log({ ticketsReduxLoading });
-  const ordersReduxLoading = useSelector(state => state.orderReducer.loading);
-  console.log({ ordersReduxLoading });
-
+   
+  // логи
+  // console.log({ hallsRedux });
+  // console.log({ moviesRedux });
+  // console.log({ placesRedux });
+  // console.log({ sessionsByDateRedux });  
+  // console.log({ hallsReduxLoading });
+  // console.log({ moviesReduxLoading });
+  // console.log({ placesReduxLoading });
+  // console.log({ sessionsByDateReduxLoading });
 
   const dispatch = useDispatch();
-
 
   const { date } = useParams();
   console.log(date);
 
   useEffect(() => {
-    console.log('MovieList effect is on');
+    // console.log('MovieList effect is on');
     // Получение сеансов на конкретные даты
     dispatch(getSessionsByDate(date));
   }, [date])
@@ -87,7 +76,6 @@ const MovieList = (/* { halls, movies, sessions, places, tickets } */) => {
       </main>
     )
   }
-
 
   if (sessionsByDateRedux && sessionsByDateRedux.length === 0) {
     return (

@@ -10,34 +10,29 @@ export const guestPlaceSlice = createSlice({
   initialState,
   reducers: {
     dataLoading: (state) => {
-      console.log(state.loading);
-      // Use a "state machine" approach for loading state instead of booleans
       if (state.loading === 'idle' || state.loading === 'failed') {
         state.loading = 'pending'
       }
     },
     dataReceived: (state, action) => {
-      console.log(state.loading);
-
       if (state.loading === 'pending') {
         state.loading = 'idle'
         const { payload } = action;
-        console.log({ payload });
+        // console.log({ payload });
       
         state.places = [...payload];
       }
     },
     dataFailed: (state) => {
-      console.log(state.loading);
+      // console.log(state.loading);
       if (state.loading === 'pending') {
         state.loading = 'failed'
         state.places = [];
       }
     },
-    getPlaces: () => {}, // запуск worker saga get places
+    getPlaces: () => {}, // запуск worker saga get guest places
     setPlaces: (state, action) => {
       const { payload } = action;
-      console.log({ payload });
       
       state.places = [...payload];
     }
