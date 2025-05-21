@@ -19,7 +19,6 @@ export const getSessionsFromDB = async () => {
 // {sessionsToAddInDB, 'api/sessions'}
 export const addDataToDB = async (dataArray, url) => {
   console.log('array post request');
-
   try {
     const promises = dataArray.map(async data => {
       return await apiClient.post(url, data);
@@ -35,7 +34,6 @@ export const addDataToDB = async (dataArray, url) => {
 // {sessionsToChangeInDB, 'api/sessions'}
 export const changeDataInDB = async (dataArray, url) => {
   console.log('array put requests');
-
   try {
     const promises = dataArray.map(async data => {
       return await apiClient.put(`${url}/${data.id}`, data);
@@ -51,7 +49,6 @@ export const changeDataInDB = async (dataArray, url) => {
 // {sessionsToDeleteInDB, 'api/sessions'}
 export const deleteDataInDB = async (dataArray, url) => {
   console.log('array delete request');
-
   // dataArray содержит только id удаляемых элементов
   try {
     const promises = dataArray.map(async id => {
@@ -70,7 +67,6 @@ export const getSessionsByDate = async (date) => {
   console.log('Sessions by date get request');
   try {
     const response = await apiClient.get('api/guest/sessions/date/' + date);
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

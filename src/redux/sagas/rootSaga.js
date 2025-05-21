@@ -1,6 +1,4 @@
-import { all, call, fork } from "redux-saga/effects";
-// import { postHallData } from "../slices/hallPopupDataHandlerSlice";
-// import { handleAddHallData } from "./handlers/hall";
+import { fork } from "redux-saga/effects";
 import { getGuestHallsWatcherSaga, getHallsWatcherSaga, hallDeleteWatcherSaga, hallPostWatcherSaga, hallPutWatcherSaga } from "./watcherSagas/hallSagas";
 import { getGuestMoviesWatcherSaga, getMoviesWatcherSaga, movieDeleteWatcherSaga, MoviePostWatcherSaga, moviePutWatcherSaga } from "./watcherSagas/movieSagas";
 import { getGuestSessionsWatcherSaga, getSessionsByDateWatcherSaga, getSessionsWatcherSaga, sessionDeleteWatcherSaga, sessionPostWatcherSaga, sessionPutWatcherSaga } from "./watcherSagas/sessionSagas";
@@ -9,23 +7,11 @@ import { getNewOrderTicketsWatcherSaga, getTicketsWatcherSaga } from "./watcherS
 import { getOrdersWatcherSaga, postNewOrderWatcherSaga, putNewOrderWatcherSaga } from "./watcherSagas/orderSagas";
 
 export default function* rootSaga() {
-  // yield takeLatest(postHallData.type, handleAddHallData);
-  // get main data
-
-  // yield all(
-  //   [
-  //     call(getHallsWatcherSaga),
-  //     call(getPlacesWatcherSaga),
-  //     call(getMoviesWatcherSaga),
-  //     call(getSessionsWatcherSaga),
-  //   ]
-  // );
-
+  // Admin
   yield fork(getHallsWatcherSaga);
   yield fork(getPlacesWatcherSaga);
   yield fork(getMoviesWatcherSaga);
   yield fork(getSessionsWatcherSaga);
-
 
   yield fork(hallPostWatcherSaga);
   yield fork(hallPutWatcherSaga); // edit prices
@@ -48,14 +34,23 @@ export default function* rootSaga() {
   yield fork(getGuestPlacesWatcherSaga);
   yield fork(getGuestSessionsWatcherSaga);
 
-
   yield fork(getTicketsWatcherSaga);
   yield fork(getOrdersWatcherSaga);
   yield fork(getNewOrderTicketsWatcherSaga);
   yield fork(putNewOrderWatcherSaga);
 
-
   yield fork(getSessionsByDateWatcherSaga);
   yield fork(postNewOrderWatcherSaga);
 
+  // yield takeLatest(postHallData.type, handleAddHallData);
+  // get main data
+
+  // yield all(
+  //   [
+  //     call(getHallsWatcherSaga),
+  //     call(getPlacesWatcherSaga),
+  //     call(getMoviesWatcherSaga),
+  //     call(getSessionsWatcherSaga),
+  //   ]
+  // );
 }

@@ -8,7 +8,7 @@ import QRCode from "react-qr-code"
 import dayjs from "dayjs";
 
 const Ticket = () => {
-  // redux
+  
   const hallRedux = useSelector(state => state.buyingReducer.hall);
   const movieRedux = useSelector(state => state.buyingReducer.movie);
   const sessionRedux = useSelector(state => state.buyingReducer.session);

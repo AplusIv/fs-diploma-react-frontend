@@ -12,7 +12,6 @@ export const getDataById = async (url, id) => {
   console.log('Get collection by other primary key ID get request');
   try {
     const response = await apiClient.get(`${url}/${id}`);
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

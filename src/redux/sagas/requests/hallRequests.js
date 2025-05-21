@@ -1,9 +1,6 @@
 import axios from "axios";
 import apiClient from "../../../services/api";
 
-// const routes = ['/api/halls', '/api/movies', '/api/sessions', '/api/places', '/api/tickets', '/api/orders'];
-// const route = '/api/halls';
-
 // Функционал: Получение всех залов гостем сайта (неавторизованный пользователь)
 export const getGuestHallsFromDB = async () => {
   console.log('Get Guest Halls request');
@@ -23,8 +20,6 @@ export const addHallToDB = async (data) => {
   console.log('Hall adding request');
   const response = await apiClient.post('api/halls', data);
   return response;
-  // apiClient.post('api/halls', data).then(response => console.log(response))
-  //   .catch(error => console.log(error));
 }
 
 // Функционал: Изменение существующего зала/нескольких залов в массиве
@@ -48,7 +43,4 @@ export const deleteHallFromDB = async (id) => {
   const response = await apiClient.delete('api/halls/' + id);
   const {status} = response;
   return status;
-
-  // apiClient.delete('api/halls/' + id).then(response => console.log(response))
-  //   .catch(error => console.log(error));
 }

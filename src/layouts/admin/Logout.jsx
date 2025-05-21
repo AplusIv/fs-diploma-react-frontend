@@ -11,7 +11,6 @@ const Logout = () => {
   const logout = async () => {
     try {
       const response = await apiClient.post('/logout');
-      console.log({response});      
       if (response.status === 204) {
         dispatch(setLoggedOut());
         navigate('/login');
@@ -21,20 +20,10 @@ const Logout = () => {
     }
   };
 
-  // const logout = () => {
-  //   apiClient.post('/logout').then(response => {
-  //     console.log({response});      
-  //     if (response.status === 204) {
-  //       dispatch(setLoggedOut());
-  //       navigate('/login');
-  //     }
-  //   }).catch(err => {
-  //     console.log(err);
-  //   });
-  // };
-
   return (
-    loginRedux ? <button type="button" className="conf-step__button conf-step__button-warning" onClick={logout} >Выйти</button> : null
+    loginRedux 
+      ? <button type="button" className="conf-step__button conf-step__button-warning" onClick={logout} >Выйти</button> 
+      : null
   )
 }
 
