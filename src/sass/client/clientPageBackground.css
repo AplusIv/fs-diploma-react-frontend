@@ -1,4 +1,4 @@
-body {
+body.client {
   background-image: url("../../img/client/background.jpg");
   background-size: cover;
   background-attachment: fixed;

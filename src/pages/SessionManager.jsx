@@ -21,7 +21,16 @@ const SessionManager = () => {
   }
 
   // бэкграунд фильмов
-  const [movieBackgroundColors, setMovieBackgroundColors] = useState([]);
+  const moviesElements = document.querySelectorAll('.conf-step__movie');
+  const backgroundColors = [...moviesElements].map(el => {
+    return {
+      dataMovieId: el.dataset.movieId,
+      movieId: el.id.slice(9), // убрать часть строки "movie_id="
+      backgroundColor: window.getComputedStyle(el).backgroundColor,
+    }
+  });
+  // console.log({ backgroundColors });
+
 
   // Фильмы для добавления в DB при обработке кнопки "Сохранить"
   const [moviesToAddInDB, setMoviesToAddInDB] = useState([]);
@@ -39,7 +48,7 @@ const SessionManager = () => {
   console.log({ moviesToAddInDB }, { sessionsToAddInDB });
   console.log({ moviesToChangeInDB }, { sessionsToChangeInDB });
   console.log({ moviesToDeleteInDB }, { sessionsToDeleteInDB });
-  
+
   // Redux
   const hallsRedux = useSelector(state => state.hallsReducer.halls);
   const moviesRedux = useSelector(state => state.moviesReducer.movies);
@@ -447,17 +456,20 @@ const SessionManager = () => {
 
         <div className="conf-step__movies">
           {moviesInfoRedux && moviesInfoRedux.map(movie => {
-            const movieCard = <div key={movie.id} className="conf-step__movie" onClick={(e) => {
-              console.log(window.getComputedStyle(e.currentTarget).backgroundColor);
-              handlePopupStatus('editing movie popup', movie)
-            }}>
-              <img className="conf-step__movie-poster" alt="poster" src={poster} />
-              <h3 className="conf-step__movie-title">{movie.title}</h3>
-              <p className="conf-step__movie-duration">{movie.duration} минут</p>
-            </div>
-
-            // console.log(window.getComputedStyle(movieCard).backgroundColor);            
-
+            const movieCard =
+              <div
+                key={movie.id}
+                id={`movie_id=${movie.id}`}
+                // data-movieId={`${movie.id}`}
+                className="conf-step__movie"
+                onClick={() => {
+                  // console.log(window.getComputedStyle(e.currentTarget).backgroundColor);
+                  handlePopupStatus('editing movie popup', movie)
+                }}>
+                <img className="conf-step__movie-poster" alt="poster" src={poster} />
+                <h3 className="conf-step__movie-title">{movie.title}</h3>
+                <p className="conf-step__movie-duration">{movie.duration} минут</p>
+              </div>
             return movieCard;
           }
           )}
@@ -481,17 +493,22 @@ const SessionManager = () => {
                   sessionsInfoRedux && sessionsInfoRedux.map(session => (
                     // const duration = Number({session.duration});
                     // const sessionDurationWidth = 'calc(' + duration + '*' + '0.5)';
-                    session.hall_id === hall.id && session.date === selectedDayRedux ? (<div key={session.id} className="conf-step__seances-movie" style={
-                      {
-                        width: `calc(${session.duration}px * 0.5)`,
-                        backgroundColor: 'rgb(133, 255, 137)',
-                        // backgroundColor: `${window.getComputedStyle()}`
-                        left: `calc((${session.time.slice(0, 2)} + ${session.time.slice(3)} / 60) * 720px / 24)`
-                      }
-                    }>
-                      <p className="conf-step__seances-movie-title">{moviesInfoRedux && moviesInfoRedux.find(movie => movie.id === session.movie_id).title}</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
-                      <p className="conf-step__seances-movie-start">{session.time}</p>
-                    </div>) : null
+                    session.hall_id === hall.id && session.date === selectedDayRedux
+                      ? (<div
+                        key={session.id}
+                        className="conf-step__seances-movie"
+                        style={
+                          {
+                            width: `calc(${session.duration}px * 0.5)`,
+                            backgroundColor: backgroundColors.find(el => session.movie_id === Number(el.movieId)).backgroundColor, // выбрать нужный фильм и назначить ему его цвет
+                            // backgroundColor: 'rgb(133, 255, 137)',
+                            left: `calc((${session.time.slice(0, 2)} + ${session.time.slice(3)} / 60) * 720px / 24)`
+                          }
+                        }>
+                        <p className="conf-step__seances-movie-title">{moviesInfoRedux && moviesInfoRedux.find(movie => movie.id === session.movie_id).title}</p> {/* нужно будет скорректировать, пока работает только для индексов от 1 и так далее */}
+                        <p className="conf-step__seances-movie-start">{session.time}</p>
+                      </div>)
+                      : null
                   ))
                 }
               </div>

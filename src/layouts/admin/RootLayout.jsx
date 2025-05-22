@@ -1,9 +1,9 @@
 // import '../../sass/admin/normalize.css'
 // import '../../sass/admin/styles.scss'
 import { useEffect } from 'react';
-import '../../sass/admin/adminPageBackground.css'
+// import '../../sass/admin/adminPageBackground.css'
 
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { setStateByStorageData } from '../../redux/slices/loginSlice';
 import Logout from './Logout';
@@ -23,6 +23,16 @@ const RootLayout = () => {
       navigate("/login", { replace: true });
     }
   }, [loginRedux]);
+
+  // цвет фона для разных путей
+  const location = useLocation();
+  useEffect(() => {
+    const { pathname: pathName } = location;
+    pathName.startsWith('/client/')
+      ? document.body.className = 'client'
+      : document.body.className = 'admin';
+  }, [location]);
+
 
   return (
     <>
