@@ -5,8 +5,10 @@ import { getSessionsByDate } from '../../redux/slices/sessionsByDateSlice';
 import MovieInfo from './MovieInfo';
 import MovieSessions from './MovieSessions';
 
-import poster1 from '../../img/client/poster1.jpg';
-import poster2 from '../../img/client/poster2.jpg'
+// import poster1 from '../../img/client/poster1.jpg';
+// import poster2 from '../../img/client/poster2.jpg'
+
+import { BASEURL } from '../../services/api';
 
 import dayjs from 'dayjs';
 import { compareFnByDateAssending } from '../../services/sorterFunctions';
@@ -96,7 +98,9 @@ const MovieList = () => {
           sessionsByDateAndMovie.sort(compareFnByDateAssending); // сортировать массив по столбцам "дата" и "время" по возрастанию
           return (
             <section key={movie.id} className="movie">
-              <MovieInfo movie={movie} poster={poster1} />
+              {/* <MovieInfo movie={movie} poster={poster1} /> */}
+              <MovieInfo movie={movie} poster={BASEURL + movie.poster} />
+
               <MovieSessions movie={movie} halls={hallsRedux} sessions={sessionsByDateAndMovie} places={placesRedux} />
             </section>
           )

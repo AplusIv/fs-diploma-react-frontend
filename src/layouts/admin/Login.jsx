@@ -45,13 +45,6 @@ const Login = () => {
           active: false
         });
       }, 2000);
-
-      // Когда пользователь залогинен, но отсутствует запись в сессии
-      if (error.response.status === 403 && error.response.data.message === "Already Authenticated") {
-        console.log('сессия пользователя обновлена');
-        dispatch(setLoggedIn());
-        navigate('/');
-      }
     }
   }
 

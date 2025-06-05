@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeData, setToInitialData } from "../redux/slices/popupAddMovieHandlerSlice";
 import PopupInput from "./PopupInput";
 import PopupTextarea from "./PopupTextarea";
+import PopupFileInput from "./PopupFileInput";
 
 const PopupMovieAdding = ({ buttonTitle, onAddCallback, handlePopup }) => {
   const popupData = useSelector(state => state.popupAddMovieReducer.popupAddMovieData);
@@ -78,6 +79,33 @@ const PopupMovieAdding = ({ buttonTitle, onAddCallback, handlePopup }) => {
             onChangeCallback={onChangeItemData} />
         </label>
       </div>
+
+      <div className="popup__row">
+        <label>
+          Постер к фильму:{' '}
+          <PopupFileInput
+            belongsTo='add movie'
+            type="file"
+            name="poster"
+            autoComplete="on"
+            required={true}
+            onChangeCallback={onChangeItemData} />
+        </label>
+      </div>
+
+      {/* <div className="popup__row">
+        <label>
+          Постер к фильму:{' '}
+          <PopupInput
+            belongsTo='add movie'
+            type="file"
+            name="poster"
+            autoComplete="on"
+            onChangeCallback={onChangeItemData} />
+        </label>
+      </div> */}
+
+      {/* <input type="file" name="poster" accept="image/png, image/jpeg" /> */}
 
       <button type="submit" className="conf-step__button conf-step__button-accent" onSubmit={handleAddData}>{buttonTitle}</button>
     </form>

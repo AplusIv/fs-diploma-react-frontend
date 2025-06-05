@@ -1,13 +1,16 @@
 import { fork } from "redux-saga/effects";
 import { getGuestHallsWatcherSaga, getHallsWatcherSaga, hallDeleteWatcherSaga, hallPostWatcherSaga, hallPutWatcherSaga } from "./watcherSagas/hallSagas";
 import { getGuestMoviesWatcherSaga, getMoviesWatcherSaga, movieDeleteWatcherSaga, MoviePostWatcherSaga, moviePutWatcherSaga } from "./watcherSagas/movieSagas";
-import { getGuestSessionsWatcherSaga, getSessionsByDateWatcherSaga, getSessionsWatcherSaga, sessionDeleteWatcherSaga, sessionPostWatcherSaga, sessionPutWatcherSaga } from "./watcherSagas/sessionSagas";
+import { getGuestSessionsWatcherSaga, getSessionsByDateWatcherSaga, getSessionsWatcherSaga, putToggleSessionsSalesActiveWatcherSaga, sessionDeleteWatcherSaga, sessionPostWatcherSaga, sessionPutWatcherSaga } from "./watcherSagas/sessionSagas";
 import { getPlacesWatcherSaga, putPlaceTypeWatcherSaga, putHallAndPlaceWatcherSaga, getGuestPlacesWatcherSaga } from "./watcherSagas/placeSagas";
 import { getNewOrderTicketsWatcherSaga, getTicketsWatcherSaga } from "./watcherSagas/ticketSagas";
 import { getOrdersWatcherSaga, postNewOrderWatcherSaga, putNewOrderWatcherSaga } from "./watcherSagas/orderSagas";
+import { getUserWatcherSaga } from "./watcherSagas/userSagas";
 
 export default function* rootSaga() {
   // Admin
+  yield fork(getUserWatcherSaga);
+
   yield fork(getHallsWatcherSaga);
   yield fork(getPlacesWatcherSaga);
   yield fork(getMoviesWatcherSaga);
@@ -27,6 +30,7 @@ export default function* rootSaga() {
 
   yield fork(putPlaceTypeWatcherSaga);
   yield fork(putHallAndPlaceWatcherSaga);
+  yield fork(putToggleSessionsSalesActiveWatcherSaga); // открыть/показать сеансы
 
   // Client
   yield fork(getGuestHallsWatcherSaga);

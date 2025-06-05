@@ -56,6 +56,7 @@ export const sessionSlice = createSlice({
         state.errorStatusText = sessionStorage.getItem('sessionRequestErrorStatusText');
       }
     },
+    putToggleSessionsSalesActive: () => {}, // запуск worker saga put sessions
   }
 })
 
@@ -67,6 +68,8 @@ export const {
   getSessions, 
   setSessions,
   setStateByStorageData,
+  // 
+  putToggleSessionsSalesActive,
 } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

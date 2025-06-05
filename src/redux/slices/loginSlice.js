@@ -1,33 +1,64 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  loading: 'idle',
   loginErrorStatus: undefined,
   loginErrorStatusText: undefined,
-  loggedIn: JSON.parse(sessionStorage.getItem('loggedIn')) || false,
+  // loggedIn: JSON.parse(sessionStorage.getItem('loggedIn')) || false,
+  // userIsAdmin: JSON.parse(sessionStorage.getItem('userIsAdmin')) || false,
+  // loggedIn: undefined,
+  // userIsAdmin: undefined,
+  loggedIn: JSON.parse(sessionStorage.getItem('loggedIn')),
+  userIsAdmin: JSON.parse(sessionStorage.getItem('userIsAdmin')),
 }
 
 export const loginSlice = createSlice({
   name: 'login user',
   initialState,
   reducers: {
-    setLoggedIn: (state) => {           
-      state.loggedIn = true;
+    dataLoading: (state) => {
+      if (state.loading === 'idle' || state.loading === 'failed') {
+        state.loading = 'pending'
+      }
+    },
+    dataReceived: (state) => {
+      if (state.loading === 'pending') {
+        state.loading = 'idle'
+      }
+    },
+    dataFailed: (state) => {
+      // console.log(state.loading);
+      if (state.loading === 'pending') {
+        state.loading = 'failed'
+      }
+    },
+    getUser: () => { }, // запуск worker saga get user
+    setLoggedIn: (state) => {
       sessionStorage.setItem('loggedIn', true);
+      state.loggedIn = true;
+      // sessionStorage.setItem('userIsAdmin', true);
+      state.loginErrorStatus = undefined;
+      state.loginErrorStatusText = undefined;
 
       sessionStorage.removeItem('loginErrorStatus');
       sessionStorage.removeItem('loginErrorStatusText');
-
-      console.log('пользователь авторизован');
+    },
+    checkUserIsAdmin: (state, action) => {
+      const { payload } = action;
+      state.userIsAdmin = payload;
+      sessionStorage.setItem('userIsAdmin', payload);
     },
     setLoggedOut: (state) => {
       state.loggedIn = false;
-      state.loginErrorStatus = 401;
-      state.loginErrorStatusText = 'Unauthorized';
+      state.userIsAdmin = undefined;
+      state.loginErrorStatus = undefined;
+      state.loginErrorStatusText = undefined;
 
-      // sessionStorage.removeItem('loggedIn');
+      // storage
       sessionStorage.setItem('loggedIn', false);
-      sessionStorage.setItem('loginErrorStatus', 401);
-      sessionStorage.setItem('loginErrorStatusText', 'Unauthorized');
+      sessionStorage.removeItem('loginErrorStatus');
+      sessionStorage.removeItem('loginErrorStatusText');
+      sessionStorage.removeItem('userIsAdmin');
 
       console.log('пользователь не авторизован, необходимо залогиниться');
     },
@@ -39,14 +70,36 @@ export const loginSlice = createSlice({
         state.loginErrorStatusText = sessionStorage.getItem('loginErrorStatusText');
       }
     },
+    setErrors: (state, action) => {
+      const { payload } = action;
+
+      const { status, statusText } = payload.response;
+
+      if (status === 401) {
+        state.loggedIn = false;
+        sessionStorage.setItem('loggedIn', false);
+      }
+
+      state.loginErrorStatus = status;
+      state.loginErrorStatusText = statusText;
+
+      sessionStorage.setItem('loginErrorStatus', status);
+      sessionStorage.setItem('loginErrorStatusText', statusText);
+    },
   }
 })
 
 // Action creators are generated for each case reducer function
 export const {
-  setLoggedIn, 
-  setLoggedOut, 
+  dataLoading,
+  dataReceived,
+  dataFailed,
+  getUser,
+  setLoggedIn,
+  checkUserIsAdmin,
+  setLoggedOut,
   setStateByStorageData,
+  setErrors,
 } = loginSlice.actions;
 
 export default loginSlice.reducer;

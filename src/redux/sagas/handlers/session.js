@@ -1,9 +1,12 @@
 import { call, put } from "redux-saga/effects";
-import { addDataToDB, changeDataInDB, deleteDataInDB, getGuestSessionsFromDB, getSessionsByDate, getSessionsFromDB } from "../requests/sessionRequests";
+import { addDataToDB, changeDataInDB, deleteDataInDB, getGuestSessionsFromDB, getSessionsByDate, getSessionsFromDB, toggleSessionsSalesActive } from "../requests/sessionRequests";
 import { dataLoading, dataReceived, getSessions, dataFailed as sessionRequestFailed } from "../../slices/sessionSlice";
 import { dataFailed, dataLoading as sessionsByDateLoading, dataReceived as sessionsByDateReceived, setSessionsByDate } from "../../slices/sessionsByDateSlice";
 import { setLoggedOut } from "../../slices/loginSlice";
 import { dataLoading as guestDataLoading, dataReceived as guestDataReceived, dataFailed as guestDataFailed } from "../../slices/guestSessionSlice";
+import { getMovies } from "../../slices/movieSlice";
+import { getHalls } from "../../slices/hallSlice";
+import { getPlaces } from "../../slices/placeSlice";
 
 // worker Saga: will be fired on SOME actions
 
@@ -51,7 +54,7 @@ export function* handleAddSessionData(action) {
     // console.log({ payload });
     // console.log({ dataArray });
 
-    const response = yield call(addDataToDB, dataArray, url); 
+    const response = yield call(addDataToDB, dataArray, url);
     console.log({ response });
 
     // вновь запросить изменившиеся данные с сервера для обновления стора
@@ -96,6 +99,25 @@ export function* handleDeleteSession(action) {
 
     // вновь запросить изменившиеся данные с сервера для обновления стора
     yield put(getSessions());
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* handleToggleSessionsSalesActive(action) {
+  try {
+    const { payload } = action;
+    console.log({payload});
+    
+    const response = yield call(toggleSessionsSalesActive, payload);
+    console.log({ response });
+
+    // вновь запросить изменившиеся данные с сервера для обновления стора
+    yield put(getSessions());
+
+    // yield put(getMovies());
+    // yield put(getHalls());
+    // yield put(getPlaces());
   } catch (e) {
     console.log(e);
   }

@@ -14,6 +14,8 @@ import SectionHeader from './SectionHeader'
 import Popup4 from './Popup4';
 import SessionDates from './SessionDates';
 
+import { BASEURL } from '../services/api';
+
 const SessionManager = () => {
   const [isActiveHeaderState, setIsActiveHeaderState] = useState(true);
   const toggleSectionVisibility = () => {
@@ -24,12 +26,12 @@ const SessionManager = () => {
   const moviesElements = document.querySelectorAll('.conf-step__movie');
   const backgroundColors = [...moviesElements].map(el => {
     return {
-      dataMovieId: el.dataset.movieId,
+      // dataMovieId: el.dataset.movieId,
       movieId: el.id.slice(9), // убрать часть строки "movie_id="
       backgroundColor: window.getComputedStyle(el).backgroundColor,
     }
   });
-  // console.log({ backgroundColors });
+  console.log({ backgroundColors });
 
 
   // Фильмы для добавления в DB при обработке кнопки "Сохранить"
@@ -57,7 +59,10 @@ const SessionManager = () => {
   // сатусы загрузки данных
   const hallsReduxLoading = useSelector(state => state.hallsReducer.loading);
   const moviesReduxLoading = useSelector(state => state.moviesReducer.loading);
+  console.log({ moviesReduxLoading });
   const sessionsReduxLoading = useSelector(state => state.sessionsReducer.loading);
+  console.log({ sessionsReduxLoading });
+
 
   // sessionManagerSlice
   const refreshDataStatusRedux = useSelector(state => state.sessionManagerReducer.refreshDataStatus);
@@ -65,7 +70,10 @@ const SessionManager = () => {
   const selectedDayRedux = useSelector(state => state.sessionManagerReducer.selectedDay);
   const hallsInfoRedux = useSelector(state => state.sessionManagerReducer.halls); // Сеансы на разные даты
   const sessionsInfoRedux = useSelector(state => state.sessionManagerReducer.sessions); // Сеансы на разные даты
+  console.log({ sessionsInfoRedux });
   const moviesInfoRedux = useSelector(state => state.sessionManagerReducer.movies); // Сеансы на разные даты
+  console.log({ moviesInfoRedux });
+
 
   // popupInfoRedux
   const popupInfoRedux = useSelector(state => state.popupInfoReducer.popupInfo)
@@ -466,7 +474,8 @@ const SessionManager = () => {
                   // console.log(window.getComputedStyle(e.currentTarget).backgroundColor);
                   handlePopupStatus('editing movie popup', movie)
                 }}>
-                <img className="conf-step__movie-poster" alt="poster" src={poster} />
+                {/* <img className="conf-step__movie-poster" alt="poster" src={poster} /> */}
+                <img className="conf-step__movie-poster" alt="poster" src={BASEURL + movie.poster} />
                 <h3 className="conf-step__movie-title">{movie.title}</h3>
                 <p className="conf-step__movie-duration">{movie.duration} минут</p>
               </div>
@@ -490,7 +499,7 @@ const SessionManager = () => {
               <h3 className="conf-step__seances-title">{hall.title}</h3>
               <div className="conf-step__seances-timeline">
                 {
-                  sessionsInfoRedux && sessionsInfoRedux.map(session => (
+                  backgroundColors.length && sessionsInfoRedux && sessionsInfoRedux.map(session => (
                     // const duration = Number({session.duration});
                     // const sessionDurationWidth = 'calc(' + duration + '*' + '0.5)';
                     session.hall_id === hall.id && session.date === selectedDayRedux

@@ -21,7 +21,14 @@ export const addDataToDB = async (dataArray, url) => {
   console.log('array post request');
   try {
     const promises = dataArray.map(async data => {
-      return await apiClient.post(url, data);
+      const formData = new FormData();
+      const entries = Object.entries(data);
+
+      entries.forEach(entry => {
+        formData.append(entry[0], entry[1]);
+      });
+
+      return await apiClient.post(url, formData);
     });
     const responses = await axios.all(promises);
     return responses;   
@@ -36,7 +43,17 @@ export const changeDataInDB = async (dataArray, url) => {
   console.log('array put requests');
   try {
     const promises = dataArray.map(async data => {
-      return await apiClient.put(`${url}/${data.id}`, data);
+      const formData = new FormData();
+      const entries = Object.entries(data);
+
+      entries.forEach(entry => {
+        formData.append(entry[0], entry[1]);
+      });  
+
+      // добавить вручную PUT
+      formData.append('_method', 'PUT'); // методы PUT PATCH не распознают формдату на бэкенде
+
+      return await apiClient.post(`${url}/${data.id}`, formData);
     });
     const responses = await axios.all(promises);
     // const consoles = axios.spread(response => console.log(response));
@@ -45,6 +62,40 @@ export const changeDataInDB = async (dataArray, url) => {
     console.log(error);    
   }
 }
+
+
+// БЕЗ ПОСТЕРА
+/* // Функционал: Добавление новых фильмов/нескольких фильмов в массиве
+// {moviesToAddInDB, 'api/movies'}
+export const addDataToDB = async (dataArray, url) => {
+  console.log('array post request');
+  try {
+    const promises = dataArray.map(async data => {
+      return await apiClient.post(url, data);
+    });
+    const responses = await axios.all(promises);
+    return responses;   
+  } catch (error) {
+    console.log(error);    
+  }
+} */
+
+// БЕЗ ПОСТЕРА
+/* // Функционал: Изменение существующего фильма/нескольких фильмов в массиве
+// {moviesToChangeInDB, 'api/movies'}
+export const changeDataInDB = async (dataArray, url) => {
+  console.log('array put requests');
+  try {
+    const promises = dataArray.map(async data => {
+      return await apiClient.put(`${url}/${data.id}`, data);
+    });
+    const responses = await axios.all(promises);
+    // const consoles = axios.spread(response => console.log(response));
+    return responses;   
+  } catch (error) {
+    console.log(error);    
+  }
+} */
 
 // Функционал: Удаление выбранного элемента
 // {moviesToDeleteInDB, 'api/movies'}

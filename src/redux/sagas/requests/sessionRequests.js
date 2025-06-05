@@ -61,6 +61,17 @@ export const deleteDataInDB = async (dataArray, url) => {
   }
 }
 
+// Функционал: Открытие/закрытие продаж билетов на сеансы
+export const toggleSessionsSalesActive = async (url) => {
+  console.log('is_sales_active put request');
+  try {
+    const response = await apiClient.put(url);
+    return response;   
+  } catch (error) {
+    console.log(error);    
+  }
+}
+
 // КЛИЕНТСКАЯ ЧАСТЬ
 // Функционал: получение сеансов на конкретную дату
 export const getSessionsByDate = async (date) => {

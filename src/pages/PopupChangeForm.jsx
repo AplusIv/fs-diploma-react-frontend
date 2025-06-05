@@ -1,13 +1,16 @@
+/* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 import { changeData } from "../redux/slices/popupEditMovieHandlerSlice";
 import { hidePopup } from "../redux/slices/popupSlice";
 import PopupInput from "./PopupInput";
 import PopupTextarea from "./PopupTextarea";
+import PopupFileInput from "./PopupFileInput";
 
 const PopupChangeForm = ({onChangeCallback, buttonTitle, handlePopup, onDeleteCallback }) => {
   // redux edited movie data 
   const popupData = useSelector(state => state.popupEditMovieReducer.popupEditedMovieData);
-
+  console.log({popupData});
+  
   const dispatch = useDispatch();
 
   const handleData = (e) => {
@@ -73,6 +76,18 @@ const PopupChangeForm = ({onChangeCallback, buttonTitle, handlePopup, onDeleteCa
             placeholder="Производство фильма"
             autoComplete="on"
             edit={true}
+            onChangeCallback={onChangeItemData} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Постер к фильму:{' '}
+          <PopupFileInput
+            belongsTo={'edit movie'}
+            type="file"
+            name="poster"
+            autoComplete="on"
+            required={false}
             onChangeCallback={onChangeItemData} />
         </label>
       </div>

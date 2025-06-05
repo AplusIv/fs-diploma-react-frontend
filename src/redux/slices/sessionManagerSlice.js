@@ -36,6 +36,8 @@ export const sessionManagerSlice = createSlice({
           description: movie.description,
           duration: movie.duration,
           country: movie.country,
+          // 
+          poster: movie.poster,
         };
       });
     },
@@ -48,6 +50,8 @@ export const sessionManagerSlice = createSlice({
           hall_id: session.hall_id,
           date: session.date,
           time: session.time,
+          // 
+          is_sales_active: session.is_sales_active,
         };
       });
     },

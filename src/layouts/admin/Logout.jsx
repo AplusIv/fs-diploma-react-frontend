@@ -13,6 +13,8 @@ const Logout = () => {
       const response = await apiClient.post('/logout');
       if (response.status === 204) {
         dispatch(setLoggedOut());
+        // sessionStorage.removeItem('userIsAdmin');
+
         navigate('/login');
       }
     } catch (error) {
@@ -22,6 +24,7 @@ const Logout = () => {
 
   return (
     loginRedux 
+    // isLoggedIn
       ? <button type="button" className="conf-step__button conf-step__button-warning" onClick={logout} >Выйти</button> 
       : null
   )

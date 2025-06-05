@@ -17,7 +17,7 @@ const MovieSessions = ({ movie, halls, sessions, places }) => {
     dispatch(setSession(session));
     dispatch(setPlacesByHall(places));
   }
-  
+
   return (
     <>
       {halls.map(hall => (
@@ -25,10 +25,35 @@ const MovieSessions = ({ movie, halls, sessions, places }) => {
           <div key={hall.id} className="movie-seances__hall">
             <h3 className="movie-seances__hall-title">{hall.title}</h3>
             <ul className="movie-seances__list">
-              {sessions.map(session=> (                
-                hall.id === session.hall_id ? 
-                <li key={session.id} className="movie-seances__time-block">
-                  <Link 
+              {sessions.map(session => (
+                hall.id === session.hall_id ?
+                  <li key={session.id} className="movie-seances__time-block">
+                    {/* Проверка на возможность забронировать билеты на конкретный сеанс (is_sales_active должно быть truthy) */}
+                    {session.is_sales_active
+                      ? <Link
+                        to="../buying"
+                        className="movie-seances__time"
+                        state={{ movie, hall, session, places: places.filter(place => place.hall_id === hall.id) }}
+                        onClick={() => {
+                          handleBuy({
+                            movie,
+                            hall,
+                            session,
+                            places: places.filter(place => place.hall_id === hall.id),
+                          })
+                        }}>
+                        {session.time}
+                      </Link>
+                      : <div className="inactive-container">
+                        <div className="movie-seances__time inactive">
+                          {session.time}
+                        </div>
+                        <span className="movie-seances__time_tooltip-text">
+                          Билеты на сеанс недоступны на данный момент. Попробуйте позднее.
+                        </span>
+                      </div>
+                    }
+                    {/* <Link 
                     to="../buying" 
                     className="movie-seances__time" 
                     state={{movie, hall, session, places: places.filter(place => place.hall_id === hall.id)}} 
@@ -40,12 +65,13 @@ const MovieSessions = ({ movie, halls, sessions, places }) => {
                       places: places.filter(place => place.hall_id === hall.id),
                     })}}>
                     {session.time}
-                  </Link>
-                </li> : null
+                  </Link> */}
+                  </li>
+                  : null
               ))}
             </ul>
           </div> : null
-    ))}
+      ))}
     </>
   )
 }

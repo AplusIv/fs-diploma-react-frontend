@@ -5,5 +5,9 @@ const apiClient = axios.create({
     withCredentials: true,
     withXSRFToken: true, // !!!
 });
- 
-export default apiClient;
+
+const BASEURL = 'http://localhost:8000';
+
+// export default apiClient;
+
+export { apiClient as default, BASEURL };

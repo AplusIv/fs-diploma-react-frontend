@@ -91,9 +91,16 @@ const HallConfigurator = () => {
       })
     };
 
-    const arrDiffs = getDiffs(hallConfiguratorPlacesRedux, placesRedux);
-    const diffsMap = arrDiffs.map(diff => diff.hall_id);
-    const uniqueDiffs = [...new Set(diffsMap)]; // добавить единожды номера залов
+    const arrDiffsWithNewTypes = getDiffs(hallConfiguratorPlacesRedux, placesRedux);
+    const diffsMap = arrDiffsWithNewTypes.map(diff => diff.hall_id);
+    // console.log({diffsMap});
+    
+    // Залы, где изменилась конфигурация мест
+    const configurationDiffsMap = configurationHallDiffs.map(diff => diff.id);
+    // console.log({configurationDiffsMap});
+
+    // Все ID залов, где произошли каки-либо изменения, для запросов
+    const uniqueDiffs = [...new Set([...diffsMap, ...configurationDiffsMap])]; // добавить единожды номера залов
     console.log({ uniqueDiffs });
 
     // 2) В массивы собираются данные для обновления на сервере
